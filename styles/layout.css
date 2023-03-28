@@ -1,0 +1,17 @@
+.layout-header{
+    background-color: #f09c16;
+    color: #fff;
+    font-size: 30px;
+    padding:30px;
+    display: flex;
+    justify-content: center;
+}
+
+.layout-footer{
+    background-color: #333333;
+    color: #f09c16;
+    font-size: 30px;
+    padding:10px;
+    display: flex;
+    justify-content: center;
+}
