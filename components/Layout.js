@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import Header from './Header';
+import Footer from './Footer';
 
 export default function Layout({ children, home}){
     return(
@@ -7,9 +9,11 @@ export default function Layout({ children, home}){
                 <title>StudyHub</title>
                 <link rel="icon" href="/images/favicon.ico" />
             </Head>
+            <Header />
             <main>
                 {children}
             </main>
+            <Footer />
         </div>
     )
 
