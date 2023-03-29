@@ -9,11 +9,11 @@ export default function Layout({ children, home}){
                 <title>StudyHub</title>
                 <link rel="icon" href="/images/favicon.ico" />
             </Head>
-            <Header />
+            <Header/>
             <main>
                 {children}
             </main>
-            <Footer />
+            <Footer/>
         </div>
     )
 

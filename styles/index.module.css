@@ -1,0 +1,8 @@
+/*css för body på den utloggade startsidan*/
+
+
+.body {
+    color: white;
+    font-family: "Epilogue", sans-serif;
+    background-color: #3A3C56;
+}
