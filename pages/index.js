@@ -1,5 +1,7 @@
 import Layout from '../components/Layout'
 
+//Utloggad startsida
+
 export default function Home() {
     return(
         <>
