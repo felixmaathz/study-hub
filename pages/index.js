@@ -5,6 +5,8 @@ import SignUpPopUp from "../components/SignUpPopUp";
 import SignStyles from '../styles/SignUpPopUp.module.css'
 import LogStyles from '../styles/LogInPopUp.module.css'
 
+//Utloggad startsida
+
 export default function Home() {
     const [logButtonPopup, setLogButtonPopup] = useState(false);
     const [signButtonPopup, setSignButtonPopup] = useState(false);
