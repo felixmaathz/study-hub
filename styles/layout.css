@@ -1,17 +1,24 @@
+/*CSS för utloggade*/
+
+
 .layout-header{
-    background-color: #f09c16;
+    background-color: #3A3C56;
     color: #fff;
     font-size: 30px;
     padding:30px;
     display: flex;
-    justify-content: center;
+    justify-content: left;
+    font-family: "epilogue", sans-serif;
+
 }
 
+
 .layout-footer{
-    background-color: #333333;
-    color: #f09c16;
+    background-color: #3A3C56;
+    color: white;
     font-size: 30px;
     padding:10px;
     display: flex;
-    justify-content: center;
+    justify-content: left;
 }
+
