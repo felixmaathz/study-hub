@@ -3,7 +3,7 @@ import styles from '../styles/popup.module.css'
 
 
 
-function SignUpPopUp(props) {
+function SignUpPopUpTwo(props) {
     return (props.trigger) ? (
         <div className={styles.popup}>
             <div className={styles.popupInner}>
@@ -16,4 +16,4 @@ function SignUpPopUp(props) {
     ):"";
 }
 
-export default SignUpPopUp
+export default SignUpPopUpTwo
