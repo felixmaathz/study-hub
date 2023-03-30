@@ -4,6 +4,7 @@ import Image from "next/image";
 function Footer(){
     return (
         <div className="layout-footer">
+            Logged in
             <Image src={logoType} alt="logotype" height={50}/>
         </div>
     )

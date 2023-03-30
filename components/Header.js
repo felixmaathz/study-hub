@@ -6,6 +6,7 @@ function Header(){
 
 
             <div className="layout-header">
+                Logged in
                 <Image src={logoTypeText} alt="logotype" height={50}/>
             </div>
     )
