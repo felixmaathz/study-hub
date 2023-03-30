@@ -9,10 +9,13 @@ export default function StartLayout({ children, home}){
                 <title>StudyHub</title>
                 <link rel="icon" href="/images/favicon.png" />
             </Head>
+
             <StartHeader/>
+
             <main>
                 {children}
             </main>
+
             <StartFooter/>
         </div>
     )

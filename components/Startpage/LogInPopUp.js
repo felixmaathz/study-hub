@@ -1,8 +1,6 @@
 import React from 'react'
 import styles from '../../styles/popup.module.css'
-
-
-
+import Link from 'next/link';
 
 function LogInPopUp(props) {
 
@@ -24,7 +22,9 @@ function LogInPopUp(props) {
                             Password:
                             <input type="password" name="password" />
                         </label>
-                        <button type="submit">Log in</button>
+                        <Link href="/MapPage">
+                            <button type="submit"> Submit</button>
+                        </Link>
                     </form>
                 </div>
             </div>
