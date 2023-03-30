@@ -1,7 +1,14 @@
 import Image from 'next/image'
 import logoTypeText from '../../public/images/logotype_text.png'
+import profilePicture from '../../public/images/profilbild.png'
+import React, {useState} from "react";
+import ProfilePopup from "./ProfilePopup";
+import HelpPopup from "./HelpPopup";
 
 function Header(){
+    const [profileButtonPopup, setProfileButtonPopup] = useState(false);
+    const [helpButtonPopup, setHelpButtonPopup] = useState(false);
+
     return (
 
         <>
@@ -14,13 +21,15 @@ function Header(){
 
                         <button> Chat </button>
 
-                        <button> Help </button>
+                        <button onClick={() => setHelpButtonPopup(true)}> Help </button>
 
                         <div>
-                            <button> Profile </button>
+                            <button className='profile-picture-button' onClick={() => setProfileButtonPopup(true)}> Profile </button>
                         </div>
                     </div>
                 </div>
+                <ProfilePopup trigger={profileButtonPopup} setTrigger = {setProfileButtonPopup}/>
+                <HelpPopup trigger={helpButtonPopup} setTrigger = {setHelpButtonPopup}/>
             </div>
         </>
     )

@@ -22,3 +22,8 @@
     justify-content: left;
 }
 
+.profile-picture-button{
+    position: relative;
+    left: 50px;
+}
+
