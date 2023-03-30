@@ -3,7 +3,7 @@ import Image from "next/image";
 
 function StartFooter(){
     return (
-        <div className="layout-footer">
+        <div className="start-layout-footer">
             <Image src={logoType} alt="logotype" height={50}/>
         </div>
     )

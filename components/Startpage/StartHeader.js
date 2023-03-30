@@ -5,7 +5,7 @@ function StartHeader(){
     return (
 
 
-        <div className="layout-header">
+        <div className="start-layout-header">
             <Image src={logoTypeText} alt="logotype" height={50}/>
         </div>
     )

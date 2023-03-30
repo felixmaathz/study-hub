@@ -2,6 +2,7 @@ import Layout from '../components/LoggedInPage/Layout'
 import StartLayout from '../components/Startpage/StartLayout'
 import '../styles/layout.css'
 import { useRouter } from "next/router";
+import '../styles/start-layout.css';
 
 
 export default function MyApp({Component, pageProps}) {
