@@ -1,4 +1,4 @@
-import Layout from '../components/Layout'
+import Layout from '../components/LoggedInPage/Layout'
 import StartLayout from '../components/Startpage/StartLayout'
 import '../styles/layout.css'
 import { useRouter } from "next/router";

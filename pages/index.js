@@ -1,11 +1,9 @@
 import React, {useState} from "react";
-import LogInPopUp from "../components/LogInPopUp";
-import SignUpPopUp from "../components/SignUpPopUp";
-import SignUpPopUpTwo from "../components/SignUpPopUpTwo";
+import LogInPopUp from "../components/Startpage/LogInPopUp";
+import SignUpPopUp from "../components/Startpage/SignUpPopUp";
+import SignUpPopUpTwo from "../components/Startpage/SignUpPopUpTwo";
 
 import styles from "../styles/index.module.css"
-
-
 
 
 export default function Home() {
