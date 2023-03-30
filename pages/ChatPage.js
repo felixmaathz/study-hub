@@ -8,7 +8,7 @@ export default function MapPage() {
         <div>
             <main>
                 <div className={styles.body}>
-                    <h1>Map Page</h1>
+                    <h1>Chat Page</h1>
                     <br/>
                 </div>
             </main>

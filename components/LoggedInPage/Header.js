@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import logoTypeText from '../../public/images/logotype_text.png'
-import profilePicture from '../../public/images/profilbild.png'
 import React, {useState} from "react";
 import ProfilePopup from "./ProfilePopup";
 import HelpPopup from "./HelpPopup";
+import Link from 'next/link';
 
 function Header(){
     const [profileButtonPopup, setProfileButtonPopup] = useState(false);
@@ -14,18 +14,16 @@ function Header(){
         <>
             <div>
                 <div className="layout-header">
-                    Logged in
                     <Image src={logoTypeText} alt="logotype" height={50}/>
+                    <div className='header-buttons-position'>
+                        <Link href='/MapPage' passHref> <button className='header-buttons'> Map </button> </Link>
+
+                        <Link href='/ChatPage' passHref><button className='header-buttons'> Chat </button> </Link>
+
+                        <button className='header-buttons' onClick={() => setHelpButtonPopup(true)}> Help </button>
+                    </div>
                     <div>
-                        <button> Map </button>
-
-                        <button> Chat </button>
-
-                        <button onClick={() => setHelpButtonPopup(true)}> Help </button>
-
-                        <div>
-                            <button className='profile-picture-button' onClick={() => setProfileButtonPopup(true)}> Profile </button>
-                        </div>
+                        <button className='header-profile-button' onClick={() => setProfileButtonPopup(true)}> Profile </button>
                     </div>
                 </div>
                 <ProfilePopup trigger={profileButtonPopup} setTrigger = {setProfileButtonPopup}/>
