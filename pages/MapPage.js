@@ -7,9 +7,8 @@ export default function MapPage() {
     return(
         <div>
             <main>
-                <div className={styles.body}>
+                <div>
                     <h1>Map Page</h1>
-                    <br/>
                 </div>
             </main>
         </div>

@@ -14,6 +14,7 @@ function Header(){
         <>
             <div>
                 <div className="layout-header">
+                    <link rel="icon" href="/images/favicon.png" />
                     <Image src={logoTypeText} alt="logotype" height={50}/>
                     <div className='header-buttons-position'>
                         <Link href='/MapPage' passHref> <button className='header-buttons'> Map </button> </Link>
@@ -22,9 +23,7 @@ function Header(){
 
                         <button className='header-buttons' onClick={() => setHelpButtonPopup(true)}> Help </button>
                     </div>
-                    <div>
                         <button className='header-profile-button' onClick={() => setProfileButtonPopup(true)}> Profile </button>
-                    </div>
                 </div>
                 <ProfilePopup trigger={profileButtonPopup} setTrigger = {setProfileButtonPopup}/>
                 <HelpPopup trigger={helpButtonPopup} setTrigger = {setHelpButtonPopup}/>

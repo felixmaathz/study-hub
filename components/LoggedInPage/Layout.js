@@ -7,7 +7,6 @@ export default function Layout({ children, home}){
         <div>
             <Head>
                 <title>StudyHub</title>
-                <link rel="icon" href="/images/favicon.png" />
             </Head>
             <Header/>
             <main>
