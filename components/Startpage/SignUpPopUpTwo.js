@@ -19,7 +19,7 @@ function SignUpPopUpTwo(props) {
                         <br/>
                         <label>
                             Choose your civil engineering competence:
-                            <select name="Competences" id="competence">
+                            <select className={styles.inputFields} name="Competences" id="competence">
                                 <option value="E">Electrical Engineering</option>
                                 <option value="ES">Energy Systems Engineering</option>
                                 <option value="I">Industrial Engineering and Management</option>

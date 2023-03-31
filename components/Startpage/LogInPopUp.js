@@ -15,12 +15,12 @@ function LogInPopUp(props) {
                     <form>
                         <label>
                             Username:
-                            <input type="text" name="name" />
+                            <input className={styles.inputFields} type="text" name="name" />
                         </label>
                         <br/>
                         <label>
                             Password:
-                            <input type="password" name="password" />
+                            <input className={styles.inputFields} type="password" name="password" />
                         </label>
                         <Link href="/MapPage">
                             <button type="submit"> Submit</button>

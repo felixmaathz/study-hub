@@ -16,22 +16,22 @@ function SignUpPopUp(props) {
                     <form>
                         <label>
                             E-mail:
-                            <input type="text" name="email" />
+                            <input className={styles.inputFields} type="text" name="email" />
                         </label>
                         <br/>
                         <label>
                             Username:
-                            <input type="text" name="password" />
+                            <input className={styles.inputFields} type="text" name="password" />
                         </label>
                         <br/>
                         <label>
                             Password
-                            <input type="password" name="password" />
+                            <input className={styles.inputFields} type="password" name="password" />
                         </label>
                         <br/>
                         <label>
                             Repeat password:
-                            <input type="password" name="password" />
+                            <input className={styles.inputFields} type="password" name="password" />
                         </label>
                         {props.children}
                     </form>
