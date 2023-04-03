@@ -1,7 +1,5 @@
 import React from 'react'
 import styles from '../../styles/popup.module.css'
-import logoType from "public/images/logotype.png";
-import Image from "next/image";
 
 
 function HelpPopup(props){
