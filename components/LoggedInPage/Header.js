@@ -25,6 +25,7 @@ function Header(){
                             <button className='header-buttons' onClick={() => setHelpButtonPopup(true)}> HELP </button>
 
                             <button className='header-profile-button' onClick={() => setProfileButtonPopup(true)}> pic_ </button>
+
                         </div>
 
 
