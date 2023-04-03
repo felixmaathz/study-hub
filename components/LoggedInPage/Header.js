@@ -20,11 +20,12 @@ function Header(){
                         </div>
 
                         <div>
-                            <Link href='/MapPage' passHref> <button className='header-buttons' > Map </button> </Link>
-                            <Link href='/ChatPage' passHref><button className='header-buttons'> Chat </button> </Link>
-                            <button className='header-buttons' onClick={() => setHelpButtonPopup(true)}> Help </button>
+                            <Link href='/MapPage' passHref> <button className='header-buttons'> MAP </button> </Link>
+                            <Link href='/ChatPage' passHref><button className='header-buttons'> CHAT </button> </Link>
+                            <button className='header-buttons' onClick={() => setHelpButtonPopup(true)}> HELP </button>
 
-                            <button className='header-profile-button' onClick={() => setProfileButtonPopup(true)}> Profile </button>
+                            <button className='header-profile-button' onClick={() => setProfileButtonPopup(true)}> pic_ </button>
+
                         </div>
 
 
