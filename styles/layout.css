@@ -3,7 +3,7 @@
 .layout-header {
     display: flex;
     width: 100vw;
-    position:fixed !important;
+    position: relative;
     white-space: nowrap;
     flex-direction: row;
     top:0;
@@ -56,12 +56,13 @@
     .layout-header {
         display: flex;
         width: 100vw;
-        position:fixed !important;
         white-space: nowrap;
         flex-direction: row;
         top:0;
         background-color: #3A3C56;
         padding: 2vw;
+        align-items: center;
+        justify-content: center;
     }
 
     .header-buttons{
@@ -73,7 +74,10 @@
         background-color: rgba(255, 255, 255, 0.29);
         color: white;
         outline-color: white;
+        display: none;
     }
+
+
 
     .header-profile-button{
         width: 6vw;
@@ -83,6 +87,7 @@
         margin-left: 5em;
         position: fixed;
         right: 1.5vw; top: 1.3vw;
+        display: none;
     }
 
     .layout-footer{

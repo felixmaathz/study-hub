@@ -28,8 +28,6 @@ function Header(){
 
                         </div>
 
-
-
                 <ProfilePopup trigger={profileButtonPopup} setTrigger = {setProfileButtonPopup}/>
                 <HelpPopup trigger={helpButtonPopup} setTrigger = {setHelpButtonPopup}/>
                 </div>
