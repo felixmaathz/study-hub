@@ -17,12 +17,12 @@
     padding: 20px 80px;
     text-transform: uppercase;
     letter-spacing: 4px;
-    position: relative;
     overflow: hidden;
     cursor: pointer;
     font-family: 'Epilogue', sans-serif;
+    font-size: 1.5vw;
     border-radius: 2vw;
-    margin: 30px;
+    margin-left: 3em;
     border: 2px solid #5c5f89;
 
 }
