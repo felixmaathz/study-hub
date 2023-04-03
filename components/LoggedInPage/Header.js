@@ -12,24 +12,26 @@ function Header(){
     return (
 
         <>
-            <div>
                 <div className="layout-header">
-                    <link rel="icon" href="/images/favicon.png" />
-                    <Image src={logoTypeText} alt="logotype" height={50}/>
-                    <div className='header-buttons-position'>
-                        <Link href='/MapPage' passHref> <button className='header-buttons'> Map </button> </Link>
 
-                        <Link href='/ChatPage' passHref><button className='header-buttons'> Chat </button> </Link>
+                        <div className="toolbar-logo">
+                            <link rel="icon" href="/images/favicon.png" />
+                            <Image src={logoTypeText} alt="logotype" height={50}/>
+                        </div>
 
-                        <button className='header-buttons' onClick={() => setHelpButtonPopup(true)}> Help </button>
-                    </div>
+                        <div>
+                            <Link href='/MapPage' passHref> <button className='header-buttons'> Map </button> </Link>
+                            <Link href='/ChatPage' passHref><button className='header-buttons'> Chat </button> </Link>
+                            <button className='header-buttons' onClick={() => setHelpButtonPopup(true)}> Help </button>
+                        </div>
+
                         <button className='header-profile-button' onClick={() => setProfileButtonPopup(true)}> Profile </button>
-                </div>
+
                 <ProfilePopup trigger={profileButtonPopup} setTrigger = {setProfileButtonPopup}/>
                 <HelpPopup trigger={helpButtonPopup} setTrigger = {setHelpButtonPopup}/>
-            </div>
+                </div>
         </>
-    )
+            )
 }
 
 export default Header

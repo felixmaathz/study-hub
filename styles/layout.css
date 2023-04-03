@@ -1,36 +1,29 @@
 /*CSS för inloggade*/
 
-body{
-    margin: 0px;
-}
-
-.layout-header{
-    width: 100%;
+.layout-header {
     display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
     background-color: #3A3C56;
-    margin:-8px;
-    margin-right: 5em;
-}
-
-.header-buttons-position{
-    display: flex;
-    justify-content: center;
+    padding: 2vw;
 }
 
 .header-buttons{
-    width: 170px;
-    height: 2em;
-    border-radius: 177px;
-    font-size: 1.5em;
+    width: 12vw;
+    height: 5em;
+    border-radius: 12px;
+    font-size: 1.5vw;
+    margin-left: 3em;
 }
 
 .header-profile-button{
-    width: 80px;
-    height: 80px;
-    border-radius: 180px;
-    font-size: 1.5em;
-    margin-right: 3em;
+    width: 90px;
+    height: 90px;
+    border-radius: 160px;
+    font-size: 1.5vw;
+    margin-left: 15vw;
 }
+
 .layout-footer{
     background-color: #3A3C56;
     color: white;
@@ -38,3 +31,41 @@ body{
     display: flex;
     justify-content: left;
 }
+
+@media only screen and (max-width: 600px) {
+    .layout-header {
+        display: flex;
+        flex-direction: row;
+        background-color: #3A3C56;
+        padding: 2vw;
+    }
+
+    .toolbar-logo {
+
+    }
+
+    .header-buttons{
+        width: 12vw;
+        height: 5em;
+        border-radius: 12px;
+        font-size: 1em;
+        margin-left: 3em;
+    }
+
+    .header-profile-button{
+        width: 90px;
+        height: 90px;
+        border-radius: 160px;
+        font-size: 1.5em;
+        margin-left: 15vw;
+    }
+
+    .layout-footer{
+        background-color: #3A3C56;
+        color: white;
+        font-size: 30px;
+        display: flex;
+        justify-content: left;
+    }
+}
+

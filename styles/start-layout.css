@@ -1,5 +1,8 @@
 /*css för inloggade*/
 
+body{
+    margin: 0px;
+}
 
 .start-layout-header{
     background-color: #3A3C56;
@@ -11,7 +14,6 @@
     font-family: "epilogue", sans-serif;
 
 }
-
 
 .start-layout-footer{
     background-color: #3A3C56;
