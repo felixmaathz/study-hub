@@ -7,20 +7,28 @@
     white-space: nowrap;
     flex-direction: row;
     top:0;
-    background-color: #333333;
+    background-color: #3A3C56;
     padding: 2vw;
 }
 
 .header-buttons{
-    width: 12vw;
-
-    height: 3em;
-    border-radius: 12px;
-    font-size: 1.5vw;
-    margin-left: 3em;
-    background-color: rgba(255, 255, 255, 0.29);
     color: white;
-    outline-color: white;
+    background-color: #3A3C56;
+    padding: 20px 80px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    font-family: 'Epilogue', sans-serif;
+    border-radius: 2vw;
+    margin: 30px;
+    border: 2px solid #5c5f89;
+
+}
+
+.header-buttons:hover {
+    background: #5c5f89;
 }
 
 .header-profile-button{
@@ -40,7 +48,7 @@
     white-space: nowrap;
     flex-direction: row;
     bottom:0;
-    background-color: #333333;
+    background-color: #3A3C56;
     padding: 2vw;
 }
 
@@ -52,7 +60,7 @@
         white-space: nowrap;
         flex-direction: row;
         top:0;
-        background-color: #333333;
+        background-color: #3A3C56;
         padding: 2vw;
     }
 
@@ -84,7 +92,7 @@
         white-space: nowrap;
         flex-direction: row;
         bottom:0;
-        background-color: #333333;
+        background-color: #3A3C56;
         padding: 2vw;
     }
 }
