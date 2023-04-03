@@ -52,3 +52,15 @@
     border-radius: 15px 15px 15px 15px;
     color: white;
 }
+.popupButtons {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 2px solid #633580;
+    box-sizing: border-box;
+    background-color: #7F44A5;
+    border-radius: 15px 15px 15px 15px;
+    color: white;
+    font-family: 'Epilogue', sans-serif;
+}

@@ -2,6 +2,7 @@ import React from 'react'
 import styles from '../../styles/popup.module.css'
 import Link from 'next/link';
 
+
 function LogInPopUp(props) {
 
     return (props.trigger) ? (
@@ -23,7 +24,7 @@ function LogInPopUp(props) {
                             <input className={styles.inputFields} type="password" name="password" />
                         </label>
                         <Link href="/MapPage">
-                            <button type="submit"> Submit</button>
+                            <button className={styles.popupButtons} type="submit"> Submit</button>
                         </Link>
                     </form>
                 </div>

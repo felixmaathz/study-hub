@@ -2,26 +2,52 @@
 
 .layout-header {
     display: flex;
-    flex-wrap: nowrap;
+    Width: 100%;
+    white-space: nowrap;
     flex-direction: row;
     background-color: #3A3C56;
     padding: 2vw;
 }
 
+/*.header-buttons{*/
+/*    width: 12vw;*/
+/*    height: 3.5em;*/
+/*    border-radius: 2vw;*/
+/*    font-size: 1.5vw;*/
+/*    margin-left: 3em;*/
+/*    background-color: #3A3C56;*/
+/*    color: white;*/
+/*    box-shadow: 0px 0px 2px 2px rgb(44, 49, 104);*/
+/*}*/
+
+
+
 .header-buttons{
-    width: 12vw;
-    height: 5em;
-    border-radius: 12px;
-    font-size: 1.5vw;
-    margin-left: 3em;
+    color: white;
+    background-color: #3A3C56;
+    padding: 20px 80px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    font-family: 'Epilogue', sans-serif;
+    border-radius: 2vw;
+    margin: 30px;
+    border: 2px solid #5c5f89;
+
+}
+
+.header-buttons:hover {
+    background: #5c5f89;
 }
 
 .header-profile-button{
-    width: 90px;
-    height: 90px;
-    border-radius: 160px;
-    font-size: 1.5vw;
-    margin-left: 15vw;
+    width: 8vw;
+    height: 8vw;
+    border-radius: 100%;
+    font-size: 2em;
+    margin-left: 5vw;
 }
 
 .layout-footer{
@@ -32,6 +58,7 @@
     justify-content: left;
 }
 
+/*css för mobilskärm*/
 @media only screen and (max-width: 600px) {
     .layout-header {
         display: flex;

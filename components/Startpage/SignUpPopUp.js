@@ -3,6 +3,7 @@ import styles from '../../styles/popup.module.css'
 
 
 
+
 function SignUpPopUp(props) {
     return (props.trigger) ? (
         <div className={styles.popup}>
