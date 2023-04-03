@@ -14,14 +14,13 @@
 .header-buttons{
     color: white;
     background-color: #3A3C56;
-    padding: 20px 80px;
+    padding: 1em 3em;
     text-transform: uppercase;
-    letter-spacing: 4px;
     overflow: hidden;
     cursor: pointer;
     font-family: 'Epilogue', sans-serif;
     font-size: 1.5vw;
-    border-radius: 2vw;
+    border-radius: 2em;
     margin-left: 3em;
     border: 2px solid #5c5f89;
 
