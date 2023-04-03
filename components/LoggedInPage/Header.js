@@ -27,8 +27,6 @@ function Header(){
                             <button className='header-profile-button' onClick={() => setProfileButtonPopup(true)}> pic_ </button>
                         </div>
 
-
-
                 <ProfilePopup trigger={profileButtonPopup} setTrigger = {setProfileButtonPopup}/>
                 <HelpPopup trigger={helpButtonPopup} setTrigger = {setHelpButtonPopup}/>
                 </div>
