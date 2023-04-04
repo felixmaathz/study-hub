@@ -1,6 +1,7 @@
 import styles from "../styles/index.module.css"
 import React, {useState} from "react";
 import Link from 'next/link';
+import Map from "../components/LoggedInPage/Map/map_ssr";
 
 export default function MapPage() {
 
@@ -9,6 +10,9 @@ export default function MapPage() {
             <main>
                 <div>
                     <h1>Map Page</h1>
+                </div>
+                <div>
+                    <Map/>
                 </div>
             </main>
         </div>
