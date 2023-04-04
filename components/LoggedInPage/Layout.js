@@ -9,9 +9,11 @@ export default function Layout({ children, home}){
                 <title>StudyHub</title>
             </Head>
             <Header/>
-            <main>
-                {children}
-            </main>
+            <div>
+                <main>
+                    {children}
+                </main>
+            </div>
             <Footer/>
         </div>
     )

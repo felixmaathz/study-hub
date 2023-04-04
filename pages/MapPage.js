@@ -9,9 +9,6 @@ export default function MapPage() {
         <div>
             <main>
                 <div>
-                    <h1>Map Page</h1>
-                </div>
-                <div>
                     <Map/>
                 </div>
             </main>

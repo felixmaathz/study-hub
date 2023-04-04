@@ -40,7 +40,7 @@ export default class Map extends Component  {
                 <MapContainer
                     center={{ lat: 59.85882, lng: 17.63889 }}
                     zoom={15}
-                    style={{ height: "100vh" }}
+                    style={{ height: "100vh", width: "100vw", zIndex: '1' }}
                 >
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
