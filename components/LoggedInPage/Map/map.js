@@ -17,7 +17,6 @@ const icon = L.icon({
 
 function MyComponent() {
     let previousMarker = null;
-
     const map = useMapEvents({
             click: (e) => {
                 if (previousMarker) {
@@ -33,21 +32,29 @@ function MyComponent() {
     return null;
 }
 
+
 export default class Map extends Component  {
     render() {
+
         return (
+
             <div>
+
                 <MapContainer
                     center={{ lat: 59.85882, lng: 17.63889 }}
                     zoom={15}
                     style={{ height: "100vh" }}
+                    zoomOnScroll={false}
                 >
+
                     <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url='https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png'
+                        attribution= '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                        url= 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
                     />
                     <MyComponent/>
+
                 </MapContainer>
+
             </div>
         );
     }
