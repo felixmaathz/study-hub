@@ -1,14 +1,17 @@
 /*CSS för inloggade*/
 
+
 .layout-header {
     display: flex;
     width: 100vw;
-    position: relative;
+    position: sticky;
     white-space: nowrap;
     flex-direction: row;
     top:0;
     background-color: #3A3C56;
     padding: 2vw;
+    box-sizing: border-box;
+    z-index: 2;
 }
 
 .header-buttons{
@@ -49,6 +52,8 @@
     bottom:0;
     background-color: #3A3C56;
     padding: 2vw;
+    box-sizing: border-box;
+    z-index: 2;
 }
 
 @media only screen and (max-width: 600px) {
