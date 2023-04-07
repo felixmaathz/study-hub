@@ -40,7 +40,7 @@ export default class Map extends Component  {
                 <MapContainer
                     center={{ lat: 59.85882, lng: 17.63889 }}
                     zoom={15}
-                    style={{ height: "100vh", width: "100vw", zIndex: '1' }}
+                    style={{ height: "100vh", zIndex: '1' }}
 
                     zoomOnScroll={false}
                 >
