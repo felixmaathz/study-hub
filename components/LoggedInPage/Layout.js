@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Header from './Header';
 import Footer from './Footer';
+import Navbar from './Navbar';
 
 export default function Layout({ children, home}){
     return(
@@ -8,8 +9,8 @@ export default function Layout({ children, home}){
             <Head>
                 <title>StudyHub</title>
             </Head>
-            <Header/>
-            <div style = {{minHeight: '100vh'}}>
+            <Navbar/>
+            <div>
                 <main>
                     {children}
                 </main>
