@@ -12,7 +12,6 @@ import React, { Component } from "react";
 const icon = L.icon({
     iconSize: [30, 30],
     iconUrl: "https://cdn-icons-png.flaticon.com/512/447/447031.png",
-    // shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
 });
 
 function MyComponent() {

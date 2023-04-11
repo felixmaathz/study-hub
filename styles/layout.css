@@ -67,21 +67,30 @@
 
 .layout-footer{
     display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100vw;
     position:fixed !important;
     white-space: nowrap;
     flex-direction: row;
     bottom:0;
-    background-color: #3A3C56;
-    padding: 2vw;
+    background-color:#333333;
+    color: white;
+    padding: 1vw;
     box-sizing: border-box;
     z-index: 2;
+}
+.footer-items{
+    margin-left: 2vw;
 }
 
 @media only screen and (max-width: 800px) {
     .navbar{
         flex-direction: column;
         position: fixed;
+    }
+    .footer-items{
+        margin-left: 1vw;
     }
 
     .menu{
@@ -126,7 +135,7 @@
         white-space: nowrap;
         flex-direction: row;
         bottom:0;
-        background-color: #3A3C56;
+        background-color:#333333;
         padding: 2vw;
     }
 }
