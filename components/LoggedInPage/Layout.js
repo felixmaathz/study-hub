@@ -9,7 +9,7 @@ export default function Layout({ children, home}){
                 <title>StudyHub</title>
             </Head>
             <Header/>
-            <div>
+            <div style = {{minHeight: '100vh'}}>
                 <main>
                     {children}
                 </main>

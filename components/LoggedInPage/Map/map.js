@@ -4,7 +4,6 @@ import L from "leaflet";
 import React, { Component } from "react";
 
 
-
 //With inspiration from  "https://codesandbox.io/s/how-to-save-marker-location-when-adding-a-marker-with-onclick-on-map-in-react-leaflet-v3x-lghwn?file=/src/MyMap.jsx:0-41"
 
 
@@ -12,7 +11,7 @@ import React, { Component } from "react";
 const icon = L.icon({
     iconSize: [30, 30],
     iconUrl: "https://cdn-icons-png.flaticon.com/512/447/447031.png",
-    shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
+
 });
 
 function MyComponent() {
@@ -24,7 +23,7 @@ function MyComponent() {
                     previousMarker.remove();
                 }
                 const { lat, lng } = e.latlng;
-                const newMarker = L.marker([lat, lng], { icon }).addTo(map).on("click", function (e) {
+                const newMarker = L.marker([lat, lng], { icon }).addTo(map).on("click", () => {
                     alert("Anropa popuprutan för profil");});
                     previousMarker= newMarker;
             },
@@ -40,7 +39,7 @@ export default class Map extends Component  {
                 <MapContainer
                     center={{ lat: 59.85882, lng: 17.63889 }}
                     zoom={15}
-                    style={{ height: "100vh", width: "100vw", zIndex: '1' }}
+                    style={{ height: "100vh", width: "100vw", zIndex: '1', position: 'relative' }}
 
                     zoomOnScroll={false}
                 >

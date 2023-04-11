@@ -1,10 +1,9 @@
 /*CSS för inloggade*/
 
-
 .layout-header {
     display: flex;
     width: 100vw;
-    position: sticky;
+    position: absolute;
     white-space: nowrap;
     flex-direction: row;
     top:0;
@@ -46,7 +45,7 @@
 .layout-footer{
     display: flex;
     width: 100vw;
-    position:fixed !important;
+    position: absolute;
     white-space: nowrap;
     flex-direction: row;
     bottom:0;
