@@ -89,6 +89,9 @@
         flex-direction: column;
         position: fixed;
     }
+    .footer-items{
+        margin-left: 1vw;
+    }
 
     .menu{
         display: block;
@@ -132,7 +135,7 @@
         white-space: nowrap;
         flex-direction: row;
         bottom:0;
-        background-color: #3A3C56;
+        background-color:#333333;
         padding: 2vw;
     }
 }
