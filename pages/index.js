@@ -11,6 +11,11 @@ export default function Home() {
     const [signButtonPopup, setSignButtonPopup] = useState(false);
     const [signTwoButtonPopup, setSignTwoButtonPopup] = useState(false);
 
+    const triggerPopup = () => {
+        setSignTwoButtonPopup(true);
+        setSignButtonPopup(false);
+    }
+
     return(
         <div>
             <main>
@@ -25,10 +30,8 @@ export default function Home() {
 
             <LogInPopUp trigger={logButtonPopup} setTrigger = {setLogButtonPopup} />
 
-            <SignUpPopUp trigger={signButtonPopup} setTrigger = {setSignButtonPopup}>
-                <div>
-                    <button onClick={() => {setSignTwoButtonPopup(true); setSignButtonPopup(false)}}>Continue</button>
-                </div>
+            <SignUpPopUp trigger={signButtonPopup} setTrigger = {setSignButtonPopup}
+            onSubmit={triggerPopup}>
             </SignUpPopUp>
 
             <SignUpPopUpTwo trigger={signTwoButtonPopup} setTrigger = {setSignTwoButtonPopup}/>

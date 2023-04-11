@@ -17,20 +17,6 @@ export default function Navbar() {
         setHelpButtonPopup(true);
     }
 
-    function selectButton(b) {
-        if(typeof document !== 'undefined') {
-            const button = document.getElementById(b);
-            console.log(button)
-            button.classList.toggle("selected");
-    }
-    }
-
-    // const selectButton = (b) => {
-    //     const button = document.getElementById(b);
-    //     console.log(b)
-    //
-    // }
-
     const showMenu = () => {
         const list = document.getElementById('list');
         list.classList.toggle("active");
@@ -53,13 +39,13 @@ export default function Navbar() {
                 <li className="list-item">
                     <Link href="/MapPage">
                         <button id="Map"
-                        onClick={selectButton("Map")}>Map</button>
+                        >Map</button>
                     </Link>
                 </li>
                 <li className="list-item">
                     <Link href="ChatPage">
                         <button id="Chat"
-                        onClick={selectButton("Chat")}>Chat</button>
+                        >Chat</button>
                     </Link>
                 </li>
                 <li className="list-item">
