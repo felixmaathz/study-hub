@@ -23,7 +23,7 @@ export default function Login(props) {
             const auth = getAuth(app);
             await signInWithEmailAndPassword(auth, email, password);
             alert("login successful")
-            await router.push("/");
+            await router.push("/MapPage");
         } catch (error) {
             setErrorMessage(error.message);
         }
