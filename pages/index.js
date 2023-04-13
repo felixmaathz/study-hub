@@ -1,7 +1,6 @@
 import React, {useState} from "react";
-import LogInPopUp from "../components/Startpage/LogInPopUp";
-import SignUpPopUp from "../components/Startpage/SignUpPopUp";
-import SignUpPopUpTwo from "../components/Startpage/SignUpPopUpTwo";
+import Login from "../components/Startpage/Login";
+import Signup from "../components/Startpage/Signup";
 
 import styles from "../styles/index.module.css"
 
@@ -28,13 +27,10 @@ export default function Home() {
                 </div>
             </main>
 
-            <LogInPopUp trigger={logButtonPopup} setTrigger = {setLogButtonPopup} />
+            <Login trigger={logButtonPopup} setTrigger = {setLogButtonPopup} />
 
-            <SignUpPopUp trigger={signButtonPopup} setTrigger = {setSignButtonPopup}
-            onSubmit={triggerPopup}>
-            </SignUpPopUp>
-
-            <SignUpPopUpTwo trigger={signTwoButtonPopup} setTrigger = {setSignTwoButtonPopup}/>
+            <Signup trigger={signButtonPopup} setTrigger = {setSignButtonPopup}
+            onSubmit={triggerPopup}/>
 
         </div>
     )
