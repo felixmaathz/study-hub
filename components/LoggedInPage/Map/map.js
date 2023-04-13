@@ -8,8 +8,10 @@ import styles from '../../../styles/clearButton.module.css';
 
 //With inspiration from  "https://codesandbox.io/s/how-to-save-marker-location-when-adding-a-marker-with-onclick-on-map-in-react-leaflet-v3x-lghwn?file=/src/MyMap.jsx:0-41"
 
+let yourActiveMarker = null;
 
 export default function Map()  {
+
 
     const [profilePopup, setProfilePopup] = useState(false);
 
@@ -26,46 +28,39 @@ export default function Map()  {
 
 
     function Markers()  {
-        let yourPreviousMarker = null;
 
         const map = useMapEvents({
             click: (e) => {
-                if (yourPreviousMarker) {
-                    yourPreviousMarker.remove();
+
+                if (yourActiveMarker) {
+                    yourActiveMarker.remove();
                 }
-
                 const { lat, lng } = e.latlng;
-                //Your own marker
-                let yourMarker = L.marker([lat, lng], { icon: yourIcon }).addTo(map)
-                yourPreviousMarker = yourMarker;
-                yourMarker.on("click", () => {
-                    alert("You clicked on your own marker");
-                    setProfilePopup(true);
-                    yourMarker.remove()
 
+                //Your own marker
+                yourActiveMarker = L.marker([lat, lng], { icon: yourIcon }).addTo(map).on("click", () => {
+                    triggerPopup();
                 });
-                yourPreviousMarker = yourMarker;
             },
         });
 
         //Other peoples markers, for now hardcoded markers
-        const locations = [
-            ["LOCATION_1", 59.852320, 17.611310],
-            ["LOCATION_2", 59.859370, 17.611960],
-            ["LOCATION_3", 59.847410, 17.583440],
-            ["LOCATION_4", 59.862630, 17.648070],
+        const fogenIndustries = [
+            ["Glocken", 59.852320, 17.611310],
+            ["Fogen", 59.859370, 17.611960],
+            ["Simpy", 59.847410, 17.583440],
+            ["Ste", 59.862630, 17.648070],
         ];
 
-        for (let i = 0; i < locations.length; i++) {
-            L.marker([locations[i][1], locations[i][2]], {icon: theirIcon}).addTo(map).on("click", () => {
-                alert("You clicked on somebodys marker");
-                setProfilePopup(true);
+        for (let i = 0; i < fogenIndustries.length; i++) {
+            L.marker([fogenIndustries[i][1], fogenIndustries[i][2]], {icon: theirIcon}).addTo(map).on("click", () => {
+                triggerPopup()
+                alert(fogenIndustries[i][0])
             });
         }
-
         const removeMyMarker = () => {
-            if (yourPreviousMarker) {
-                yourPreviousMarker.remove();
+            if (yourActiveMarker) {
+                yourActiveMarker.remove();
             }
         }
 
@@ -74,6 +69,9 @@ export default function Map()  {
         )
     }
 
+    function triggerPopup() {
+        setProfilePopup(true);
+    }
 
     return (
         <div>
@@ -89,7 +87,7 @@ export default function Map()  {
 
                 <Markers/>
             </MapContainer>
-            <ProfilePopup trigger={profilePopup} setTrigger={setProfilePopup}/>
+            {/*<ProfilePopup trigger={profilePopup} setTrigger={setProfilePopup} />*/}
         </div>
     );
 }
