@@ -1,9 +1,9 @@
 import Layout from '../components/LoggedInPage/Layout'
 import StartLayout from '../components/Startpage/StartLayout'
 import '../styles/layout.css'
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
 import '../styles/start-layout.css';
-
+import ProtectedRoute from "../hooks/ProtectedRoute";
 
 export default function MyApp({Component, pageProps}) {
 
@@ -22,10 +22,7 @@ export default function MyApp({Component, pageProps}) {
     //If you're logged in, return the normal layout
     return (
         <>
-            <Layout>
-                <Component {...pageProps} />
-            </Layout>
-
+            <Component {...pageProps} />
         </>
     )
 }
