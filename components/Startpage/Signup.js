@@ -2,7 +2,7 @@ import styles from "../../styles/popup.module.css"
 import Image from 'next/image'
 import React, {useState} from "react";
 import {createUserWithEmailAndPassword, getAuth} from "firebase/auth";
-import {addDoc, collection} from "firebase/firestore";
+import {setDoc, doc} from "firebase/firestore";
 import {app, db} from "../../config/firebaseConfig";
 import {useRouter} from "next/router";
 
@@ -20,31 +20,41 @@ export default function Signup(props) {
 
     const handleSignUp = async (event) => {
         event.preventDefault();
-
-        try {
-            const auth = getAuth(app);
-            await createUserWithEmailAndPassword(auth, createEmail, createPassword);
-            alert("sign up successful")
-
+        if (!(  createUsername === ""
+                || createEmail === ""
+                || createPassword === ""
+                || createRepeatPassword === ""
+                || createMajor === "")
+            && createPassword === createRepeatPassword){
             try {
-                const docRef = await addDoc(collection(db, "users"), {
-                    username: createUsername,
-                    email: createEmail,
-                    major: createMajor
-                })
-                await router.push("/MapPage")
-                console.log("Document written with ID: ", docRef.id);
-            } catch (e) {
-                console.error("Error adding document: ", e);
+                const auth = getAuth(app);
+
+                await createUserWithEmailAndPassword(auth, createEmail, createPassword);
+                alert("sign up successful")
+
+                try {
+                    const uid = auth.currentUser.uid;
+                    const docRef = await setDoc(doc(db, "users", uid), {
+                        username: createUsername,
+                        email: createEmail,
+                        major: createMajor
+                    })
+                    await router.push("/MapPage")
+                } catch (e) {
+                    console.error("Error adding document: ", e);
+                }
+            } catch (error) {
+                setErrorMessage(error.message);
             }
-        } catch (error) {
-            setErrorMessage(error.message);
         }
     }
 
     const nextForm = () => {
-        if (!(createUsername === "" || createEmail === "" || createPassword === "" || createRepeatPassword === "")
-            && createPassword === createRepeatPassword) {
+        if (!(  createUsername === ""
+                || createEmail === ""
+                || createPassword === ""
+                || createRepeatPassword === "")
+                && createPassword === createRepeatPassword) {
             const firstForm = document.getElementById("firstForm");
             firstForm.style.display = "none";
             const secondForm = document.getElementById("secondForm");
