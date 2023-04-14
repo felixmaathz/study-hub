@@ -1,7 +1,7 @@
 import {MapContainer, TileLayer, useMapEvents, Marker} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import ProfilePopup from "../ProfilePopup";
 import styles from '../../../styles/clearButton.module.css';
 
@@ -19,7 +19,7 @@ export default function Map()  {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [major, setMajor] = useState("");
-    const [profilePopup, setProfilePopup] = useState(false);
+
 
     const auth = getAuth(app);
     const user = auth.currentUser;
@@ -39,7 +39,9 @@ export default function Map()  {
         }
     });
 
-    const getUserData = async () => {
+
+
+    const getUserData = async() => {
         console.log(uid)
         const docRef = doc(db, "users", uid);
         try {
@@ -58,6 +60,8 @@ export default function Map()  {
         }
     }
 
+
+    const [profilePopup, setProfilePopup] = useState(false);
 
     function Markers()  {
         const yourIcon = L.icon({
