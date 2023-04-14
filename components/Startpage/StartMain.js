@@ -1,18 +1,12 @@
 import Image from 'next/image'
 import React, {useState} from "react";
-import LogInPopUp from "./LogInPopUp";
-import SignUpPopUp from "./SignUpPopUp";
-import SignUpPopUpTwo from "./SignUpPopUpTwo";
+import Login from "./Login";
+import Signup from "./Signup";
 
 function mainPic() {
     const [logButtonPopup, setLogButtonPopup] = useState(false);
     const [signButtonPopup, setSignButtonPopup] = useState(false);
-    const [signTwoButtonPopup, setSignTwoButtonPopup] = useState(false);
 
-    const triggerPopup = () => {
-        setSignTwoButtonPopup(true);
-        setSignButtonPopup(false);
-    }
 
     return (
 
@@ -43,16 +37,14 @@ function mainPic() {
 
             <Image src={'/images/startpicture.png'}
                    layout="fill"
+                     alt="logotype"
                    className={'start-map'} />
 
 
-            <LogInPopUp trigger={logButtonPopup} setTrigger = {setLogButtonPopup} />
+            <Login trigger={logButtonPopup} setTrigger = {setLogButtonPopup} />
 
-            <SignUpPopUp trigger={signButtonPopup} setTrigger = {setSignButtonPopup}
-                         onSubmit={triggerPopup}>
-            </SignUpPopUp>
+            <Signup trigger={signButtonPopup} setTrigger = {setSignButtonPopup} />
 
-            <SignUpPopUpTwo trigger={signTwoButtonPopup} setTrigger = {setSignTwoButtonPopup}/>
         </div>
 
     );
