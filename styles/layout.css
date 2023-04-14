@@ -11,6 +11,7 @@
     position: fixed;
     z-index: 100;
     width: 100vw;
+    height: 4em;
 }
 
 .list{
@@ -79,6 +80,7 @@
     padding: 1vw;
     box-sizing: border-box;
     z-index: 2;
+    height: 3.5em;
 }
 .footer-items{
     margin-left: 2vw;
