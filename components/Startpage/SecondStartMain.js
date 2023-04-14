@@ -20,13 +20,14 @@ function infoMain() {
                 <div className="pic-about-us-container" >
                     <div className="pic-about-us">
                         <Image src={logoType}
+                               alt="logotype"
                                layout="fill"
                                className={'book-logo'}/>
                     </div>
 
                 </div>
 
-                <div class='text-about-us-container'>
+                <div className='text-about-us-container'>
                     <div className="text-about-us">
                         <h1>Why do we even exist?</h1>
                         <h2>

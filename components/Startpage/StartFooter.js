@@ -7,6 +7,7 @@ function StartFooter(){
                 <div className="start-layout-footer-container-book-logo">
                     <Image src={logoType}
                            layout="fill"
+                            alt="logotype"
                            className={'book-logo'}/>
                 </div>
 

@@ -3,7 +3,7 @@ import StartLayout from '../components/Startpage/StartLayout'
 import '../styles/layout.css'
 import {useRouter} from "next/router";
 import '../styles/start-layout.css';
-import ProtectedRoute from "../hooks/ProtectedRoute";
+import AuthContext from "../components/Context/AuthContext";
 
 export default function MyApp({Component, pageProps}) {
 
