@@ -29,6 +29,13 @@ export default function Login(props) {
         }
     };
 
+    const [showPassword, setShowPassword] = useState(false);
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword);
+    }
+
+
+
     return (props.trigger) ? (
         <>
             <div className={styles.popup}>
@@ -61,11 +68,13 @@ export default function Login(props) {
                                 Password:
                                 <br/>
                                 <input className={styles.inputFields}
-                                       type="password"
+                                       type={showPassword? "text" : "password"}
                                        name="password"
                                        value={password}
                                        onChange={(event) => setPassword(event.target.value)}
                                        required/>
+                                <Image src={showPassword?"/images/eyeClose.png":"/images/eyeOpen.png"} alt={"eyeClose"} height={20} width={25} onClick={handleShowPassword}></Image>
+
                             </label>
                             <br/>
                             {errorMessage && <p>{errorMessage}</p>}

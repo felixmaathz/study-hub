@@ -83,6 +83,10 @@
     border-radius: 6px;
     color: white;
 }
+.inputFields Image {
+    position: absolute;
+    top: 100px;
+}
 
 .popupButtons {
     width: 150px;

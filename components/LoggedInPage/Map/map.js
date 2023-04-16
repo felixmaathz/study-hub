@@ -51,6 +51,7 @@ export default function Map()  {
                 setEmail(docSnap.data().email)
                 setMajor(docSnap.data().major)
 
+
             } else {
                 console.log("Document does not exist")
             }
@@ -132,7 +133,6 @@ export default function Map()  {
 
                 <Markers/>
             </MapContainer>
-            {/*<ProfilePopup trigger={profilePopup} setTrigger={setProfilePopup} />*/}
             <ProfilePopup trigger={profilePopup} setTrigger={setProfilePopup} data={{
                 username: username,
                 email: email,
