@@ -27,8 +27,6 @@ export default function Login(props) {
         } catch (error) {
             setErrorMessage(error.message);
         }
-        alert("login successful")
-        console.log(user)
     };
 
     const [showPassword, setShowPassword] = useState(false);
