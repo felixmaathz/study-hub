@@ -20,6 +20,7 @@ export default function Map()  {
     const [email, setEmail] = useState("");
     const [major, setMajor] = useState("");
     const [profilePopup, setProfilePopup] = useState(false);
+    const [location, setLocation] = useState([]);
 
     const auth = getAuth(app);
     const user = auth.currentUser;
@@ -77,41 +78,37 @@ export default function Map()  {
                 }
 
                 const { lat, lng } = e.latlng;
+                setGeoLocation(lat, lng)
+
+
                 //Your own marker
                 yourActiveMarker = L.marker([lat, lng], { icon: yourIcon }).addTo(map).on("click", () => {
                     triggerPopup();
                 });
+
             },
         });
 
-        //Other peoples markers, for now hardcoded markers
-        /*const fogenIndustries = [
-            ["Glocken", 59.852320, 17.611310],
-            ["Fogen", 59.859370, 17.611960],
-            ["Simpy", 59.847410, 17.583440],
-            ["Ste", 59.862630, 17.648070],
-        ];
-
-        for (let i = 0; i < fogenIndustries.length; i++) {
-            L.marker([fogenIndustries[i][1], fogenIndustries[i][2]], {icon: theirIcon}).addTo(map).on("click", () => {
-                triggerPopup()
-                alert(fogenIndustries[i][0])
-            });
-        }*/
-
-        const removeMyMarker = () => {
-            if (yourActiveMarker) {
-                yourActiveMarker.remove();
-            }
-        }
-
         return(
-            <button onClick={removeMyMarker} className={styles.clearMyMarker}>Remove My Marker</button>
+            <div>
+                <button onClick={removeMyMarker} className={styles.clearMyMarker}>Remove My Marker</button>
+            </div>
         )
     }
 
-    function triggerPopup() {
+    const triggerPopup = ()=> {
         setProfilePopup(true);
+    }
+
+    const setGeoLocation = (lat, lng) =>  {
+        setLocation([lat, lng])
+    }
+
+    function removeMyMarker() {
+        alert("du klickade")
+        if (yourActiveMarker) {
+            yourActiveMarker.remove();
+        }
     }
 
     return (
@@ -133,6 +130,7 @@ export default function Map()  {
                 email: email,
                 major: major
             }}/>
+
         </div>
     );
 }
