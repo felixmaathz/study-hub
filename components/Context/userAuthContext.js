@@ -7,7 +7,7 @@ import {
 } from "firebase/auth";
 import {auth, db} from "../../config/firebaseConfig";
 import Loading from "../Loading";
-import {doc, getDoc, setDoc} from "firebase/firestore";
+import {collection, doc, getDoc, setDoc, query, where, getDocs} from "firebase/firestore";
 
 
 const UserAuthContext = createContext();
@@ -63,11 +63,22 @@ export const UserAuthContextProvider = ({children}) => {
         }
     }
 
+    const getPins = async () => {
+        const pins = []
+        const docRef = await collection(db, "users")
+        const q = await query(docRef, where("location", "!=", []))
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+            pins.push(doc.data())
+        })
+        return pins
+    }
+
 
 
 
     return (
-        <UserAuthContext.Provider value={{user, signUp, logIn, logOut, getUserData}}>
+        <UserAuthContext.Provider value={{user, signUp, logIn, logOut, getUserData, getPins}}>
             {loading ? <Loading/> : children}
         </UserAuthContext.Provider>
     )

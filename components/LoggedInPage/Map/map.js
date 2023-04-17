@@ -8,6 +8,7 @@ import styles from '../../../styles/clearButton.module.css';
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import {app, db} from "../../../config/firebaseConfig";
 import {collection, getDoc, doc, getDocs} from "firebase/firestore";
+import {useAuth} from "../../Context/userAuthContext";
 
 
 //With inspiration from  "https://codesandbox.io/s/how-to-save-marker-location-when-adding-a-marker-with-onclick-on-map-in-react-leaflet-v3x-lghwn?file=/src/MyMap.jsx:0-41"
@@ -23,10 +24,12 @@ export default function Map()  {
     const [profilePopup, setProfilePopup] = useState(false);
     const [location, setLocation] = useState([]);
 
-    const auth = getAuth(app);
-    const user = auth.currentUser;
-    console.log(user)
-    let uid = ""
+    // const auth = getAuth(app);
+    // const user = auth.currentUser;
+    // console.log(user)
+    // let uid = ""
+
+    const { user, getPins } = useAuth()
 
 
 
@@ -75,8 +78,16 @@ export default function Map()  {
         }
     }
 
+    const getAllPins = () =>{
+        getPins().then((pins) =>{
+            console.log(pins)
+        })
+
+    }
+
     return (
         <div>
+            <button className={styles.getPinsButton} onClick={getAllPins}>Get pins</button>
             <button className={styles.clearMyMarker} onClick={removeMyMarker}>Clear my marker</button>
         <div>
             <MapContainer
