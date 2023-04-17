@@ -51,7 +51,6 @@ export default function Map()  {
                 myMarker = L.marker([lat, lng], { icon: yourIcon }).addTo(map).on("click", () => {
                     triggerPopup();
                 });
-
             },
         });
 
