@@ -13,10 +13,11 @@ function AboutUsPopUp(props) {
 
                 <div className={styles.container}>
                     <h3>
-                        About the team
+                        yadayada
                     </h3>
                     <h4>
-                       We are gangstaz, equipped with lethal programming skills.
+                       "I go sell coke to your ho, sorry if you didn't know. That your girl loves my blow, one hit... now the girl on the pole.
+                        <br/>I love sellin' blow! I love sellin' blow! I love sellin' blow! I love sellin' blow!" - Complete Poems, Karin Boye
                     </h4>
                 </div>
             </div>
