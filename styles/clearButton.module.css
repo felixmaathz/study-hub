@@ -1,9 +1,9 @@
 
 .clearMyMarker{
-        position: absolute;
         top: 120px;
-        left: 700px;
+        left: 10px;
         z-index: 10000;
-        object-fit: contain;
+        position: absolute;
     }
+
 

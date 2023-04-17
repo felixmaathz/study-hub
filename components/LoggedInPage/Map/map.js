@@ -12,9 +12,10 @@ import {collection, getDoc, doc, getDocs} from "firebase/firestore";
 
 //With inspiration from  "https://codesandbox.io/s/how-to-save-marker-location-when-adding-a-marker-with-onclick-on-map-in-react-leaflet-v3x-lghwn?file=/src/MyMap.jsx:0-41"
 
-let yourActiveMarker = null;
+let myMarker = null;
 
 export default function Map()  {
+
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -27,37 +28,6 @@ export default function Map()  {
     console.log(user)
     let uid = ""
 
-    // onAuthStateChanged(auth, (user) => {
-    //     if (user) {
-    //         uid = user.uid;
-    //         console.log("User is logged in " + uid)
-    //         getUserData().then(r => {
-    //             console.log("username: " + username+ " email: " + email + " major: " + major)
-    //         })
-    //
-    //     } else {
-    //         console.log("User is not logged in")
-    //     }
-    // });
-    //
-    // const getUserData = async () => {
-    //     console.log(uid)
-    //     const docRef = doc(db, "users", uid);
-    //     try {
-    //         const docSnap = await getDoc(docRef);
-    //         if (docSnap.exists()) {
-    //             setUsername(docSnap.data().username)
-    //             setEmail(docSnap.data().email)
-    //             setMajor(docSnap.data().major)
-    //
-    //         } else {
-    //             console.log("Document does not exist")
-    //         }
-    //
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
 
 
     function Markers()  {
@@ -73,27 +43,22 @@ export default function Map()  {
         const map = useMapEvents({
             click: (e) => {
 
-                if (yourActiveMarker) {
-                    yourActiveMarker.remove();
+                if (myMarker) {
+                    myMarker.remove();
                 }
 
                 const { lat, lng } = e.latlng;
                 setGeoLocation(lat, lng)
 
-
                 //Your own marker
-                yourActiveMarker = L.marker([lat, lng], { icon: yourIcon }).addTo(map).on("click", () => {
+                myMarker = L.marker([lat, lng], { icon: yourIcon }).addTo(map).on("click", () => {
                     triggerPopup();
                 });
 
             },
         });
 
-        return(
-            <div>
-                <button onClick={removeMyMarker} className={styles.clearMyMarker}>Remove My Marker</button>
-            </div>
-        )
+        return null;
     }
 
     const triggerPopup = ()=> {
@@ -104,14 +69,15 @@ export default function Map()  {
         setLocation([lat, lng])
     }
 
-    function removeMyMarker() {
-        alert("du klickade")
-        if (yourActiveMarker) {
-            yourActiveMarker.remove();
+    const removeMyMarker = ()  => {
+       if (myMarker) {
+            myMarker.remove();
         }
     }
 
     return (
+        <div>
+            <button className={styles.clearMyMarker} onClick={removeMyMarker}>Clear my marker</button>
         <div>
             <MapContainer
                 center={{ lat: 59.85882, lng: 17.63889 }}
@@ -125,12 +91,8 @@ export default function Map()  {
 
                 <Markers/>
             </MapContainer>
-            <ProfilePopup trigger={profilePopup} setTrigger={setProfilePopup} data={{
-                username: username,
-                email: email,
-                major: major
-            }}/>
-
+            <ProfilePopup trigger={profilePopup} setTrigger={setProfilePopup}></ProfilePopup>
+        </div>
         </div>
     );
 }
