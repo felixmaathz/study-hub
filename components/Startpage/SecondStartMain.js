@@ -28,7 +28,7 @@ function infoMain() {
                 </div>
 
                 <div className='text-about-us-container'>
-                    <div className="text-about-us">
+                    <div>
                         <h1>Why do we even exist?</h1>
                         <h2>
                             Help others students and yadayada
@@ -41,7 +41,7 @@ function infoMain() {
                             and the idea of StudyHub formed. The solution is here.
                         </div>
 
-                        <div>
+                        <div className='about-us-position'>
                             <button className='button-signup' onClick={() => setAboutUsPopUp(true)}>About Us</button>
                         </div>
                     </div>
