@@ -6,4 +6,11 @@
         position: absolute;
     }
 
+.setMyMarker{
+        top: 120px;
+        left: 200px;
+        z-index: 10000;
+        position: absolute;
+    }
+
 

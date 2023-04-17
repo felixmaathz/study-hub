@@ -7,7 +7,7 @@ import styles from '../../../styles/clearButton.module.css';
 
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import {app, db} from "../../../config/firebaseConfig";
-import {collection, getDoc, doc, getDocs} from "firebase/firestore";
+import {collection, getDoc, doc, getDocs, updateDoc} from "firebase/firestore";
 
 
 //With inspiration from  "https://codesandbox.io/s/how-to-save-marker-location-when-adding-a-marker-with-onclick-on-map-in-react-leaflet-v3x-lghwn?file=/src/MyMap.jsx:0-41"
@@ -36,10 +36,6 @@ export default function Map()  {
             iconUrl: "https://cdn-icons-png.flaticon.com/512/447/447031.png",
         });
 
-        const theirIcon = L.icon({
-            iconSize: [30, 30],
-            iconUrl: "https://cdn-icons-png.flaticon.com/512/9131/9131546.png",
-        });
         const map = useMapEvents({
             click: (e) => {
 
@@ -48,7 +44,8 @@ export default function Map()  {
                 }
 
                 const { lat, lng } = e.latlng;
-                setGeoLocation(lat, lng)
+                setLocation([lat, lng])
+                console.log("your position is: " + location)
 
                 //Your own marker
                 myMarker = L.marker([lat, lng], { icon: yourIcon }).addTo(map).on("click", () => {
@@ -65,19 +62,29 @@ export default function Map()  {
         setProfilePopup(true);
     }
 
-    const setGeoLocation = (lat, lng) =>  {
-        setLocation([lat, lng])
-    }
 
-    const removeMyMarker = ()  => {
+    const removeMyMarker = async()  => {
        if (myMarker) {
             myMarker.remove();
         }
+        const uid = auth.currentUser.uid;
+        const docRef = await updateDoc(doc(db, "users", uid), {
+            location: []
+        })
+    }
+
+    const saveMarkerPosition = async () => {
+        console.log("your position is: " + location)
+        const uid = auth.currentUser.uid;
+        const docRef = await updateDoc(doc(db, "users", uid), {
+            location: location
+        })
     }
 
     return (
         <div>
             <button className={styles.clearMyMarker} onClick={removeMyMarker}>Clear my marker</button>
+            <button className={styles.setMyMarker} onClick={saveMarkerPosition}>Save marker position< /button>
         <div>
             <MapContainer
                 center={{ lat: 59.85882, lng: 17.63889 }}
