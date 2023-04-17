@@ -31,7 +31,7 @@ export default function Signup(props) {
                 || createMajor === "")
                 && createPassword === createRepeatPassword){
             try {
-                signUp(createEmail, createPassword).then(r => {
+                await signUp(createEmail, createPassword).then(r => {
                     try {
                         console.log(r.user.uid)
 
