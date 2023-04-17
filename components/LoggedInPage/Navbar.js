@@ -5,52 +5,11 @@ import HelpPopup from "./HelpPopup";
 import React, {useEffect, useState} from "react";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import {app, db} from "../../config/firebaseConfig";
-import {collection, getDoc, doc, getDocs} from "firebase/firestore";
+import { useAuth } from "components/Context/userAuthContext.js"
+import {useRouter} from "next/router";
 
 export function Navbar() {
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [major, setMajor] = useState("");
 
-    const auth = getAuth(app);
-    const user = auth.currentUser;
-    console.log(user)
-    let uid = ""
-
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            uid = user.uid;
-            console.log("User is logged in " + uid)
-            getUserData().then(r => {
-                console.log("username: " + username+ " email: " + email + " major: " + major)
-            })
-
-        } else {
-            console.log("User is not logged in")
-        }
-    });
-
-
-
-
-    const getUserData = async () => {
-        console.log(uid)
-        const docRef = doc(db, "users", uid);
-        try {
-            const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) {
-                setUsername(docSnap.data().username)
-                setEmail(docSnap.data().email)
-                setMajor(docSnap.data().major)
-
-            } else {
-                console.log("Document does not exist")
-            }
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
 
     const [profileButtonPopup, setProfileButtonPopup] = useState(false);
@@ -68,6 +27,7 @@ export function Navbar() {
         const list = document.getElementById('list');
         list.classList.toggle("active");
     }
+
 
     return (
         <nav className="navbar">
@@ -119,11 +79,7 @@ export function Navbar() {
                            height={60}/>
                 </div>
             </div>
-            <ProfilePopup trigger={profileButtonPopup} setTrigger={setProfileButtonPopup} data={{
-                username: username,
-                email: email,
-                major: major
-            }}/>
+            <ProfilePopup trigger={profileButtonPopup} setTrigger={setProfileButtonPopup} />
             <HelpPopup trigger={helpButtonPopup} setTrigger={setHelpButtonPopup}/>
         </nav>)
 }

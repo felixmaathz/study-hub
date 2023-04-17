@@ -5,6 +5,7 @@ import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} fro
 import {addDoc, collection} from "firebase/firestore";
 import {app, db} from "../../config/firebaseConfig";
 import {useRouter} from "next/router";
+import { useAuth } from "components/Context/userAuthContext.js"
 
 export default function Login(props) {
 
@@ -15,19 +16,26 @@ export default function Login(props) {
     const [errorMessage, setErrorMessage] = useState("");
 
     const router = useRouter();
+    const { user, logIn } = useAuth()
 
     const handleLogin = async (event) => {
         event.preventDefault();
 
         try {
-            const auth = getAuth(app);
-            await signInWithEmailAndPassword(auth, email, password);
-            alert("login successful")
+            await logIn(email, password)
             await router.push("/MapPage");
         } catch (error) {
             setErrorMessage(error.message);
         }
     };
+
+    const [showPassword, setShowPassword] = useState(false);
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword);
+    }
+
+
+
 
     return (props.trigger) ? (
         <>
@@ -61,11 +69,13 @@ export default function Login(props) {
                                 Password:
                                 <br/>
                                 <input className={styles.inputFields}
-                                       type="password"
+                                       type={showPassword? "text" : "password"}
                                        name="password"
                                        value={password}
                                        onChange={(event) => setPassword(event.target.value)}
                                        required/>
+                                <Image src={showPassword?"/images/eyeClose.png":"/images/eyeOpen.png"} alt={"eyeClose"} height={20} width={25} onClick={handleShowPassword}></Image>
+
                             </label>
                             <br/>
                             {errorMessage && <p>{errorMessage}</p>}

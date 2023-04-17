@@ -3,22 +3,17 @@ import styles from '../../styles/popup.module.css'
 import {getAuth, signOut} from "firebase/auth";
 import {app, db} from "../../config/firebaseConfig";
 
+import { useAuth } from "components/Context/userAuthContext.js"
+import {doc, getDoc} from "firebase/firestore";
+
 function ProfilePopup(props) {
 
-
-    const auth = getAuth(app);
-    const user = auth.currentUser;
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [major, setMajor] = useState("");
 
-    React.useEffect(() => {
-        setUsername(props.data.username);
-        setEmail(props.data.email);
-        setMajor(props.data.major);
-    })
-
+    const { user, getUserData } = useAuth()
 
     const handleSignOut = () => {
         const auth = getAuth(app);
@@ -30,6 +25,19 @@ function ProfilePopup(props) {
         })
 
     }
+
+    React.useEffect(() => {
+        if (user) {
+            getUserData(user.uid).then(r => {
+                setUsername(r.username)
+                setEmail(r.email)
+                setMajor(r.major)
+            })
+        }
+    })
+
+
+
 
     return (props.trigger) ? (
         <div className={styles.popup}>
