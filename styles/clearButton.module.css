@@ -13,4 +13,11 @@
         position: absolute;
     }
 
+.getPinsButton{
+    top: 160px;
+    left: 10px;
+    z-index: 10000;
+    position: absolute;
+}
+
 

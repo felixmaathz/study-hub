@@ -7,6 +7,7 @@ import styles from '../../../styles/clearButton.module.css';
 
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import {app, db} from "../../../config/firebaseConfig";
+import {useAuth} from "../../Context/userAuthContext";
 import {collection, getDoc, doc, getDocs, updateDoc} from "firebase/firestore";
 
 
@@ -23,10 +24,12 @@ export default function Map()  {
     const [profilePopup, setProfilePopup] = useState(false);
     const [location, setLocation] = useState([]);
 
-    const auth = getAuth(app);
-    const user = auth.currentUser;
-    console.log(user)
-    let uid = ""
+    // const auth = getAuth(app);
+    // const user = auth.currentUser;
+    // console.log(user)
+    // let uid = ""
+
+    const { user, getPins } = useAuth()
 
 
 
@@ -66,7 +69,7 @@ export default function Map()  {
        if (myMarker) {
             myMarker.remove();
         }
-        const uid = auth.currentUser.uid;
+        const uid = user.uid;
         const docRef = await updateDoc(doc(db, "users", uid), {
             location: []
         })
@@ -74,14 +77,22 @@ export default function Map()  {
 
     const saveMarkerPosition = async () => {
         console.log("your position is: " + location)
-        const uid = auth.currentUser.uid;
+        const uid = user.uid
         const docRef = await updateDoc(doc(db, "users", uid), {
             location: location
         })
     }
 
+    const getAllPins = () =>{
+        getPins().then((pins) =>{
+            console.log(pins)
+        })
+
+    }
+
     return (
         <div>
+            <button className={styles.getPinsButton} onClick={getAllPins}>Get pins</button>
             <button className={styles.clearMyMarker} onClick={removeMyMarker}>Clear my marker</button>
             <button className={styles.setMyMarker} onClick={saveMarkerPosition}>Save marker position< /button>
         <div>
