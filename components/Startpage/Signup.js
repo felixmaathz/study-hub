@@ -1,10 +1,12 @@
 import styles from "../../styles/popup.module.css"
 import Image from 'next/image'
 import React, {useState} from "react";
-import {createUserWithEmailAndPassword, getAuth} from "firebase/auth";
 import {setDoc, doc} from "firebase/firestore";
 import {app, db} from "../../config/firebaseConfig";
 import {useRouter} from "next/router";
+
+import { useAuth } from "components/Context/userAuthContext.js"
+
 
 export default function Signup(props) {
 
@@ -18,6 +20,8 @@ export default function Signup(props) {
 
     const router = useRouter();
 
+    const { user, signUp } = useAuth()
+
     const handleSignUp = async (event) => {
         event.preventDefault();
         if (!(  createUsername === ""
@@ -25,27 +29,27 @@ export default function Signup(props) {
                 || createPassword === ""
                 || createRepeatPassword === ""
                 || createMajor === "")
-            && createPassword === createRepeatPassword){
+                && createPassword === createRepeatPassword){
             try {
-                const auth = getAuth(app);
-
-                await createUserWithEmailAndPassword(auth, createEmail, createPassword);
+                await signUp(createEmail, createPassword, createUsername, createMajor)
                 alert("sign up successful")
-
-                try {
-                    const uid = auth.currentUser.uid;
-                    const docRef = await setDoc(doc(db, "users", uid), {
-                        username: createUsername,
-                        email: createEmail,
-                        major: createMajor
-                    })
-                    await router.push("/MapPage")
-                } catch (e) {
-                    console.error("Error adding document: ", e);
-                }
+                await router.push("/MapPage");
+                // try {
+                //     const uid = user.uid;
+                //     await setDoc(doc(db, "users", uid), {
+                //         username: createUsername,
+                //         email: createEmail,
+                //         major: createMajor
+                //     })
+                //     await router.push("/MapPage")
+                // } catch (e) {
+                //     console.error("Error adding document: ", e);
+                // }
             } catch (error) {
                 setErrorMessage(error.message);
             }
+        } else {
+            alert("Please fill in all fields and make sure your passwords match")
         }
     }
 

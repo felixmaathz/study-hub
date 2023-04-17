@@ -5,6 +5,7 @@ import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} fro
 import {addDoc, collection} from "firebase/firestore";
 import {app, db} from "../../config/firebaseConfig";
 import {useRouter} from "next/router";
+import { useAuth } from "components/Context/userAuthContext.js"
 
 export default function Login(props) {
 
@@ -15,18 +16,19 @@ export default function Login(props) {
     const [errorMessage, setErrorMessage] = useState("");
 
     const router = useRouter();
+    const { user, logIn } = useAuth()
 
     const handleLogin = async (event) => {
         event.preventDefault();
 
         try {
-            const auth = getAuth(app);
-            await signInWithEmailAndPassword(auth, email, password);
-            alert("login successful")
+            await logIn(email, password)
             await router.push("/MapPage");
         } catch (error) {
             setErrorMessage(error.message);
         }
+        alert("login successful")
+        console.log(user)
     };
 
     return (props.trigger) ? (

@@ -26,37 +26,37 @@ export default function Map()  {
     console.log(user)
     let uid = ""
 
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            uid = user.uid;
-            console.log("User is logged in " + uid)
-            getUserData().then(r => {
-                console.log("username: " + username+ " email: " + email + " major: " + major)
-            })
-
-        } else {
-            console.log("User is not logged in")
-        }
-    });
-
-    const getUserData = async () => {
-        console.log(uid)
-        const docRef = doc(db, "users", uid);
-        try {
-            const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) {
-                setUsername(docSnap.data().username)
-                setEmail(docSnap.data().email)
-                setMajor(docSnap.data().major)
-
-            } else {
-                console.log("Document does not exist")
-            }
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    // onAuthStateChanged(auth, (user) => {
+    //     if (user) {
+    //         uid = user.uid;
+    //         console.log("User is logged in " + uid)
+    //         getUserData().then(r => {
+    //             console.log("username: " + username+ " email: " + email + " major: " + major)
+    //         })
+    //
+    //     } else {
+    //         console.log("User is not logged in")
+    //     }
+    // });
+    //
+    // const getUserData = async () => {
+    //     console.log(uid)
+    //     const docRef = doc(db, "users", uid);
+    //     try {
+    //         const docSnap = await getDoc(docRef);
+    //         if (docSnap.exists()) {
+    //             setUsername(docSnap.data().username)
+    //             setEmail(docSnap.data().email)
+    //             setMajor(docSnap.data().major)
+    //
+    //         } else {
+    //             console.log("Document does not exist")
+    //         }
+    //
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
 
 
     function Markers()  {
