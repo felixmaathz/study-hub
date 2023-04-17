@@ -5,6 +5,7 @@ import {useRouter} from "next/router";
 import '../styles/start-layout.css';
 import {UserAuthContextProvider} from "../components/Context/userAuthContext";
 import ProtectedRoute from "../components/ProtectedRoute";
+import "../styles/chatpage.scss"
 
 export default function MyApp({Component, pageProps}) {
 
