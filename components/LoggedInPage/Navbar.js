@@ -10,12 +10,6 @@ import {useRouter} from "next/router";
 
 export function Navbar() {
 
-    const { user, getUserData } = useAuth()
-    const router = useRouter();
-
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [major, setMajor] = useState("");
 
 
     const [profileButtonPopup, setProfileButtonPopup] = useState(false);
@@ -85,11 +79,7 @@ export function Navbar() {
                            height={60}/>
                 </div>
             </div>
-            <ProfilePopup trigger={profileButtonPopup} setTrigger={setProfileButtonPopup} data={{
-                username: username,
-                email: email,
-                major: major
-            }}/>
+            <ProfilePopup trigger={profileButtonPopup} setTrigger={setProfileButtonPopup} />
             <HelpPopup trigger={helpButtonPopup} setTrigger={setHelpButtonPopup}/>
         </nav>)
 }
