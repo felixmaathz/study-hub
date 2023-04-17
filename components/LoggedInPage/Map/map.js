@@ -63,10 +63,14 @@ export default function Map()  {
     }
 
 
-    const removeMyMarker = ()  => {
+    const removeMyMarker = async()  => {
        if (myMarker) {
             myMarker.remove();
         }
+        const uid = auth.currentUser.uid;
+        const docRef = await updateDoc(doc(db, "users", uid), {
+            location: []
+        })
     }
 
     const saveMarkerPosition = async () => {
