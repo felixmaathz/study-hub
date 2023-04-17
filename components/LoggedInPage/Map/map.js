@@ -1,7 +1,7 @@
 import {MapContainer, TileLayer, useMapEvents, Marker} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import ProfilePopup from "../ProfilePopup";
 import styles from '../../../styles/clearButton.module.css';
 
@@ -128,7 +128,6 @@ export default function Map()  {
 
                 <Markers/>
             </MapContainer>
-            {/*<ProfilePopup trigger={profilePopup} setTrigger={setProfilePopup} />*/}
             <ProfilePopup trigger={profilePopup} setTrigger={setProfilePopup} data={{
                 username: username,
                 email: email,
