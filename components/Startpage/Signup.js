@@ -20,7 +20,7 @@ export default function Signup(props) {
 
     const router = useRouter();
 
-    const { user, signUp } = useAuth()
+    const { user, signUp, saveUserData } = useAuth()
 
     const handleSignUp = async (event) => {
         event.preventDefault();
@@ -31,23 +31,40 @@ export default function Signup(props) {
                 || createMajor === "")
                 && createPassword === createRepeatPassword){
             try {
-                await signUp(createEmail, createPassword, createUsername, createMajor)
+                signUp(createEmail, createPassword).then(r => {
+                    try {
+                        console.log(r.user.uid)
+
+                         setDoc(doc(db, "users", r.user.uid), {
+                            username: createUsername,
+                            email: createEmail,
+                            major: createMajor,
+                            location: []
+                        }
+                        ).then(r => {
+                            console.log("success")
+                         })
+                    } catch (e) {
+                        console.error("Error adding document: ", e);
+                    }
+                })
                 alert("sign up successful")
-                await router.push("/MapPage");
+                await router.push("/MapPage")
                 // try {
-                //     const uid = user.uid;
-                //     await setDoc(doc(db, "users", uid), {
+                //     await setDoc(doc(db, "users", createdUser.uid), {
                 //         username: createUsername,
                 //         email: createEmail,
-                //         major: createMajor
-                //     })
-                //     await router.push("/MapPage")
+                //         major: createMajor,
+                //         location: []
+                //     }
+                //     );
                 // } catch (e) {
                 //     console.error("Error adding document: ", e);
                 // }
             } catch (error) {
                 setErrorMessage(error.message);
             }
+
         } else {
             alert("Please fill in all fields and make sure your passwords match")
         }

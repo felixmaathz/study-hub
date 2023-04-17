@@ -13,7 +13,7 @@ function ProfilePopup(props) {
     const [email, setEmail] = useState("");
     const [major, setMajor] = useState("");
 
-
+    const { user, getUserData } = useAuth()
 
     const handleSignOut = () => {
         const auth = getAuth(app);
@@ -25,6 +25,17 @@ function ProfilePopup(props) {
         })
 
     }
+
+    React.useEffect(() => {
+        if (user) {
+            getUserData(user.uid).then(r => {
+                setUsername(r.username)
+                setEmail(r.email)
+                setMajor(r.major)
+            })
+        }
+    })
+
 
 
 

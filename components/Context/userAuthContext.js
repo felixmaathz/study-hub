@@ -35,9 +35,7 @@ export const UserAuthContextProvider = ({children}) => {
     }, [])
 
     const signUp = (email, password) => {
-        createUserWithEmailAndPassword(auth, email, password).then(r => {
-            console.log(r.user.uid)
-        })
+            return createUserWithEmailAndPassword(auth, email, password)
     }
 
 
@@ -50,11 +48,26 @@ export const UserAuthContextProvider = ({children}) => {
         await signOut(auth);
     }
 
+    const getUserData = async (uid) => {
+        const docRef = doc(db, "users", uid);
+        try {
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                return docSnap.data()
+            } else {
+                console.log("Document does not exist")
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
 
 
     return (
-        <UserAuthContext.Provider value={{user, signUp, logIn, logOut}}>
+        <UserAuthContext.Provider value={{user, signUp, logIn, logOut, getUserData}}>
             {loading ? <Loading/> : children}
         </UserAuthContext.Provider>
     )

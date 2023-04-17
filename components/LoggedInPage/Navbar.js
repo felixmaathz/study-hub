@@ -10,7 +10,7 @@ import {useRouter} from "next/router";
 
 export function Navbar() {
 
-    const { user } = useAuth()
+    const { user, getUserData } = useAuth()
     const router = useRouter();
 
     const [username, setUsername] = useState("");
@@ -33,6 +33,7 @@ export function Navbar() {
         const list = document.getElementById('list');
         list.classList.toggle("active");
     }
+
 
     return (
         <nav className="navbar">
