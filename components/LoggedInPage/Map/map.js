@@ -7,6 +7,7 @@ import styles from '../../../styles/clearButton.module.css';
 
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import {app, db} from "../../../config/firebaseConfig";
+import {useAuth} from "../../Context/userAuthContext";
 import {collection, getDoc, doc, getDocs, updateDoc} from "firebase/firestore";
 
 
@@ -24,11 +25,7 @@ export default function Map()  {
     const [location, setLocation] = useState([]);
 
     const [isPinned, setIsPinned] = useState(false);
-
-    const auth = getAuth(app);
-    const user = auth.currentUser;
-    console.log(user)
-    let uid = ""
+    const { user, getPins } = useAuth()
 
         function Markers()  {
         const yourIcon = L.icon({
@@ -63,11 +60,12 @@ export default function Map()  {
         setProfilePopup(true);
     }
 
+
     const removeMyMarker = async()  => {
        if (myMarker) {
             myMarker.remove();
         }
-        const uid = auth.currentUser.uid;
+        const uid = user.uid;
         const docRef = await updateDoc(doc(db, "users", uid), {
             location: []
         })
@@ -76,7 +74,7 @@ export default function Map()  {
 
     const saveMarkerPosition = async () => {
         console.log("your position is: " + location)
-        const uid = auth.currentUser.uid;
+        const uid = user.uid
         const docRef = await updateDoc(doc(db, "users", uid), {
             location: location
         })
@@ -89,6 +87,13 @@ export default function Map()  {
         } else {
             saveMarkerPosition();
         }
+    }
+
+    const getAllPins = () =>{
+        getPins().then((pins) =>{
+            console.log(pins)
+        })
+
     }
 
     return (
@@ -106,9 +111,9 @@ export default function Map()  {
                     style={{ height: "100vh", zIndex: '1' }}
                     zoomOnScroll={false}>
 
-                    <TileLayer
-                        attribution= '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                        url= 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'/>
+                <TileLayer
+                    attribution= '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                    url= 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'/>
 
                     <Markers/>
                 </MapContainer>
