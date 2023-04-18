@@ -23,14 +23,14 @@ export default function Map()  {
     const [profilePopup, setProfilePopup] = useState(false);
     const [location, setLocation] = useState([]);
 
+    const [isPinned, setIsPinned] = useState(false);
+
     const auth = getAuth(app);
     const user = auth.currentUser;
     console.log(user)
     let uid = ""
 
-
-
-    function Markers()  {
+        function Markers()  {
         const yourIcon = L.icon({
             iconSize: [30, 30],
             iconUrl: "https://cdn-icons-png.flaticon.com/512/447/447031.png",
@@ -39,19 +39,20 @@ export default function Map()  {
         const map = useMapEvents({
             click: (e) => {
 
-                if (myMarker) {
-                    myMarker.remove();
+                if(!isPinned) {
+                    if (myMarker) {
+                        myMarker.remove();
+                    }
+
+                    const {lat, lng} = e.latlng;
+                    setLocation([lat, lng])
+                    console.log("your position is: " + location)
+
+                    //Your own marker
+                    myMarker = L.marker([lat, lng], {icon: yourIcon}).addTo(map).on("click", () => {
+                        triggerPopup();
+                    });
                 }
-
-                const { lat, lng } = e.latlng;
-                setLocation([lat, lng])
-                console.log("your position is: " + location)
-
-                //Your own marker
-                myMarker = L.marker([lat, lng], { icon: yourIcon }).addTo(map).on("click", () => {
-                    triggerPopup();
-                });
-
             },
         });
 
@@ -62,7 +63,6 @@ export default function Map()  {
         setProfilePopup(true);
     }
 
-
     const removeMyMarker = async()  => {
        if (myMarker) {
             myMarker.remove();
@@ -71,6 +71,7 @@ export default function Map()  {
         const docRef = await updateDoc(doc(db, "users", uid), {
             location: []
         })
+        setIsPinned(false);
     }
 
     const saveMarkerPosition = async () => {
@@ -79,27 +80,41 @@ export default function Map()  {
         const docRef = await updateDoc(doc(db, "users", uid), {
             location: location
         })
+        setIsPinned(true);
+    }
+
+    function handleClick() {
+        if (isPinned) {
+            removeMyMarker();
+        } else {
+            saveMarkerPosition();
+        }
     }
 
     return (
         <div>
-            <button className={styles.clearMyMarker} onClick={removeMyMarker}>Clear my marker</button>
-            <button className={styles.setMyMarker} onClick={saveMarkerPosition}>Save marker position< /button>
-        <div>
-            <MapContainer
-                center={{ lat: 59.85882, lng: 17.63889 }}
-                zoom={15}
-                style={{ height: "100vh", zIndex: '1' }}
-                zoomOnScroll={false}>
+            <div className={styles.buttonMarkers}>
+                <button className={styles.setMyMarker} onClick={handleClick}>
+                    {isPinned ? 'Unpin me!' : 'Pin me!'}
+                </button>
+            </div>
 
-                <TileLayer
-                    attribution= '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                    url= 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'/>
+            <div>
+                <MapContainer
+                    center={{ lat: 59.85882, lng: 17.63889 }}
+                    zoom={15}
+                    style={{ height: "100vh", zIndex: '1' }}
+                    zoomOnScroll={false}>
 
-                <Markers/>
-            </MapContainer>
-            <ProfilePopup trigger={profilePopup} setTrigger={setProfilePopup}></ProfilePopup>
-        </div>
+                    <TileLayer
+                        attribution= '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                        url= 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'/>
+
+                    <Markers/>
+                </MapContainer>
+                <ProfilePopup trigger={profilePopup} setTrigger={setProfilePopup}></ProfilePopup>
+            </div>
+
         </div>
     );
 }
