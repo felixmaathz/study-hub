@@ -28,7 +28,7 @@ export default function Map() {
     const pinsArray = []
 
     const [isPinned, setIsPinned] = useState(null);
-    const { user, getPins } = useAuth()
+    const {user, getPins} = useAuth()
 
     React.useEffect(() => {
         getPins().then((pins) => {
@@ -51,40 +51,40 @@ export default function Map() {
             {
                 click: (e) => {
 
-                if(!isPinned) {
-                    if (myMarker) {
-                        myMarker.remove();
+                    if (!isPinned) {
+                        if (myMarker) {
+                            myMarker.remove();
+                        }
+
+                        if (pinsArray.length > 0) {
+                            pinsArray.forEach((pin) => {
+                                L.marker(pin.location, {icon: yourIcon}).addTo(map).on("click", () => {
+                                    console.log("User: " + pin.username)
+                                    setUsername(pin.username)
+                                    setEmail(pin.email)
+                                    setMajor(pin.major)
+                                    setOtherUserPopup(true);
+                                });
+                            })
+                        }
+
+                        const {lat, lng} = e.latlng;
+                        setLocation([lat, lng])
+                        console.log("your position is: " + location)
+
+                        //Your own marker
+                        myMarker = L.marker([lat, lng], {icon: yourIcon}).addTo(map).on("click", () => {
+                            triggerPopup();
+                        });
+                        setIsPinned(false)
+
                     }
-
-                    if (pinsArray.length > 0) {
-                        pinsArray.forEach((pin) => {
-                            L.marker(pin.location, {icon: yourIcon}).addTo(map).on("click", () => {
-                                console.log("User: "+pin.username)
-                                setUsername(pin.username)
-                                setEmail(pin.email)
-                                setMajor(pin.major)
-                                setOtherUserPopup(true);
-                            });
-                        })
-                    }
-
-                    const {lat, lng} = e.latlng;
-                    setLocation([lat, lng])
-                    console.log("your position is: " + location)
-
-                    //Your own marker
-                    myMarker = L.marker([lat, lng], {icon: yourIcon}).addTo(map).on("click", () => {
-                        triggerPopup();
-                    });
-                    setIsPinned(false)
-
                 }
-            }}
+            }
         );
 
         return null;
     }
-
 
 
     const triggerPopup = () => {
@@ -120,8 +120,8 @@ export default function Map() {
         }
     }
 
-    const getAllPins = () =>{
-        getPins().then((pins) =>{
+    const getAllPins = () => {
+        getPins().then((pins) => {
             console.log(pins)
         })
 
@@ -130,22 +130,25 @@ export default function Map() {
     return (
         <div>
             <div className={styles.buttonMarkers}>
-                {(isPinned!==null) ? <button className={styles.setMyMarker} onClick={handleClick}>{isPinned ? 'Unpin me!' : 'Pin me!'}</button> : null}
-                {/*<button className={styles.setMyMarker} onClick={handleClick}>*/}
-                {/*    {isPinned ? 'Unpin me!' : 'Pin me!'}*/}
-                {/*</button>*/}
+                {(isPinned !== null) ?
+                    <button
+                        className={styles.setMyMarker}
+                        onClick={handleClick}>
+                        <h3>{isPinned ? 'Unpin me!' : 'Pin me!'}</h3>
+                    </button>
+                    : null}
             </div>
 
             <div>
                 <MapContainer
-                    center={{ lat: 59.85882, lng: 17.63889 }}
+                    center={{lat: 59.85882, lng: 17.63889}}
                     zoom={15}
-                    style={{ height: "100vh", zIndex: '1' }}
+                    style={{height: "100vh", zIndex: '1'}}
                     zoomOnScroll={false}>
 
-                <TileLayer
-                    attribution= '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                    url= 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'/>
+                    <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                        url='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'/>
 
                     <Markers userMarkers={pinsArray}/>
                 </MapContainer>
