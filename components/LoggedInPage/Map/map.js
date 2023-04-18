@@ -27,7 +27,7 @@ export default function Map() {
     const [location, setLocation] = useState([]);
     const pinsArray = []
 
-    const [isPinned, setIsPinned] = useState(false);
+    const [isPinned, setIsPinned] = useState(null);
     const { user, getPins } = useAuth()
 
     React.useEffect(() => {
@@ -40,12 +40,12 @@ export default function Map() {
         })
     }, [])
 
+    const yourIcon = L.icon({
+        iconSize: [30, 30],
+        iconUrl: "https://cdn-icons-png.flaticon.com/512/447/447031.png",
+    });
 
     function Markers() {
-        const yourIcon = L.icon({
-            iconSize: [30, 30],
-            iconUrl: "https://cdn-icons-png.flaticon.com/512/447/447031.png",
-        });
 
         const map = useMapEvents(
             {
@@ -76,6 +76,7 @@ export default function Map() {
                     myMarker = L.marker([lat, lng], {icon: yourIcon}).addTo(map).on("click", () => {
                         triggerPopup();
                     });
+                    setIsPinned(false)
 
                 }
             }}
@@ -83,6 +84,8 @@ export default function Map() {
 
         return null;
     }
+
+
 
     const triggerPopup = () => {
         setProfilePopup(true);
@@ -127,9 +130,10 @@ export default function Map() {
     return (
         <div>
             <div className={styles.buttonMarkers}>
-                <button className={styles.setMyMarker} onClick={handleClick}>
-                    {isPinned ? 'Unpin me!' : 'Pin me!'}
-                </button>
+                {(isPinned!==null) ? <button className={styles.setMyMarker} onClick={handleClick}>{isPinned ? 'Unpin me!' : 'Pin me!'}</button> : null}
+                {/*<button className={styles.setMyMarker} onClick={handleClick}>*/}
+                {/*    {isPinned ? 'Unpin me!' : 'Pin me!'}*/}
+                {/*</button>*/}
             </div>
 
             <div>
@@ -143,14 +147,13 @@ export default function Map() {
                     attribution= '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
                     url= 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'/>
 
-                    <Markers/>
+                    <Markers userMarkers={pinsArray}/>
                 </MapContainer>
                 <OtherUserPopup trigger={otherUserPopup} setTrigger={setOtherUserPopup} data={{
                     username: username
                     , major: major
                     , email: email
-                }}></OtherUserPopup>
-                <ProfilePopup trigger={profilePopup} setTrigger={setProfilePopup}></ProfilePopup>
+                }}/>
             </div>
         </div>
     );

@@ -10,12 +10,12 @@ export default function MapPage() {
         <div>
             <main>
                 <div className='pageContainer'>
-                    < Layout >
+
                         <div className='chatContainer'>
                             < Sidebar />
                             < Chat />
                         </div>
-                    </Layout>
+
                 </div>
             </main>
         </div>
