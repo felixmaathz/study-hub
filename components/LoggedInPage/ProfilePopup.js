@@ -79,6 +79,9 @@ function ProfilePopup(props) {
                         <p>{competencies.map((c)=>{
                             return c + " "
                         })}</p>
+                        <p>{competencies.map((c)=>{
+                            return c + " "
+                        })}</p>
                         <br/>
                         <button onClick={handleSignOut}>Sign Out</button>
                         <button onClick={handleEdit}>Edit Profile</button>
