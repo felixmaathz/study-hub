@@ -87,12 +87,12 @@ function EditProfilePopup(props) {
                                 <option value="Other">Other</option>
                             </select>
                             <br/>
-                            <button onClick={handleSave}>Save profile</button>
+                            <button onClick={handleSave} className={styles.popupButtons}>Save profile</button>
                         </div>
                         <div className={styles.competencies}>
 
                             <div className={styles.labelContainer}>
-                                <label className={styles.label}>Competencies
+                                <label className={styles.label}>Add competence:
                                     <input type="text" className={styles.inputFields} value={competence}
                                            onChange={(event) => {
                                                const newVal = event.target.value.replace(/\s/g, '')
@@ -105,10 +105,10 @@ function EditProfilePopup(props) {
                                     add
                                 </span></button>
                             </div>
-
+                            {competencies.length > 0 ? (
                             <p>Click to remove competence!</p>
+                                ) : ""}
                             <div className={styles.showCompetencies}>
-
                                 <CompetencyList competencies={competencies} onRemove={handleRemoveCompetency}/>
                             </div>
                         </div>
