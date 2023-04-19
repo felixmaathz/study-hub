@@ -83,6 +83,7 @@ body{
     border: 0;
     border-radius: 10px;
     font-weight: 600;
+    font-size: 1em;
     margin: 0 10px;
     width: 200px;
     padding: 10px 0;
@@ -94,6 +95,7 @@ body{
     border: 0;
     border-radius: 10px;
     font-weight: 600;
+    font-size: 1em;
     margin: 0 10px;
     width: 200px;
     height: 7vh;
@@ -112,7 +114,7 @@ button.button-login:hover {
     height: 100vh;
     z-index: 1;
     display: flex;
-    background-color: antiquewhite;
+    background-color: #eae4e3;
     justify-content: center;
     align-items: center;
 }
@@ -127,8 +129,8 @@ button.button-login:hover {
     display: flex;
     flex-display: row;
     border-color: black;
-    border-bottom: 3px solid #f2d8c3;
-    border-top: 3px solid #f2d8c3;
+    border-top: 3px solid #44225b;
+    border-bottom: 3px solid #44225b;
 }
 
 .pic-about-us-container{
@@ -278,6 +280,7 @@ button.button-login:hover {
         border: 0;
         border-radius: 10px;
         font-weight: 600;
+        font-size: 1em;
         margin: 0 10px;
         width: 200px;
         padding: 10px 0;
@@ -290,6 +293,7 @@ button.button-login:hover {
         border: 0;
         border-radius: 10px;
         font-weight: 600;
+        font-size: 1em;
         margin: 0 10px;
         width: 200px;
         height: 7vh;
@@ -310,7 +314,7 @@ button.button-login:hover {
         position: relative;
         z-index: 1;
         display: flex;
-        background-color: antiquewhite;
+        background-color: #eae4e3;
         justify-content: center;
         align-items: center;
     }
@@ -325,8 +329,8 @@ button.button-login:hover {
         display: flex;
         flex-display: row;
         border-color: black;
-        border-bottom: 3px solid #f2d8c3;
-        border-top: 3px solid #f2d8c3;
+        border-bottom: 3px solid #44225b;
+        border-top: 3px solid #44225b;
 
 
     }
