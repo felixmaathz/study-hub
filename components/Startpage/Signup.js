@@ -38,6 +38,7 @@ export default function Signup(props) {
                             username: createUsername,
                             email: createEmail,
                             major: createMajor,
+                            bio: "",
                             competencies: [],
                             location: []
                         })
