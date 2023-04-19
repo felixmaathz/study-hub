@@ -43,10 +43,10 @@ body{
             color: white;
             background-color: rgba(0,0,0,0.5);
 
-            height: 37vh; width: 42vw;
+            width: 42vw;
             top: 6vh; left: 6vw;
             border-radius: 10px;
-            object-fit: contain;
+            object-fit: fill;
 
             display:flex;
             flex-direction: column;
@@ -84,7 +84,7 @@ body{
     border-radius: 10px;
     font-weight: 600;
     margin: 0 10px;
-    width: 15vw;
+    width: 200px;
     padding: 10px 0;
     transition: 0.25s;
     height: 7vh;
@@ -95,7 +95,7 @@ body{
     border-radius: 10px;
     font-weight: 600;
     margin: 0 10px;
-    width: 15vw;
+    width: 200px;
     height: 7vh;
     padding: 10px 0;
     transition: 0.25s;
@@ -110,16 +110,15 @@ button.button-login:hover {
 .info-main-container{
     width: 100%;
     height: 100vh;
-    position: relative;
     z-index: 1;
     display: flex;
     background-color: antiquewhite;
     justify-content: center;
+    align-items: center;
 }
 
 .about-us-container{
-    margin-top: 8vw;
-    height: 70%;
+    height: 80%;
     width: 85%;
     align-items: center;
     justify-content: space-around;
@@ -141,7 +140,7 @@ button.button-login:hover {
     justify-content: center;
 
     .pic-about-us{
-        position: relative !important;
+        position: relative;
         height: 100%;
         width: 100%;
         object-fit: cover;
@@ -177,7 +176,7 @@ button.button-login:hover {
     z-index: 1;
 }
 .start-layout-footer-container-book-logo{
-    width: 8vw;
+    width: 5vw;
     height: auto;
     position: relative;
     z-index: 2;
@@ -238,7 +237,6 @@ button.button-login:hover {
             color: white;
             background-color: rgba(0, 0, 0, 0.5);
 
-            height: 50vh;
             width: 90vw;
             top: 6vh;
             left: 6vw;
@@ -281,7 +279,7 @@ button.button-login:hover {
         border-radius: 10px;
         font-weight: 600;
         margin: 0 10px;
-        width: 80vw;
+        width: 200px;
         padding: 10px 0;
         transition: 0.25s;
         height: 7vh;
@@ -293,7 +291,7 @@ button.button-login:hover {
         border-radius: 10px;
         font-weight: 600;
         margin: 0 10px;
-        width: 80vw;
+        width: 200px;
         height: 7vh;
         padding: 10px 0;
         transition: 0.25s;
@@ -314,15 +312,14 @@ button.button-login:hover {
         display: flex;
         background-color: antiquewhite;
         justify-content: center;
+        align-items: center;
     }
 
     .about-us-container {
-        margin-top: 8vw;
         width: 85%;
         align-items: center;
         justify-content: space-around;
         object-fit: contain;
-        height: 60%;
         position: relative;
         z-index: 2;
         display: flex;
@@ -357,6 +354,7 @@ button.button-login:hover {
         z-index: 3;
         display: flex;
         justify-content: center;
+        align-items: center;
         object-fit: contain;
         display: flex;
         flex-direction: column;
