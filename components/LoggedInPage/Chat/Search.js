@@ -14,6 +14,7 @@ const Search = () => {
     const handleSearch = async () => {
         const q = query(collection(db, "users"), where('username', '==', usernameSearch));
 
+        console.log("usersearch:", userSearch)
         try {
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
@@ -24,7 +25,7 @@ const Search = () => {
                         uid: doc.id
                     };
                 });
-                console.log(userSearch)
+
             });
         }catch(error) {
             setError(true);
