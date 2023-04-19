@@ -167,3 +167,29 @@
     color: white;
     font-family: 'Epilogue', sans-serif;
 }
+
+
+/*Profile*/
+
+
+.profileLayout{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.userPictureContainer{
+    width: 50%;
+    height: 100%;
+}
+
+.userProfilePicture{
+    min-width: 100px;
+    width: 300px;
+    min-height: 100px;
+    height: 300px;
+    position: relative;
+}

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import ProfilePopup from "./ProfilePopup";
 import HelpPopup from "./HelpPopup";
 import React, {useEffect, useState} from "react";
+import YourProfilePopup from "../YourProfilePopup";
 
 export function Navbar() {
 
@@ -77,7 +78,7 @@ export function Navbar() {
                            height={60}/>
                 </div>
             </div>
-            <ProfilePopup trigger={profileButtonPopup} setTrigger={setProfileButtonPopup} />
+            <YourProfilePopup trigger={profileButtonPopup} setTrigger={setProfileButtonPopup} />
             <HelpPopup trigger={helpButtonPopup} setTrigger={setHelpButtonPopup}/>
         </nav>)
 }
