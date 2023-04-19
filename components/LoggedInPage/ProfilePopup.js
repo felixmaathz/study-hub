@@ -75,6 +75,10 @@ function ProfilePopup(props) {
                         <h1>{username}</h1>
                         <h1>{email}</h1>
                         <h1>{major}</h1>
+
+                        <p>{competencies.map((c)=>{
+                            return c + " "
+                        })}</p>
                         <p>{competencies.map((c)=>{
                             return c + " "
                         })}</p>
