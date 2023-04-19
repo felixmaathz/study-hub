@@ -131,16 +131,23 @@ export default function Signup(props) {
                                        required/>
                             </label>
                             <br/>
-                            <label>
+                            <label className={styles.marginLeft}>
                                 Password:
                                 <br/>
-                                <input className={styles.inputFields}
+                                <input className={styles.inputFieldPassword}
                                        type={showPassword? "text" : "password"}
                                        name="password"
                                        value={createPassword}
                                        onChange={(event) => setCreatePassword(event.target.value)}
-                                       required/>
-                                <Image src={showPassword?"/images/eyeClosed.png":"/images/eyeOpened.png"} alt={"eyeClose"} height={20} width={25} onClick={handleShowPassword}></Image>
+                                       required
+                                />
+                                <Image
+                                       src={showPassword?"/images/eyeClosed.png":"/images/eyeOpened.png"}
+                                       alt={"eyeClose"}
+                                       height={20}
+                                       width={25}
+                                       onClick={handleShowPassword}>
+                                </Image>
                             </label>
                             <br/>
                             <label>

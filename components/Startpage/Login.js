@@ -65,10 +65,11 @@ export default function Login(props) {
                                        required/>
                             </label>
                             <br/>
-                            <label>
+                            <label  className={styles.marginLeft}>
                                 Password:
                                 <br/>
-                                <input className={styles.inputFields}
+                                <input className={styles.inputFieldPassword}
+
                                        type={showPassword? "text" : "password"}
                                        name="password"
                                        value={password}
@@ -76,14 +77,13 @@ export default function Login(props) {
                                        required
                                 />
 
-                            </label>
                             <Image className={styles.showHide}
-                                   src={showPassword?"/images/eyeClosed.png":"/images/eyeOpen.png"}
+                                   src={showPassword?"/images/eyeClosed.png":"/images/eyeOpened.png"}
                                    alt={"eyeClose"}
                                    height={20}
                                    width={25}
                                    onClick={handleShowPassword}></Image>
-
+                            </label>
                             <br/>
                             {errorMessage && <p>{errorMessage}</p>}
                             <button type="submit" className={styles.popupButtons}>Log in</button>
