@@ -13,6 +13,7 @@ function ProfilePopup(props) {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [major, setMajor] = useState("");
+    const [competencies, setCompetencies] = useState([]);
     const [editTrigger, setEditTrigger] = useState(false)
     const dataFetchedRef = useRef(false);
 
@@ -41,21 +42,24 @@ function ProfilePopup(props) {
                     setUsername(r.username)
                     setEmail(r.email)
                     setMajor(r.major)
+                    setCompetencies(r.competencies)
                     console.log("User data fetched")
                 })
             }
     }, [])
 
-    const saveProfile = async (username,email,major) => {
+    const saveProfile = async (username,email,major,competencies) => {
         setUsername(username)
         setEmail(email)
         setMajor(major)
+        setCompetencies(competencies)
         console.log(username,email,major)
 
         const docRef = await updateDoc(doc(db, "users", user.uid), {
             username: username,
             email: email,
-            major: major
+            major: major,
+            competencies: competencies
         }).then(() => {
             console.log("Profile updated")
         })
@@ -71,14 +75,27 @@ function ProfilePopup(props) {
                         <h1>{username}</h1>
                         <h1>{email}</h1>
                         <h1>{major}</h1>
+
+                        {(competencies !== undefined) ? (
+                            <p>{competencies.map((c) => {
+                            return c + " "
+                        })}</p>
+                        ) : (
+                            <p>No competencies added :(</p>
+                        )}
                         <br/>
-                        <button onClick={handleSignOut}>Sign Out</button>
-                        <button onClick={handleEdit}>Edit Profile</button>
+                        <button
+                            onClick={handleSignOut}
+                            className={styles.popupButtons}>Sign Out</button>
+                        <button
+                            onClick={handleEdit}
+                            className={styles.popupButtons}>Edit Profile</button>
                         <EditProfilePopup
                             data={{
                                 username: username,
                                 email: email,
-                                major: major
+                                major: major,
+                                competencies: competencies
                              }}
                             editTrigger={editTrigger}
                             setEditTrigger={setEditTrigger}

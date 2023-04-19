@@ -43,10 +43,10 @@ body{
             color: white;
             background-color: rgba(0,0,0,0.5);
 
-            height: 37vh; width: 42vw;
+            width: 42vw;
             top: 6vh; left: 6vw;
             border-radius: 10px;
-            object-fit: contain;
+            object-fit: fill;
 
             display:flex;
             flex-direction: column;
@@ -83,8 +83,9 @@ body{
     border: 0;
     border-radius: 10px;
     font-weight: 600;
+    font-size: 1em;
     margin: 0 10px;
-    width: 15vw;
+    width: 200px;
     padding: 10px 0;
     transition: 0.25s;
     height: 7vh;
@@ -94,8 +95,9 @@ body{
     border: 0;
     border-radius: 10px;
     font-weight: 600;
+    font-size: 1em;
     margin: 0 10px;
-    width: 15vw;
+    width: 200px;
     height: 7vh;
     padding: 10px 0;
     transition: 0.25s;
@@ -110,27 +112,25 @@ button.button-login:hover {
 .info-main-container{
     width: 100%;
     height: 100vh;
-    position: relative;
     z-index: 1;
     display: flex;
-    background-color: antiquewhite;
+    background-color: #eae4e3;
     justify-content: center;
+    align-items: center;
 }
 
 .about-us-container{
-    margin-top: 8vw;
+    height: 80%;
     width: 85%;
     align-items: center;
     justify-content: space-around;
     object-fit: contain;
-    height: 50%;
-    position: relative;
     z-index: 2;
     display: flex;
     flex-display: row;
     border-color: black;
-    border-bottom: 3px solid #f2d8c3;
-    border-top: 3px solid #f2d8c3;
+    border-top: 3px solid #44225b;
+    border-bottom: 3px solid #44225b;
 }
 
 .pic-about-us-container{
@@ -142,7 +142,7 @@ button.button-login:hover {
     justify-content: center;
 
     .pic-about-us{
-        position: relative !important;
+        position: relative;
         height: 100%;
         width: 100%;
         object-fit: cover;
@@ -150,12 +150,12 @@ button.button-login:hover {
 }
 
 .text-about-us-container {
-    width: 40%;
+    width: 30em;
     height: 50vh;
     z-index: 3;
     display: flex;
     justify-content: center;
-    object-font: contain;
+    object-fit: contain;
 }
 
 .about-us-position{
@@ -178,7 +178,7 @@ button.button-login:hover {
     z-index: 1;
 }
 .start-layout-footer-container-book-logo{
-    width: 8vw;
+    width: 5vw;
     height: auto;
     position: relative;
     z-index: 2;
@@ -239,7 +239,6 @@ button.button-login:hover {
             color: white;
             background-color: rgba(0, 0, 0, 0.5);
 
-            height: 50vh;
             width: 90vw;
             top: 6vh;
             left: 6vw;
@@ -281,8 +280,9 @@ button.button-login:hover {
         border: 0;
         border-radius: 10px;
         font-weight: 600;
+        font-size: 1em;
         margin: 0 10px;
-        width: 80vw;
+        width: 200px;
         padding: 10px 0;
         transition: 0.25s;
         height: 7vh;
@@ -293,8 +293,9 @@ button.button-login:hover {
         border: 0;
         border-radius: 10px;
         font-weight: 600;
+        font-size: 1em;
         margin: 0 10px;
-        width: 80vw;
+        width: 200px;
         height: 7vh;
         padding: 10px 0;
         transition: 0.25s;
@@ -313,24 +314,23 @@ button.button-login:hover {
         position: relative;
         z-index: 1;
         display: flex;
-        background-color: antiquewhite;
+        background-color: #eae4e3;
         justify-content: center;
+        align-items: center;
     }
 
     .about-us-container {
-        margin-top: 8vw;
         width: 85%;
         align-items: center;
         justify-content: space-around;
         object-fit: contain;
-        height: 60%;
         position: relative;
         z-index: 2;
         display: flex;
         flex-display: row;
         border-color: black;
-        border-bottom: 3px solid #f2d8c3;
-        border-top: 3px solid #f2d8c3;
+        border-bottom: 3px solid #44225b;
+        border-top: 3px solid #44225b;
 
 
     }
@@ -358,7 +358,8 @@ button.button-login:hover {
         z-index: 3;
         display: flex;
         justify-content: center;
-        object-font: contain;
+        align-items: center;
+        object-fit: contain;
         display: flex;
         flex-direction: column;
     }

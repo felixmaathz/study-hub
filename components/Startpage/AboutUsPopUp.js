@@ -8,8 +8,7 @@ function AboutUsPopUp(props) {
     return (props.trigger) ? (
         <div className={styles.popup}>
             <div className={styles.popupInner}>
-                <button className={styles.closeBtn} onClick = {() => props.setTrigger(false)}
-                >X</button>
+                <button className={styles.closeBtn} onClick = {() => props.setTrigger(false)}>X</button>
 
                 <div className={styles.container}>
                     <h3>
