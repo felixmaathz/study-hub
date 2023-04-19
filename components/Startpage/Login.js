@@ -78,7 +78,7 @@ export default function Login(props) {
                                 />
 
                             <Image className={styles.showHide}
-                                   src={showPassword?"/images/eyeClosed.png":"/images/eyeOpen.png"}
+                                   src={showPassword?"/images/eyeClosed.png":"/images/eyeOpened.png"}
                                    alt={"eyeClose"}
                                    height={20}
                                    width={25}
