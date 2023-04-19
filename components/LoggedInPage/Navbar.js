@@ -42,20 +42,20 @@ export function Navbar() {
                 id="list">
                 <li className="list-item">
                     <Link href="/MapPage">
-                        <button id="Map"
+                        <button id="Map" className="button"
                         >Map
                         </button>
                     </Link>
                 </li>
                 <li className="list-item">
                     <Link href="ChatPage">
-                        <button id="Chat"
+                        <button id="Chat" className="button"
                         >Chat
                         </button>
                     </Link>
                 </li>
                 <li className="list-item">
-                    <button onClick={showHelp}>Help</button>
+                    <button onClick={showHelp} className="button">Help</button>
                 </li>
                 <li className="list-item profile">
                     <button onClick={showProfile}>Profile</button>

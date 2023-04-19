@@ -34,25 +34,24 @@ export default function Signup(props) {
                 await signUp(createEmail, createPassword).then(r => {
                     try {
                         console.log(r.user.uid)
-
                          setDoc(doc(db, "users", r.user.uid), {
                             username: createUsername,
                             email: createEmail,
                             major: createMajor,
                             competencies: [],
                             location: []
-                        });
-
+                        })
                         setDoc(doc(db, "userChats", r.user.uid), {}
                         ).then(r => {
                             console.log("success")
+                            router.push("/MapPage")
                          })
                     } catch (e) {
                         console.error("Error adding document: ", e);
                     }
                 })
                 alert("sign up successful")
-                await router.push("/MapPage")
+
                 // try {
                 //     await setDoc(doc(db, "users", createdUser.uid), {
                 //         username: createUsername,

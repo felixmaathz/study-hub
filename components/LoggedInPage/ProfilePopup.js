@@ -76,15 +76,20 @@ function ProfilePopup(props) {
                         <h1>{email}</h1>
                         <h1>{major}</h1>
 
-                        <p>{competencies.map((c)=>{
+                        {(competencies !== undefined) ? (
+                            <p>{competencies.map((c) => {
                             return c + " "
                         })}</p>
-                        <p>{competencies.map((c)=>{
-                            return c + " "
-                        })}</p>
+                        ) : (
+                            <p>No competencies added :(</p>
+                        )}
                         <br/>
-                        <button onClick={handleSignOut}>Sign Out</button>
-                        <button onClick={handleEdit}>Edit Profile</button>
+                        <button
+                            onClick={handleSignOut}
+                            className={styles.popupButtons}>Sign Out</button>
+                        <button
+                            onClick={handleEdit}
+                            className={styles.popupButtons}>Edit Profile</button>
                         <EditProfilePopup
                             data={{
                                 username: username,
