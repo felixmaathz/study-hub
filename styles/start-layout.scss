@@ -119,12 +119,11 @@ button.button-login:hover {
 
 .about-us-container{
     margin-top: 8vw;
+    height: 70%;
     width: 85%;
     align-items: center;
     justify-content: space-around;
     object-fit: contain;
-    height: 50%;
-    position: relative;
     z-index: 2;
     display: flex;
     flex-display: row;
@@ -150,12 +149,12 @@ button.button-login:hover {
 }
 
 .text-about-us-container {
-    width: 40%;
+    width: 30em;
     height: 50vh;
     z-index: 3;
     display: flex;
     justify-content: center;
-    object-font: contain;
+    object-fit: contain;
 }
 
 .about-us-position{
@@ -358,7 +357,7 @@ button.button-login:hover {
         z-index: 3;
         display: flex;
         justify-content: center;
-        object-font: contain;
+        object-fit: contain;
         display: flex;
         flex-direction: column;
     }

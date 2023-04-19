@@ -6,7 +6,7 @@
     display: flex;
 }
 .clearMyMarker{
-    z-index: 10000;
+    z-index: 5;
     position: relative;
     display: none;
     }
@@ -18,7 +18,7 @@
     width: 100px;
     border-radius: 100px;
     background-color: #FF5A5E;
-    z-index: 10000;
+    z-index: 5;
     position: relative;
     color: white;
     border: none;

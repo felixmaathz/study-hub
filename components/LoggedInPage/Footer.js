@@ -6,7 +6,7 @@ function Footer(){
         <div className="layout-footer">
             <Image src={logoType} alt="logotype" height={30}/>
             <div className = "footer-items">
-                License & Agreements
+                Contact us at felixmaathz@gmail.com
             </div>
         </div>
     )

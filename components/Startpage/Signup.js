@@ -140,7 +140,7 @@ export default function Signup(props) {
                                        value={createPassword}
                                        onChange={(event) => setCreatePassword(event.target.value)}
                                        required/>
-                                <Image src={showPassword?"/images/eyeClose.png":"/images/eyeOpen.png"} alt={"eyeClose"} height={20} width={25} onClick={handleShowPassword}></Image>
+                                <Image src={showPassword?"/images/eyeClosed.png":"/images/eyeOpened.png"} alt={"eyeClose"} height={20} width={25} onClick={handleShowPassword}></Image>
                             </label>
                             <br/>
                             <label>
