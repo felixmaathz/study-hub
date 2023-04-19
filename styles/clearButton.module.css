@@ -1,26 +1,22 @@
 .buttonMarkers{
     justify-content: center;
     width: 100vw;
-    height: auto;
+    height: 0vw;
     align-items: center;
     display: flex;
+    z-index: 9999;
 }
-.clearMyMarker{
-    z-index: 10000;
-    position: relative;
-    display: none;
-    }
 
 .setMyMarker{
-    top: 75vh;
-    height: 6vw;
-    width: 6vw;
-    border-radius: 3vw;
+    top: 83vh;
+    height: 5em;
+    width: 5em;
+    border-radius: 2.5em;
     background-color: #FF5A5E;
-    z-index: 10000;
+    z-index: 5;
     position: relative;
     color: white;
-    border-width: 0.2vw;
+    border-width: 0.18em;
     }
 
 button.setMyMarker:hover {

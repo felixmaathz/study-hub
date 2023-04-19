@@ -126,11 +126,12 @@ export default function Map() {
 
     return (
         <div>
-            <div className={styles.buttonMarkers}>
-                <button className={styles.setMyMarker} onClick={handleClick}>
-                    {isPinned ? 'Unpin me!' : 'Pin me!'}
-                </button>
-            </div>
+                <div className={styles.buttonMarkers}>
+                        <button className={styles.setMyMarker}
+                                onClick={handleClick}>
+                            {isPinned ? 'Unpin me!' : 'Pin me!'}
+                        </button>
+                </div>
 
             <div>
                 <MapContainer

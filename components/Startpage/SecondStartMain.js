@@ -29,16 +29,18 @@ function infoMain() {
 
                 <div className='text-about-us-container'>
                     <div>
-                        <h1>Why do we even exist?</h1>
+                        <h1>So what's the idea?</h1>
                         <h2>
-                            Help others students and yadayada
+                            A highway for knowledge distribution
                         </h2>
 
                         <div>
-                            It all started back when Felix tried to get help with centering a div
-                            on stackoverflow. It took him 6 days to get a reply, and it wasn't even correct.
-                            That day he vowed that noone would ever have to endure the same painful experience,
-                            and the idea of StudyHub formed. The solution is here.
+                            We're students, just like you. We've all endured long waiting times on stackoverflow,
+                            sometimes you can't even fully confide in ChatGPT's ability to help you
+                            (Try asking it about SQL queries, big lol). Our solution is a web application for a closely connected community of students.
+                            It does its magic over the interface of a map, where you can see all other logged on students. It lets you interact,
+                            so you can be there for each other, one as a student tutor, and the other as a helpee. The helpee then rates its tutor, kinda like uber.
+                            If you have a great rating, people will want your help, and they'll even pay for it!
                         </div>
 
                         <div className='about-us-position'>
