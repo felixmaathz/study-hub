@@ -46,7 +46,7 @@ const ChatList = () => {
                     <Image src="/images/profile.png" alt="profile" layout='fill'/>
                 </div>
                 <div className='userChatInfo'>
-                    <span>{chat[1].username}</span>
+                    <span>{chat[1].userInfo.username}</span>
                     <p>{chat[1].lastMessage?.text}</p>
                 </div>
             </div>
