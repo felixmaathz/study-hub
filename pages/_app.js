@@ -1,6 +1,6 @@
 import Layout from '../components/LoggedInPage/Layout'
 import StartLayout from '../components/Startpage/StartLayout'
-import '../styles/layout.css'
+import '../styles/layout.scss'
 import {useRouter} from "next/router";
 import '../styles/start-layout.scss';
 import {UserAuthContextProvider} from "../components/Context/userAuthContext";
