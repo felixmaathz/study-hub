@@ -30,7 +30,7 @@
     min-width: 300px;
     width: 950px;
     min-height: 400px;
-    height: 550px;
+    height: 560px;
     margin: 30px;
     background-color: #333333;
     border-radius: 15px;
@@ -107,6 +107,22 @@
     border-radius: 6px;
     color: white;
 }
+.marginLeft{
+    margin-left: 35px;
+}
+.inputFieldPassword{
+    width: 300px;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    margin: 4px 10px 0 0;
+    display: inline-block;
+    border: 2px solid #585858;
+    box-sizing: border-box;
+    background-color: #333333;
+    border-radius: 6px;
+    color: white;
+}
 
 .labelContainer{
     display: flex;
@@ -167,4 +183,39 @@
     border-radius: 15px 15px 15px 15px;
     color: white;
     font-family: 'Epilogue', sans-serif;
+}
+
+@media only screen and (max-width: 800px) {
+
+    .heading1 {
+        font-size: 3em;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .inputFields {
+        width: 200px;
+
+        padding: 12px 20px;
+        margin: 4px 0;
+        display: inline-block;
+        border: 2px solid #585858;
+        box-sizing: border-box;
+        background-color: #333333;
+        border-radius: 6px;
+        color: white;
+    }
+    .inputFieldPassword{
+        width: 200px;
+        padding: 12px 20px;
+        margin: 4px 10px 0 0;
+        display: inline-block;
+        border: 2px solid #585858;
+        box-sizing: border-box;
+        background-color: #333333;
+        border-radius: 6px;
+        color: white;
+    }
+
+
 }
