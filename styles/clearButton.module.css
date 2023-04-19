@@ -1,28 +1,37 @@
 .buttonMarkers{
     justify-content: center;
     width: 100vw;
-    height: 0vw;
+    height: 0;
     align-items: center;
     display: flex;
-    z-index: 9999;
 }
+.clearMyMarker{
+    z-index: 10000;
+    position: relative;
+    display: none;
+    }
 
 .setMyMarker{
-    top: 83vh;
-    height: 5em;
-    width: 5em;
-    border-radius: 2.5em;
+    font-family: Epilogue, serif;
+    top: 75vh;
+    height: 50px;
+    width: 100px;
+    border-radius: 100px;
     background-color: #FF5A5E;
-    z-index: 5;
+    z-index: 10000;
     position: relative;
     color: white;
-    border-width: 0.18em;
+    border: none;
+    box-shadow: 0px 2px rgba(0,0,0,0.35);
+    cursor: pointer;
     }
 
 button.setMyMarker:hover {
     color: white;
-    background-color: #de3a3e;
-    border-width: 0.1vw;
+    background-color: rgb(222, 58, 62);
+    border: none;
+    box-shadow: 0px 0px 0 0 rgba(0,0,0,0.35);
+    transition: all 0.1s ease-out;
 }
 
 .getPinsButton{

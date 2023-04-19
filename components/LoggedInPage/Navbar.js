@@ -3,10 +3,6 @@ import Link from 'next/link';
 import ProfilePopup from "./ProfilePopup";
 import HelpPopup from "./HelpPopup";
 import React, {useEffect, useState} from "react";
-import {getAuth, onAuthStateChanged} from "firebase/auth";
-import {app, db} from "../../config/firebaseConfig";
-import { useAuth } from "components/Context/userAuthContext.js"
-import {useRouter} from "next/router";
 
 export function Navbar() {
 
@@ -27,6 +23,8 @@ export function Navbar() {
         const list = document.getElementById('list');
         list.classList.toggle("active");
     }
+
+
 
 
     return (
@@ -60,7 +58,7 @@ export function Navbar() {
                     <button onClick={showHelp}>Help</button>
                 </li>
                 <li className="list-item profile">
-                    <button>Profile</button>
+                    <button onClick={showProfile}>Profile</button>
                 </li>
             </ul>
             <div className="profile-container"
