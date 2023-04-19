@@ -18,7 +18,7 @@
     width: 100px;
     border-radius: 100px;
     background-color: #FF5A5E;
-    z-index: 50;
+    z-index: 2;
     position: fixed;
     color: white;
     border: none;
