@@ -73,10 +73,17 @@ export default function Login(props) {
                                        name="password"
                                        value={password}
                                        onChange={(event) => setPassword(event.target.value)}
-                                       required/>
-                                <Image src={showPassword?"/images/eyeClose.png":"/images/eyeOpen.png"} alt={"eyeClose"} height={20} width={25} onClick={handleShowPassword}></Image>
+                                       required
+                                />
 
                             </label>
+                            <Image className={styles.showHide}
+                                   src={showPassword?"/images/eyeClosed.png":"/images/eyeOpen.png"}
+                                   alt={"eyeClose"}
+                                   height={20}
+                                   width={25}
+                                   onClick={handleShowPassword}></Image>
+
                             <br/>
                             {errorMessage && <p>{errorMessage}</p>}
                             <button type="submit" className={styles.popupButtons}>Log in</button>
