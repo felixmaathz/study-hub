@@ -40,7 +40,9 @@ export default function Signup(props) {
                             email: createEmail,
                             major: createMajor,
                             location: []
-                        }
+                        });
+
+                        setDoc(doc(db, "userChats", r.user.uid), {}
                         ).then(r => {
                             console.log("success")
                          })

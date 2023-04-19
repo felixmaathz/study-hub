@@ -10,6 +10,7 @@
         margin-top: 5em;
 
         .search{
+            margin: 20px;
 
 
             .searchForm{
@@ -34,6 +35,10 @@
             background-color: rgba(214, 214, 214, 0.29);
             margin-left: 15px;
             padding: 10px;
+
+            &:hover{
+                background-color: rgba(214, 214, 214, 0.5);
+            }
 
             .imageSize{
                 width: 15%;
