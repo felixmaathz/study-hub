@@ -1,11 +1,12 @@
-import {useAuth} from "./Context/userAuthContext";
+import {useAuth} from "../Context/userAuthContext";
 import {getAuth, signOut} from "firebase/auth";
-import {app, db} from "../config/firebaseConfig";
+import {app, db} from "../../config/firebaseConfig";
 import {doc, updateDoc} from "firebase/firestore";
-import styles from "../styles/popup.module.css";
-import EditProfilePopup from "./LoggedInPage/EditProfilePopup";
+import styles from "../../styles/popup.module.css";
+import EditProfilePopup from "./EditProfilePopup";
 import React, {useRef, useState} from "react";
 import Image from "next/image";
+
 
 function YourProfilePopup(props) {
 
@@ -48,12 +49,12 @@ function YourProfilePopup(props) {
         }
     }, [])
 
-    const saveProfile = async (username,email,major,competencies) => {
+    const saveProfile = async (username, email, major, competencies) => {
         setUsername(username)
         setEmail(email)
         setMajor(major)
         setCompetencies(competencies)
-        console.log(username,email,major)
+        console.log(username, email, major)
 
         const docRef = await updateDoc(doc(db, "users", user.uid), {
             username: username,
@@ -65,11 +66,45 @@ function YourProfilePopup(props) {
         })
     }
 
+    const displayMajor = (major) => {
+        switch (major) {
+            case "E":
+                return "Electrical Engineering"
+            case "ES":
+                return "Energy Systems Engineering"
+            case "I":
+                return "Industrial Engineering and Management"
+            case "IT":
+                return "Computer and Information Engineering"
+            case "K":
+                return "Chemical Engineering"
+            case "W":
+                return "Environmental and Water Engineering"
+            case "X":
+                return "Molecular Biotechnology Engineering"
+            case "STS":
+                return "Sociotechnical Systems Engineering"
+            case "F":
+                return "Engineering Physics"
+            case "Q":
+                return "Materials Engineering"
+            case "Other":
+                return "Other"
+        }
+    }
+
+
+
 
     return (props.trigger) ? (
             <div className={styles.popup}>
                 <div className={styles.popupInner}>
-                    <button onClick={() => props.setTrigger(false)}>X</button>
+                    <div onClick={() => props.setTrigger(false)} className={styles.closeBtn}>
+                        <span
+                            className="material-symbols-outlined">
+                            close
+                            </span>
+                    </div>
                     <div className={styles.profileLayout}>
                         <div className={styles.userPictureContainer}>
                             <div className={styles.userProfilePicture}>
@@ -78,29 +113,37 @@ function YourProfilePopup(props) {
                                     alt="user"
                                     fill
                                     contain/>
+                                <div className={styles.level}>
+                                    <h4>LVL 4</h4>
+                                </div>
                             </div>
+                            <p>"I hate Mondays"</p>
                         </div>
 
                         <div className={styles.userInfo}>
-                            <h3>Your Profile</h3>
-                            <h1>{username}</h1>
-                            <h1>{email}</h1>
-                            <h1>{major}</h1>
+                            <h1 className={styles.username}>{username}</h1>
+                            <h4 className={styles.major}>{displayMajor(major)}</h4>
 
-                            {(competencies !== undefined) ? (
-                                <p>{competencies.map((c) => {
-                                    return c + " "
-                                })}</p>
-                            ) : (
-                                <p>No competencies added :(</p>
-                            )}
+                            <div className={styles.profileCompetencies}>
+                                {(competencies !== undefined) ? (
+                                    <p>{competencies.map((c) => {
+                                        return c + " "
+                                    })}</p>
+                                ) : (
+                                    <p>No competencies added :(</p>
+                                )}
+                            </div>
                             <br/>
-                            <button
-                                onClick={handleSignOut}
-                                className={styles.popupButtons}>Sign Out</button>
-                            <button
-                                onClick={handleEdit}
-                                className={styles.popupButtons}>Edit Profile</button>
+                            <div className={styles.buttonLayout}>
+                                <button
+                                    onClick={handleSignOut}
+                                    className={styles.popupButtons}><h4>Sign Out</h4>
+                                </button>
+                                <button
+                                    onClick={handleEdit}
+                                    className={styles.popupButtons}><h4>Edit Profile</h4>
+                                </button>
+                            </div>
                             <EditProfilePopup
                                 data={{
                                     username: username,
