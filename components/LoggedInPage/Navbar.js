@@ -3,6 +3,7 @@ import Link from 'next/link';
 import ProfilePopup from "./ProfilePopup";
 import HelpPopup from "./HelpPopup";
 import React, {useEffect, useState} from "react";
+import YourProfilePopup from "../LoggedInPage/YourProfilePopup";
 
 export function Navbar() {
 
@@ -58,7 +59,7 @@ export function Navbar() {
                     <button onClick={showHelp} className="button">Help</button>
                 </li>
                 <li className="list-item profile">
-                    <button onClick={showProfile}>Profile</button>
+                    <button onClick={showProfile} className="button">Profile</button>
                 </li>
             </ul>
             <div className="profile-container"
@@ -77,7 +78,7 @@ export function Navbar() {
                            height={60}/>
                 </div>
             </div>
-            <ProfilePopup trigger={profileButtonPopup} setTrigger={setProfileButtonPopup} />
+            <YourProfilePopup trigger={profileButtonPopup} setTrigger={setProfileButtonPopup} />
             <HelpPopup trigger={helpButtonPopup} setTrigger={setHelpButtonPopup}/>
         </nav>)
 }
