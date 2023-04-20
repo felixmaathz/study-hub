@@ -17,7 +17,7 @@ function YourProfilePopup(props) {
     const [major, setMajor] = useState("");
     const [competencies, setCompetencies] = useState([]);
     const [profilePictureURL, setProfilePictureURL] = useState("")
-    const [profilePicture, setProfilePicture] = useState("")
+    const [profilePicture, setProfilePicture] = useState("/images/profile.png")
 
     const [editTrigger, setEditTrigger] = useState(false)
     const dataFetchedRef = useRef(false);
