@@ -1,11 +1,12 @@
 import {useAuth} from "../Context/userAuthContext";
 import {getAuth, signOut} from "firebase/auth";
-import {app, db} from "../../config/firebaseConfig";
+import {app, db, storage} from "../../config/firebaseConfig";
 import {doc, updateDoc} from "firebase/firestore";
 import styles from "../../styles/popup.module.css";
 import EditProfilePopup from "./EditProfilePopup";
 import React, {useRef, useState} from "react";
 import Image from "next/image";
+import {getDownloadURL, ref} from "firebase/storage";
 
 
 function YourProfilePopup(props) {
@@ -15,10 +16,13 @@ function YourProfilePopup(props) {
     const [email, setEmail] = useState("");
     const [major, setMajor] = useState("");
     const [competencies, setCompetencies] = useState([]);
+    const [profilePictureURL, setProfilePictureURL] = useState("")
+    const [profilePicture, setProfilePicture] = useState("")
+
     const [editTrigger, setEditTrigger] = useState(false)
     const dataFetchedRef = useRef(false);
 
-    const {user, getUserData} = useAuth()
+    const {user, getUserData, getDisplayPicture} = useAuth()
 
     const handleSignOut = () => {
         const auth = getAuth(app);
@@ -44,23 +48,40 @@ function YourProfilePopup(props) {
                 setEmail(r.email)
                 setMajor(r.major)
                 setCompetencies(r.competencies)
-                console.log("User data fetched")
+                setProfilePictureURL(r.profilePictureURL)
+                console.log(r)
+                return r
+            }).then((r) => {
+                displayPicture(r.profilePictureURL)
+
             })
         }
     }, [])
 
-    const saveProfile = async (username, email, major, competencies) => {
+    const displayPicture = (profilePictureURL) => {
+        let url = ""
+        getDisplayPicture(profilePictureURL).then((r) => {
+            url = r
+            setProfilePicture(url)
+        })
+        return url
+    }
+
+    const saveProfile = async (username, email, major, competencies, profilePictureURL) => {
         setUsername(username)
         setEmail(email)
         setMajor(major)
         setCompetencies(competencies)
-        console.log(username, email, major)
+        setProfilePictureURL(profilePictureURL)
+        displayPicture(profilePictureURL)
+        console.log(username, email, major, competencies, profilePictureURL)
 
         const docRef = await updateDoc(doc(db, "users", user.uid), {
             username: username,
             email: email,
             major: major,
-            competencies: competencies
+            competencies: competencies,
+            profilePictureURL: profilePictureURL
         }).then(() => {
             console.log("Profile updated")
         })
@@ -94,8 +115,6 @@ function YourProfilePopup(props) {
     }
 
 
-
-
     return (props.trigger) ? (
             <div className={styles.popup}>
                 <div className={styles.popupInner}>
@@ -109,7 +128,7 @@ function YourProfilePopup(props) {
                         <div className={styles.userPictureContainer}>
                             <div className={styles.userProfilePicture}>
                                 <Image
-                                    src="/images/profile.png"
+                                    src={profilePicture}
                                     alt="user"
                                     fill
                                     contain/>
@@ -149,7 +168,8 @@ function YourProfilePopup(props) {
                                     username: username,
                                     email: email,
                                     major: major,
-                                    competencies: competencies
+                                    competencies: competencies,
+                                    profilePictureURL: profilePictureURL
                                 }}
                                 editTrigger={editTrigger}
                                 setEditTrigger={setEditTrigger}

@@ -36,6 +36,7 @@ function EditProfilePopup(props) {
     const [competence, setCompetence] = useState("")
     const [competencies, setCompetencies] = useState([]);
     const [profilePicture, setProfilePicture] = useState(null)
+    const [profilePictureURL, setProfilePictureURL] = useState("")
 
     const {user} = useAuth()
 
@@ -46,6 +47,7 @@ function EditProfilePopup(props) {
             setEmail(props.data.email)
             setMajor(props.data.major)
             setCompetencies(props.data.competencies)
+            setProfilePictureURL(props.data.profilePictureURL)
         }
     }, [])
 
@@ -63,7 +65,7 @@ function EditProfilePopup(props) {
 
     const handleSave = () => {
         props.setEditTrigger(false)
-        props.saveProfile(username, email, major, competencies)
+        props.saveProfile(username, email, major, competencies, profilePictureURL)
     }
 
     const handleCancel = () => {
@@ -76,6 +78,7 @@ function EditProfilePopup(props) {
             alert('File size is too big!');
             return;
         }
+        setProfilePictureURL("profilePictures/" + user.uid)
         const storageRef = ref(storage, "profilePictures/" + user.uid);
         uploadBytes(storageRef, profilePicture).then((snapshot) => {
             alert('Uploaded image!');
