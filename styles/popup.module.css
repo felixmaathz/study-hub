@@ -256,7 +256,7 @@
 }
 
 .username {
-    font-size: 6vw;
+    font-size: 5vw;
     font-weight: 600;
     margin-bottom: 10px;
 }
@@ -315,6 +315,7 @@
     .profileLayout {
         display: flex;
         flex-direction: column;
+        padding: 20px;
     }
 
     .userInfo {
@@ -328,12 +329,12 @@
         margin-top: 0;
     }
 
-    .userPictureContainer {
-        width: 100%;
+    .major{
+        margin:0;
     }
 
-    .popupInner {
-        height: 80%;
+    .userPictureContainer {
+        width: 100%;
     }
 
     .buttonLayout {

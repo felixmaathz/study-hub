@@ -1,5 +1,12 @@
 import React, {useRef, useState} from 'react'
 import styles from '../../styles/popup.module.css'
+import Image from "next/image";
+import AddImage from "../../public/images/addImage.png";
+import {db, storage} from "../../config/firebaseConfig";
+import {ref, uploadBytes} from "firebase/storage";
+import {useAuth} from "../Context/userAuthContext";
+import {doc, updateDoc} from "firebase/firestore";
+
 
 
 function CompetencyList({competencies, onRemove}) {
@@ -28,6 +35,9 @@ function EditProfilePopup(props) {
     const [major, setMajor] = useState("");
     const [competence, setCompetence] = useState("")
     const [competencies, setCompetencies] = useState([]);
+    const [profilePicture, setProfilePicture] = useState(null)
+
+    const {user} = useAuth()
 
     React.useEffect(() => {
         if (props.data) {
@@ -54,6 +64,31 @@ function EditProfilePopup(props) {
     const handleSave = () => {
         props.setEditTrigger(false)
         props.saveProfile(username, email, major, competencies)
+    }
+
+    const handleCancel = () => {
+        props.setEditTrigger(false)
+    }
+
+    const uploadImage = () => {
+        if(profilePicture===null) return;
+        if(profilePicture.size > 2097152) {
+            alert('File size is too big!');
+            return;
+        }
+        const storageRef = ref(storage, "profilePictures/" + user.uid);
+        uploadBytes(storageRef, profilePicture).then((snapshot) => {
+            alert('Uploaded image!');
+            associateUser().then(r => {
+                console.log("Associated user with image! " +user.uid);
+            })
+        })
+    }
+
+    const associateUser = async () => {
+        const docRef = await updateDoc(doc(db, "users", user.uid), {
+            profilePictureURL: "profilePictures/" + user.uid
+        })
     }
 
     return (props.editTrigger) ? (
@@ -86,8 +121,15 @@ function EditProfilePopup(props) {
                                 <option value="Q">Materials Engineering</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input
+                                type="file"
+                                onChange={(e) => {setProfilePicture(e.target.files[0])}}
+                                accept="image/jpeg, image/png"
+                            />
+                            <button onClick={uploadImage}>Upload</button>
                             <br/>
                             <button onClick={handleSave} className={styles.popupButtons}>Save profile</button>
+                            <button onClick={handleCancel} className={styles.popupButtons}> Cancel </button>
                         </div>
                         <div className={styles.competencies}>
 
