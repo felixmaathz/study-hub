@@ -127,7 +127,7 @@ const Search = () => {
                     <div className='dataItem' key={username}>{username}</div>
                 ))}
             </div>
-            )};
+            )}
 
             {error && <span>User Not Found</span>}
             {userSearch && <div className='userChat' onClick={handleSelect}>
