@@ -125,7 +125,7 @@ button.button-login:hover {
     align-items: center;
     justify-content: space-around;
     object-fit: contain;
-    z-index: 2;
+    z-index: 0;
     display: flex;
     flex-display: row;
     border-color: black;
@@ -181,7 +181,7 @@ button.button-login:hover {
     width: 5vw;
     height: auto;
     position: relative;
-    z-index: 2;
+    z-index: 0;
 
     .book-logo{
         width: 100%;
@@ -312,7 +312,7 @@ button.button-login:hover {
         width: 100%;
         height: 100vh;
         position: relative;
-        z-index: 1;
+        z-index: 0;
         display: flex;
         background-color: #eae4e3;
         justify-content: center;
@@ -325,7 +325,7 @@ button.button-login:hover {
         justify-content: space-around;
         object-fit: contain;
         position: relative;
-        z-index: 2;
+        z-index: 0;
         display: flex;
         flex-display: row;
         border-color: black;
@@ -339,7 +339,6 @@ button.button-login:hover {
         width: 25vw;
         height: 25vw;
         position: relative;
-        z-index: 3;
         object-fit: contain;
         justify-content: center;
         display: none;
@@ -387,7 +386,7 @@ button.button-login:hover {
         width: 15vw;
         height: auto;
         position: relative;
-        z-index: 2;
+        z-index: 0;
 
         .book-logo {
             width: 100%;
