@@ -1,15 +1,58 @@
 import React from 'react';
-import {useState, useContext} from 'react';
-import { db } from '../../../config/firebaseConfig';
+import {useState, useContext, useEffect} from 'react';
+import { db, app } from '../../../config/firebaseConfig';
 import {collection, getDocs, query, where, setDoc, updateDoc, serverTimestamp, getDoc, doc, getFirestore} from 'firebase/firestore';
 import Image from "next/image";
 import {useAuth} from "../../Context/userAuthContext";
+
 const Search = () => {
     const [usernameSearch, setUsernameSearch] = useState('');
     const [userSearch, setUserSearch] = useState(null);
     const [error, setError] = useState(false);
 
+    const [filteredData, setFilteredData] = useState([]);
+
     const {user} = useAuth();
+
+    const [usernames, setUsernames] = useState([]);
+
+    useEffect(() => {
+        // Define an async function to retrieve the usernames
+        const getUsernames = async () => {
+            // Get a reference to the "users" collection
+            const usersCol = collection(db, "users");
+
+            // Get all documents from the "users" collection
+            const querySnapshot = await getDocs(usersCol);
+
+            // Define an array to store the usernames
+            const usernames = [];
+
+            // Iterate over each document and get the username
+            querySnapshot.forEach((doc) => {
+                usernames.push(doc.data().username);
+            });
+
+            // Set the state variable to the array of usernames
+            setUsernames(usernames);
+        };
+
+        // Call the getUsernames function to retrieve the usernames
+        getUsernames();
+    }, []);
+
+    const handleFilter = (e) => {
+        const searchWord = e.target.value
+        const newFilter = usernames.filter((value) => {
+            return value.toLowerCase().includes(searchWord.toLowerCase());
+        });
+        setUsernameSearch(e.target.value);
+        setFilteredData(newFilter);
+        if(e.target.value.length === 0) {
+            setFilteredData([]);
+        }
+
+    }
 
     const handleSearch = async () => {
         const q = query(collection(db, "users"), where('username', '==', usernameSearch));
@@ -18,6 +61,7 @@ const Search = () => {
         try {
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
+                console.log("docsQ:", querySnapshot);
                 setUserSearch(doc.data()) ;
                 setUserSearch(prevState => {
                     return {
@@ -69,13 +113,21 @@ const Search = () => {
         catch(error) {}
         setUserSearch(null);
         setUsernameSearch('');
+        setFilteredData([]);
     };
 
     return (
         <div className='search'>
             <div className='searchForm'>
-                <input type='text' placeholder='Search for a user' onKeyDown={handleKey} onChange={e=>setUsernameSearch(e.target.value)} value={usernameSearch} />
+                <input type='text' placeholder='Search for a user' onKeyDown={handleKey} onChange={handleFilter} value={usernameSearch}/>
             </div>
+            {filteredData.length > 0 && (
+            <div className='dataResult'>
+                {filteredData.slice(0,15).map((username) => (
+                    <div className='dataItem' key={username}>{username}</div>
+                ))}
+            </div>
+            )};
 
             {error && <span>User Not Found</span>}
             {userSearch && <div className='userChat' onClick={handleSelect}>
