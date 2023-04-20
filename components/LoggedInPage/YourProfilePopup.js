@@ -17,7 +17,7 @@ function YourProfilePopup(props) {
     const [major, setMajor] = useState("");
     const [competencies, setCompetencies] = useState([]);
     const [profilePictureURL, setProfilePictureURL] = useState("")
-    const [profilePicture, setProfilePicture] = useState("/images/profile.png")
+    const [profilePicture, setProfilePicture] = useState("")
 
     const [editTrigger, setEditTrigger] = useState(false)
     const dataFetchedRef = useRef(false);
@@ -48,12 +48,13 @@ function YourProfilePopup(props) {
                 setEmail(r.email)
                 setMajor(r.major)
                 setCompetencies(r.competencies)
-                setProfilePictureURL(r.profilePictureURL)
-                console.log(r)
+                if(r.profilePictureURL === undefined){
+                    setProfilePicture("/images/profile.png")
+                }else{
+                    setProfilePictureURL(r.profilePictureURL)
+                    displayPicture(r.profilePictureURL)
+                }
                 return r
-            }).then((r) => {
-                displayPicture(r.profilePictureURL)
-
             })
         }
     }, [])
