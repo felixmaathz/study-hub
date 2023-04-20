@@ -12,7 +12,7 @@ function StartFooter(){
                 </div>
 
                 <div>
-                    Contact us at study-hub@team.net
+                    Contact us at study-hub@team.net. v. 2.1.05
                 </div>
         </div>
     )
