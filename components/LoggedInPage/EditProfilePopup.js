@@ -105,6 +105,7 @@ function EditProfilePopup(props) {
                                     add
                                 </span></button>
                             </div>
+
                             {competencies.length > 0 ? (
                             <p>Click to remove competence!</p>
                                 ) : ""}
