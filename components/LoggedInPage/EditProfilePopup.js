@@ -53,19 +53,13 @@ function EditProfilePopup(props) {
                 setProfilePicture("/images/profile.png")
             } else {
                 setProfilePictureURL(props.data.profilePictureURL)
-                displayPicture(props.data.profilePictureURL)
+                getDisplayPicture(props.data.profilePictureURL).then((r) => {
+                    setProfilePicture(r)
+                })
             }
         }
     }, [props.editTrigger])
 
-    const displayPicture = (profilePictureURL) => {
-        let url = ""
-        getDisplayPicture(profilePictureURL).then((r) => {
-            url = r
-            setProfilePicture(url)
-        })
-        return url
-    }
 
     const addCompetence = () => {
         setCompetencies([...competencies, "#" + competence + " "])
@@ -110,7 +104,9 @@ function EditProfilePopup(props) {
             associateUser().then(r => {
                 console.log("Associated user with image! " + user.uid);
                 setProfilePictureURL("profilePictures/" + user.uid)
-                displayPicture(profilePictureURL)
+                getDisplayPicture(profilePictureURL).then((r) => {
+                    setProfilePicture(r)
+                })
             })
         })
     }
@@ -139,7 +135,7 @@ function EditProfilePopup(props) {
                                             <Image
                                                 src={imagePreview}
                                                 alt="user"
-                                                fill
+                                                fill="true"
                                                 className={styles.profileFrame}
                                             />
                                         )
@@ -147,7 +143,7 @@ function EditProfilePopup(props) {
                                             <Image
                                                 src={profilePicture}
                                                 alt="user"
-                                                fill
+                                                fill="true"
                                                 className={styles.profileFrame}
                                             />
                                         )

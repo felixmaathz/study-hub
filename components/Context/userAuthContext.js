@@ -22,11 +22,21 @@ export const UserAuthContextProvider = ({children}) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
-                setUser({
-                    uid: user.uid,
-                });
+                await getUserData(user.uid).then(r => {
+                    setUser({
+                        uid: user.uid,
+                        email: r.email,
+                        username: r.username,
+                        major: r.major,
+                        competencies: r.competencies,
+                        bio: r.bio,
+                        profilePictureURL: r.profilePictureURL,
+                        location: r.location,
+                    })
+                    console.log(r)
+                })
             } else {
                 setUser(null);
             }

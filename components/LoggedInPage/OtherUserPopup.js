@@ -18,7 +18,6 @@ function OtherUserPopup(props) {
     React.useEffect(() => {
         if (props.data) {
             setProfilePicture("/images/profile.png")
-            console.log(props.data)
             setUsername(props.data.username)
             setEmail(props.data.email)
             setMajor(props.data.major)
@@ -35,13 +34,11 @@ function OtherUserPopup(props) {
 
     const closePopup = () => {
         props.setTrigger(false)
-        setUsername("")
-        setEmail("")
-        setMajor("")
     }
 
     return (props.trigger) ? (
             <div className={styles.popup}>
+                <div style={{width:"100vw", height:"100vh", position:"absolute"}} onClick={closePopup}></div>
                 <div className={styles.popupInner}>
                     <div onClick={closePopup} className={styles.closeBtn}>
                         <span
@@ -55,8 +52,7 @@ function OtherUserPopup(props) {
                                 <Image
                                     src={profilePicture}
                                     alt="user"
-                                    fill
-                                    contain
+                                    fill="true"
                                     className={styles.profileFrame}/>
                                 <div className={styles.level}>
                                     <h4>LVL 4</h4>

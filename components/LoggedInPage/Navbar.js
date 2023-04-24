@@ -1,11 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link';
-import ProfilePopup from "./ProfilePopup";
 import HelpPopup from "./HelpPopup";
 import React, {useEffect, useState} from "react";
 import YourProfilePopup from "../LoggedInPage/YourProfilePopup";
-import {getAuth} from "firebase/auth";
-import {app} from "../../config/firebaseConfig";
 import {useAuth} from "../Context/userAuthContext";
 
 export function Navbar() {
@@ -13,22 +10,27 @@ export function Navbar() {
     const [profileButtonPopup, setProfileButtonPopup] = useState(false);
     const [helpButtonPopup, setHelpButtonPopup] = useState(false);
     const [profilePicture, setProfilePicture] = useState("/images/profile.png")
+    const [isLoading, setIsLoading] = useState(true)
 
-    const {user, getUserData, getDisplayPicture} = useAuth()
+    const {user, getDisplayPicture} = useAuth()
 
-    React.useEffect(() => {
-        getUserData(user.uid).then(r => {
-            console.log(r.profilePictureURL)
-            if(r.profilePictureURL === undefined || r.profilePictureURL === "") {
-                setProfilePicture("/images/profile.png")
-            } else {
-                getDisplayPicture(r.profilePictureURL).then(r => {
-                    setProfilePicture(r)
-                })
-            }
-
+    const getProfilePicture = () => {
+        if(isLoading){
+            setProfilePicture("/images/loadingProfilePicture.gif")
+        }
+        getDisplayPicture(user.profilePictureURL).then((r) => {
+            setProfilePicture(r)
         })
-    },[])
+        setIsLoading(false)
+    }
+
+    useEffect(() => {
+        if (user) {
+            getProfilePicture()
+            console.log("Profile picture updated")
+        }
+    },[getProfilePicture])
+
 
     const showProfile = () => {
         setProfileButtonPopup(true);
@@ -99,7 +101,7 @@ export function Navbar() {
                            height={60}/>
                 </div>
             </div>
-            <YourProfilePopup trigger={profileButtonPopup} setTrigger={setProfileButtonPopup} />
+            <YourProfilePopup trigger={profileButtonPopup} setTrigger={setProfileButtonPopup} update={getProfilePicture}/>
             <HelpPopup trigger={helpButtonPopup} setTrigger={setHelpButtonPopup}/>
         </nav>)
 }

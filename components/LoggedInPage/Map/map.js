@@ -36,6 +36,11 @@ export default function Map() {
     const {user, getPins,getDisplayPicture} = useAuth()
 
     React.useEffect(() => {
+        if(user.location.length > 0){
+            console.log("User is pinned")
+        }else{
+            console.log("User is not pinned")
+        }
         getPins().then((pins) => {
             console.log(pins)
             pins.forEach((pin) => {

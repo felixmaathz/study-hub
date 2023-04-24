@@ -1,12 +1,10 @@
 import {useAuth} from "../Context/userAuthContext";
-import {getAuth, signOut} from "firebase/auth";
-import {app, db, storage} from "../../config/firebaseConfig";
+import { db } from "../../config/firebaseConfig";
 import {doc, updateDoc} from "firebase/firestore";
 import styles from "../../styles/popup.module.css";
 import EditProfilePopup from "./EditProfilePopup";
 import React, {useRef, useState} from "react";
 import Image from "next/image";
-import {getDownloadURL, ref} from "firebase/storage";
 
 
 function YourProfilePopup(props) {
@@ -18,58 +16,45 @@ function YourProfilePopup(props) {
     const [competencies, setCompetencies] = useState([]);
     const [bio, setBio] = useState("");
     const [profilePictureURL, setProfilePictureURL] = useState("")
-    const [profilePicture, setProfilePicture] = useState("")
+    const [profilePicture, setProfilePicture] = useState("/images/profile.png")
 
     const [editTrigger, setEditTrigger] = useState(false)
     const dataFetchedRef = useRef(false);
 
-    const {user, getUserData, getDisplayPicture, displayMajor,logOut} = useAuth()
+    const {user, getDisplayPicture, displayMajor,logOut} = useAuth()
 
     const handleSignOut = () => {
         logOut().then(() => {
             alert("Signed out")
         })
-        // signOut(auth).then(() => {
-        //     }
-        // ).catch((error) => {
-        //     alert(error.message)
-        // })
 
     }
 
     const handleEdit = () => {
         setEditTrigger(true)
-        // props.setTrigger(false)
     }
 
     React.useEffect(() => {
         if (user && !dataFetchedRef.current) {
             dataFetchedRef.current = true;
-            getUserData(user.uid).then(r => {
-                setUsername(r.username)
-                setEmail(r.email)
-                setMajor(r.major)
-                setCompetencies(r.competencies)
-                setBio(r.bio)
-                if(r.profilePictureURL === undefined || r.profilePictureURL === ""){
-                    setProfilePicture("/images/profile.png")
-                }else{
-                    setProfilePictureURL(r.profilePictureURL)
-                    displayPicture(r.profilePictureURL)
-                }
-                return r
-            })
+
+            setUsername(user.username)
+            setEmail(user.email)
+            setMajor(user.major)
+            setCompetencies(user.competencies)
+            setBio(user.bio)
+            if(user.profilePictureURL === undefined) {
+                console.log("No profile picture found")
+            }else{
+                setProfilePictureURL(user.profilePictureURL)
+                getDisplayPicture(user.profilePictureURL).then((r) => {
+                    setProfilePicture(r)
+                })
+
+            }
         }
     }, [])
 
-    const displayPicture = (profilePictureURL) => {
-        let url = ""
-        getDisplayPicture(profilePictureURL).then((r) => {
-            url = r
-            setProfilePicture(url)
-        })
-        return url
-    }
 
     const saveProfile = async (username, email, major, competencies, profilePictureURL, bio) => {
         setUsername(username)
@@ -78,7 +63,9 @@ function YourProfilePopup(props) {
         setCompetencies(competencies)
         setProfilePictureURL(profilePictureURL)
         setBio(bio)
-        displayPicture(profilePictureURL)
+        getDisplayPicture(profilePictureURL).then((r) => {
+            setProfilePicture(r)
+        })
         console.log(username, email, major, competencies, profilePictureURL)
 
         const docRef = await updateDoc(doc(db, "users", user.uid), {
@@ -89,6 +76,7 @@ function YourProfilePopup(props) {
             profilePictureURL: profilePictureURL,
             bio: bio
         }).then(() => {
+            props.update()
             console.log("Profile updated")
         })
     }
@@ -97,6 +85,7 @@ function YourProfilePopup(props) {
 
     return (props.trigger) ? (
             <div className={styles.popup}>
+                <div style={{width:"100vw", height:"100vh", position:"absolute"}} onClick={()=>props.setTrigger(false)}></div>
                 <div className={styles.popupInner}>
                     <div onClick={() => props.setTrigger(false)} className={styles.closeBtn}>
                         <span
@@ -110,8 +99,7 @@ function YourProfilePopup(props) {
                                 <Image
                                     src={profilePicture}
                                     alt="user"
-                                    fill
-                                    contain
+                                    fill="true"
                                     className={styles.profileFrame}/>
                                 <div className={styles.level}>
                                     <h4>LVL 4</h4>
