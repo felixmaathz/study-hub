@@ -16,6 +16,7 @@ function YourProfilePopup(props) {
     const [email, setEmail] = useState("");
     const [major, setMajor] = useState("");
     const [competencies, setCompetencies] = useState([]);
+    const [bio, setBio] = useState("");
     const [profilePictureURL, setProfilePictureURL] = useState("")
     const [profilePicture, setProfilePicture] = useState("")
 
@@ -48,6 +49,7 @@ function YourProfilePopup(props) {
                 setEmail(r.email)
                 setMajor(r.major)
                 setCompetencies(r.competencies)
+                setBio(r.bio)
                 if(r.profilePictureURL === undefined){
                     setProfilePicture("/images/profile.png")
                 }else{
@@ -68,12 +70,13 @@ function YourProfilePopup(props) {
         return url
     }
 
-    const saveProfile = async (username, email, major, competencies, profilePictureURL) => {
+    const saveProfile = async (username, email, major, competencies, profilePictureURL, bio) => {
         setUsername(username)
         setEmail(email)
         setMajor(major)
         setCompetencies(competencies)
         setProfilePictureURL(profilePictureURL)
+        setBio(bio)
         displayPicture(profilePictureURL)
         console.log(username, email, major, competencies, profilePictureURL)
 
@@ -82,7 +85,8 @@ function YourProfilePopup(props) {
             email: email,
             major: major,
             competencies: competencies,
-            profilePictureURL: profilePictureURL
+            profilePictureURL: profilePictureURL,
+            bio: bio
         }).then(() => {
             console.log("Profile updated")
         })
@@ -132,12 +136,13 @@ function YourProfilePopup(props) {
                                     src={profilePicture}
                                     alt="user"
                                     fill
-                                    contain/>
+                                    contain
+                                    className={styles.profileFrame}/>
                                 <div className={styles.level}>
                                     <h4>LVL 4</h4>
                                 </div>
                             </div>
-                            <p>"I hate Mondays"</p>
+                            <div className={styles.bio}>{'"'+bio+'"'}</div>
                         </div>
 
                         <div className={styles.userInfo}>
@@ -170,7 +175,8 @@ function YourProfilePopup(props) {
                                     email: email,
                                     major: major,
                                     competencies: competencies,
-                                    profilePictureURL: profilePictureURL
+                                    profilePictureURL: profilePictureURL,
+                                    bio: bio
                                 }}
                                 editTrigger={editTrigger}
                                 setEditTrigger={setEditTrigger}
