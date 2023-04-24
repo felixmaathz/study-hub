@@ -50,7 +50,7 @@ function YourProfilePopup(props) {
                 setMajor(r.major)
                 setCompetencies(r.competencies)
                 setBio(r.bio)
-                if(r.profilePictureURL === undefined){
+                if(r.profilePictureURL === undefined || r.profilePictureURL === ""){
                     setProfilePicture("/images/profile.png")
                 }else{
                     setProfilePictureURL(r.profilePictureURL)

@@ -78,7 +78,8 @@ function EditProfilePopup(props) {
         setCompetencies(newCompetencies);
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
+        await uploadImage()
         props.setEditTrigger(false)
         props.saveProfile(username, email, major, competencies, profilePictureURL, bio)
     }
@@ -87,18 +88,19 @@ function EditProfilePopup(props) {
         props.setEditTrigger(false)
     }
 
-    const uploadImage = () => {
+    const uploadImage = async () => {
         if (profilePicture === null) return;
         if (profilePicture.size > 2097152) {
             alert('File size is too big!');
             return;
         }
-        setProfilePictureURL("profilePictures/" + user.uid)
         const storageRef = ref(storage, "profilePictures/" + user.uid);
-        uploadBytes(storageRef, profilePicture).then((snapshot) => {
+        await uploadBytes(storageRef, profilePicture).then((snapshot) => {
             alert('Uploaded image!');
             associateUser().then(r => {
                 console.log("Associated user with image! " + user.uid);
+                setProfilePictureURL("profilePictures/" + user.uid)
+                displayPicture(profilePictureURL)
             })
         })
     }
@@ -150,7 +152,7 @@ function EditProfilePopup(props) {
                                         onChange={event => setBio(event.target.value)}/>
                                 </label>
                                <div style={{display:"flex", }}>
-                                   <button onClick={uploadImage} className={styles.popupButtons}>Upload Picture</button>
+                                   {/*<button onClick={uploadImage} className={styles.popupButtons}>Upload Picture</button>*/}
                                    <button onClick={handleSave} className={styles.popupButtons}>Save profile</button>
                                </div>
                                    <button onClick={handleCancel} className={styles.popupButtons}> Cancel</button>
