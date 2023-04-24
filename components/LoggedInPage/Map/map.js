@@ -12,7 +12,6 @@ import {collection, getDoc, doc, getDocs, updateDoc} from "firebase/firestore";
 
 
 //With inspiration from  "https://codesandbox.io/s/how-to-save-marker-location-when-adding-a-marker-with-onclick-on-map-in-react-leaflet-v3x-lghwn?file=/src/MyMap.jsx:0-41"
-
 let myMarker = null;
 
 export default function Map()  {
@@ -23,17 +22,19 @@ export default function Map()  {
     const [major, setMajor] = useState("");
     const [profilePopup, setProfilePopup] = useState(false);
     const [location, setLocation] = useState([]);
-
-    // const auth = getAuth(app);
-    // const user = auth.currentUser;
-    // console.log(user)
-    // let uid = ""
-
-    const { user, getPins } = useAuth()
-
+    const { user, getPins, getUserData } = useAuth()
+/*
+React.useEffect(() => {
+if (user) {
+    getUserData(user.uid).then(r => {
+        setLocation(r.location)
+        })
+    }
+})*/
 
 
     function Markers()  {
+
         const yourIcon = L.icon({
             iconSize: [30, 30],
             iconUrl: "https://cdn-icons-png.flaticon.com/512/447/447031.png",
