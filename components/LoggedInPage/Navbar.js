@@ -18,6 +18,7 @@ export function Navbar() {
 
     React.useEffect(() => {
         getUserData(user.uid).then(r => {
+            console.log(r.profilePictureURL)
             if(r.profilePictureURL === undefined || r.profilePictureURL === "") {
                 setProfilePicture("/images/profile.png")
             } else {

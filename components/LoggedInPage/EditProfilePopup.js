@@ -35,6 +35,7 @@ function EditProfilePopup(props) {
     const [competence, setCompetence] = useState("")
     const [competencies, setCompetencies] = useState([]);
     const [bio, setBio] = useState("");
+    const [imagePreview, setImagePreview] = useState(null)
     const [profilePicture, setProfilePicture] = useState(null)
     const [profilePictureURL, setProfilePictureURL] = useState("")
 
@@ -55,7 +56,7 @@ function EditProfilePopup(props) {
                 displayPicture(props.data.profilePictureURL)
             }
         }
-    }, [])
+    }, [props.editTrigger])
 
     const displayPicture = (profilePictureURL) => {
         let url = ""
@@ -79,11 +80,17 @@ function EditProfilePopup(props) {
     };
 
     const handleSave = async () => {
-        props.setEditTrigger(false)
-        props.saveProfile(username, email, major, competencies, profilePictureURL, bio)
+        uploadImage().then(() => {
+            props.setEditTrigger(false)
+            props.saveProfile(username, email, major, competencies, profilePictureURL, bio)
+            setImagePreview(null)
+            alert("Profile saved!")
+        })
+
     }
 
     const handleCancel = () => {
+        setImagePreview(null)
         props.setEditTrigger(false)
     }
 
@@ -95,7 +102,6 @@ function EditProfilePopup(props) {
         }
         const storageRef = ref(storage, "profilePictures/" + user.uid);
         await uploadBytes(storageRef, profilePicture).then((snapshot) => {
-            alert('Uploaded image!');
             associateUser().then(r => {
                 console.log("Associated user with image! " + user.uid);
                 setProfilePictureURL("profilePictures/" + user.uid)
@@ -110,30 +116,48 @@ function EditProfilePopup(props) {
         })
     }
 
+    const previewImage = (event) => {
+        setProfilePicture(event.target.files[0])
+        setImagePreview(URL.createObjectURL(event.target.files[0]))
+
+
+    }
+
     return (props.editTrigger) ? (
             <div className={styles.editPopup}>
                 <div className={styles.popupInner}>
                     <div className={styles.profileLayout}>
                         <div className={styles.userPictureContainer}>
                             <div className={styles.userProfilePicture}>
-                                <Image
-                                    src={profilePicture}
-                                    alt="user"
-                                    fill
-                                    className={styles.profileFrame}
-                                />
+                                {
+                                    imagePreview ? (
+                                            <Image
+                                                src={imagePreview}
+                                                alt="user"
+                                                fill
+                                                className={styles.profileFrame}
+                                            />
+                                        )
+                                        : (
+                                            <Image
+                                                src={profilePicture}
+                                                alt="user"
+                                                fill
+                                                className={styles.profileFrame}
+                                            />
+                                        )
+                                }
                                 <div className={styles.level}>
                                     <h4>LVL 4</h4>
                                 </div>
                                 <input
                                     type="file"
-                                    onChange={(e) => {
-                                        setProfilePicture(e.target.files[0])
-                                    }}
+                                    onChange={previewImage}
                                     accept="image/jpeg, image/png"
                                     style={{display: 'none'}}
                                     id="file"
                                 />
+
                                 <label htmlFor='file'>
                                     <div className={styles.changeProfilePicture}>
                                         <Image
@@ -150,11 +174,10 @@ function EditProfilePopup(props) {
                                         className={styles.inputFields}
                                         onChange={event => setBio(event.target.value)}/>
                                 </label>
-                               <div style={{display:"flex", }}>
-                                   <button onClick={uploadImage} className={styles.popupButtons}>Upload Picture</button>
-                                   <button onClick={handleSave} className={styles.popupButtons}>Save profile</button>
-                               </div>
-                                   <button onClick={handleCancel} className={styles.popupButtons}> Cancel</button>
+
+                                <button onClick={handleSave} className={styles.popupButtons}>Save profile</button>
+
+                                <button onClick={handleCancel} className={styles.popupButtons}> Cancel</button>
                             </div>
                         </div>
 
