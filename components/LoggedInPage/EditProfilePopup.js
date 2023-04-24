@@ -80,15 +80,20 @@ function EditProfilePopup(props) {
     };
 
     const handleSave = async () => {
-        uploadImage().then(() => {
+        if (imagePreview) {
+            uploadImage().then(() => {
+                props.setEditTrigger(false)
+                props.saveProfile(username, email, major, competencies, profilePictureURL, bio)
+                setImagePreview(null)
+                alert("Profile saved! New picture uploaded!")
+            })
+        } else {
+
             props.setEditTrigger(false)
             props.saveProfile(username, email, major, competencies, profilePictureURL, bio)
-            setImagePreview(null)
             alert("Profile saved!")
-        })
-
+        }
     }
-
     const handleCancel = () => {
         setImagePreview(null)
         props.setEditTrigger(false)
