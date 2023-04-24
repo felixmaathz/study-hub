@@ -4,13 +4,30 @@ import ProfilePopup from "./ProfilePopup";
 import HelpPopup from "./HelpPopup";
 import React, {useEffect, useState} from "react";
 import YourProfilePopup from "../LoggedInPage/YourProfilePopup";
+import {getAuth} from "firebase/auth";
+import {app} from "../../config/firebaseConfig";
+import {useAuth} from "../Context/userAuthContext";
 
 export function Navbar() {
 
-
-
     const [profileButtonPopup, setProfileButtonPopup] = useState(false);
     const [helpButtonPopup, setHelpButtonPopup] = useState(false);
+    const [profilePicture, setProfilePicture] = useState("/images/profile.png")
+
+    const {user, getUserData, getDisplayPicture} = useAuth()
+
+    React.useEffect(() => {
+        getUserData(user.uid).then(r => {
+            if(r.profilePictureURL === undefined || r.profilePictureURL === "") {
+                setProfilePicture("/images/profile.png")
+            } else {
+                getDisplayPicture(r.profilePictureURL).then(r => {
+                    setProfilePicture(r)
+                })
+            }
+
+        })
+    },[])
 
     const showProfile = () => {
         setProfileButtonPopup(true);
@@ -24,6 +41,8 @@ export function Navbar() {
         const list = document.getElementById('list');
         list.classList.toggle("active");
     }
+
+
 
 
 
@@ -64,10 +83,11 @@ export function Navbar() {
             </ul>
             <div className="profile-container"
                  onClick={showProfile}>
-                <Image src="/images/profile.png"
+                <Image src={profilePicture}
                        alt="profile"
                        width={60}
-                       height={60}/>
+                       height={60}
+                        className="frame"/>
             </div>
             <div className="menu">
                 <div className="menu-container"

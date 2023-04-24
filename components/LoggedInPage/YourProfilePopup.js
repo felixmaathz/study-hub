@@ -26,7 +26,6 @@ function YourProfilePopup(props) {
     const {user, getUserData, getDisplayPicture, displayMajor,logOut} = useAuth()
 
     const handleSignOut = () => {
-        const auth = getAuth(app);
         logOut().then(() => {
             alert("Signed out")
         })
