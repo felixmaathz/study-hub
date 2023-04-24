@@ -5,6 +5,8 @@ import {collection, getDocs, query, where, setDoc, updateDoc, serverTimestamp, g
 import Image from "next/image";
 import {useAuth} from "../../Context/userAuthContext";
 
+// This component has been inspired by https://github.com/machadop1407/React-Search-Bar
+
 const Search = () => {
     const [usernameSearch, setUsernameSearch] = useState('');
     const [userSearch, setUserSearch] = useState(null);
@@ -17,7 +19,7 @@ const Search = () => {
     const [usernames, setUsernames] = useState([]);
 
     useEffect(() => {
-        // Define an async function to retrieve the usernames
+
         const getUsernames = async () => {
             // Get a reference to the "users" collection
             const usersCol = collection(db, "users");
@@ -123,7 +125,7 @@ const Search = () => {
             </div>
             {filteredData.length > 0 && (
             <div className='dataResult'>
-                {filteredData.slice(0,15).map((username) => (
+                {filteredData.slice(0,4).map((username) => (
                     <div className='dataItem' key={username}>{username}</div>
                 ))}
             </div>
