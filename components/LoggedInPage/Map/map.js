@@ -16,6 +16,7 @@ import OtherUserPopup from "../OtherUserPopup";
 
 let myMarker = null;
 
+
 export default function Map() {
 
     const [username, setUsername] = useState("");
@@ -44,13 +45,18 @@ export default function Map() {
         })
     }, [])
 
+
+
+
+
+    let userIcon;
+
     const yourIcon = L.icon({
-        iconSize: [30, 30],
-        iconUrl: "https://cdn-icons-png.flaticon.com/512/447/447031.png",
+        iconSize: [35, 35],
+        iconUrl: "../images/markerIcons/yourPin.png",
     });
 
     function Markers() {
-
         const map = useMapEvents(
             {
                 click: (e) => {
@@ -62,7 +68,75 @@ export default function Map() {
 
                         if (pinsArray.length > 0) {
                             pinsArray.forEach((pin) => {
-                                L.marker(pin.location, {icon: yourIcon}).addTo(map).on("click", async () => {
+                                if (pin.major === "E") {
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/EPin.png",
+                                    });
+                                }
+                                if (pin.major === "ES") {
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/ESPin.png",
+                                    });
+                                }
+                                if (pin.major === "F") {
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/FPin.png",
+                                    });
+                                }
+                                if (pin.major === "I") {
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/IPin.png",
+                                    });
+                                }
+                                if (pin.major === "IT") {
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/ITPin.png",
+                                    });
+                                }
+                                if (pin.major === "K") {
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/KPin.png",
+                                    });
+                                }
+                                if (pin.major === "Other") {
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/OtherPin.png",
+                                    });
+                                }
+                                if (pin.major === "Q") {
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/QPin.png",
+                                    });
+                                }
+                                if (pin.major === "STS") {
+                                    console.log("hittade major")
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/STSPin.png",
+                                    });
+                                }
+                                if (pin.major === "W") {
+                                    userIcon =new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/WPin.png",
+                                    });
+                                }
+                                if (pin.major === "X") {
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/XPin.png",
+                                    });
+                                }
+
+                                L.marker(pin.location, {icon: userIcon}).addTo(map).on("click", () => {
                                     console.log("User: " + pin.username)
                                     setUsername(pin.username)
                                     setEmail(pin.email)
@@ -74,7 +148,7 @@ export default function Map() {
                                         setProfilePicture("/images/profile.png")
                                     } else {
                                         setProfilePictureURL(profilePictureURL)
-                                        await getDisplayPicture(profilePictureURL).then((r)=>
+                                        getDisplayPicture(profilePictureURL).then((r)=>
                                             setProfilePicture(r)
                                         )
                                     }
@@ -83,6 +157,8 @@ export default function Map() {
                                 });
                             })
                         }
+
+
 
                         const {lat, lng} = e.latlng;
                         setLocation([lat, lng])
