@@ -19,8 +19,12 @@ let myMarker = null;
 export default function Map() {
 
     const [username, setUsername] = useState("");
-    const [major, setMajor] = useState("");
     const [email, setEmail] = useState("");
+    const [major, setMajor] = useState("");
+    const [competencies, setCompetencies] = useState([]);
+    const [bio, setBio] = useState("");
+    const [profilePictureURL, setProfilePictureURL] = useState("")
+    const [profilePicture, setProfilePicture] = useState("")
 
     const [profilePopup, setProfilePopup] = useState(false);
     const [otherUserPopup, setOtherUserPopup] = useState(false);
@@ -28,7 +32,7 @@ export default function Map() {
     const pinsArray = []
 
     const [isPinned, setIsPinned] = useState(null);
-    const {user, getPins} = useAuth()
+    const {user, getPins,getDisplayPicture} = useAuth()
 
     React.useEffect(() => {
         getPins().then((pins) => {
@@ -58,11 +62,23 @@ export default function Map() {
 
                         if (pinsArray.length > 0) {
                             pinsArray.forEach((pin) => {
-                                L.marker(pin.location, {icon: yourIcon}).addTo(map).on("click", () => {
+                                L.marker(pin.location, {icon: yourIcon}).addTo(map).on("click", async () => {
                                     console.log("User: " + pin.username)
                                     setUsername(pin.username)
                                     setEmail(pin.email)
                                     setMajor(pin.major)
+                                    setCompetencies(pin.competencies)
+                                    setBio(pin.bio)
+                                    setProfilePictureURL(pin.profilePictureURL)
+                                    if (profilePictureURL === undefined || profilePictureURL === "") {
+                                        setProfilePicture("/images/profile.png")
+                                    } else {
+                                        setProfilePictureURL(profilePictureURL)
+                                        await getDisplayPicture(profilePictureURL).then((r)=>
+                                            setProfilePicture(r)
+                                        )
+                                    }
+
                                     setOtherUserPopup(true);
                                 });
                             })
@@ -156,6 +172,9 @@ export default function Map() {
                     username: username
                     , major: major
                     , email: email
+                    , competencies: competencies
+                    , bio: bio
+                    , profilePictureURL: profilePictureURL
                 }}/>
             </div>
         </div>

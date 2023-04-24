@@ -23,7 +23,7 @@ function YourProfilePopup(props) {
     const [editTrigger, setEditTrigger] = useState(false)
     const dataFetchedRef = useRef(false);
 
-    const {user, getUserData, getDisplayPicture} = useAuth()
+    const {user, getUserData, getDisplayPicture, displayMajor} = useAuth()
 
     const handleSignOut = () => {
         const auth = getAuth(app);
@@ -92,32 +92,6 @@ function YourProfilePopup(props) {
         })
     }
 
-    const displayMajor = (major) => {
-        switch (major) {
-            case "E":
-                return "Electrical Engineering"
-            case "ES":
-                return "Energy Systems Engineering"
-            case "I":
-                return "Industrial Engineering and Management"
-            case "IT":
-                return "Computer and Information Engineering"
-            case "K":
-                return "Chemical Engineering"
-            case "W":
-                return "Environmental and Water Engineering"
-            case "X":
-                return "Molecular Biotechnology Engineering"
-            case "STS":
-                return "Sociotechnical Systems Engineering"
-            case "F":
-                return "Engineering Physics"
-            case "Q":
-                return "Materials Engineering"
-            case "Other":
-                return "Other"
-        }
-    }
 
 
     return (props.trigger) ? (
@@ -142,7 +116,8 @@ function YourProfilePopup(props) {
                                     <h4>LVL 4</h4>
                                 </div>
                             </div>
-                            <div className={styles.bio}>{'"'+bio+'"'}</div>
+                            <div className={styles.bio}>{(bio.length>0) ? ('"'+bio+'"')
+                                : ""}</div>
                         </div>
 
                         <div className={styles.userInfo}>

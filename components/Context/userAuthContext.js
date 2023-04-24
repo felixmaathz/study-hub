@@ -85,11 +85,38 @@ export const UserAuthContextProvider = ({children}) => {
         return pins
     }
 
+    const displayMajor = (major) => {
+        switch (major) {
+            case "E":
+                return "Electrical Engineering"
+            case "ES":
+                return "Energy Systems Engineering"
+            case "I":
+                return "Industrial Engineering and Management"
+            case "IT":
+                return "Computer and Information Engineering"
+            case "K":
+                return "Chemical Engineering"
+            case "W":
+                return "Environmental and Water Engineering"
+            case "X":
+                return "Molecular Biotechnology Engineering"
+            case "STS":
+                return "Sociotechnical Systems Engineering"
+            case "F":
+                return "Engineering Physics"
+            case "Q":
+                return "Materials Engineering"
+            case "Other":
+                return "Other"
+    }
+}
+
 
 
 
     return (
-        <UserAuthContext.Provider value={{user, signUp, logIn, logOut, getUserData, getPins, getDisplayPicture}}>
+        <UserAuthContext.Provider value={{user, signUp, logIn, logOut, getUserData, getPins, getDisplayPicture, displayMajor}}>
             {loading ? <Loading/> : children}
         </UserAuthContext.Provider>
     )
