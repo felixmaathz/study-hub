@@ -132,7 +132,8 @@ function YourProfilePopup(props) {
                                     src={profilePicture}
                                     alt="user"
                                     fill
-                                    contain/>
+                                    contain
+                                    className={styles.profileFrame}/>
                                 <div className={styles.level}>
                                     <h4>LVL 4</h4>
                                 </div>
