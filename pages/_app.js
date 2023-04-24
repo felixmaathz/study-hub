@@ -1,11 +1,12 @@
 import Layout from '../components/LoggedInPage/Layout'
 import StartLayout from '../components/Startpage/StartLayout'
-import '../styles/layout.css'
+import '../styles/layout.scss'
 import {useRouter} from "next/router";
 import '../styles/start-layout.scss';
 import {UserAuthContextProvider} from "../components/Context/userAuthContext";
 import ProtectedRoute from "../components/ProtectedRoute";
 import "../styles/chatpage.scss"
+import {ChatContextProvider} from "../components/Context/chatContext";
 
 export default function MyApp({Component, pageProps}) {
 
@@ -19,9 +20,11 @@ export default function MyApp({Component, pageProps}) {
     if (router.pathname === "/") {
         return (
             <UserAuthContextProvider>
-                <StartLayout>
-                    <Component {...pageProps} />
-                </StartLayout>
+                <ChatContextProvider>
+                    <StartLayout>
+                        <Component {...pageProps} />
+                    </StartLayout>
+                </ChatContextProvider>
             </UserAuthContextProvider>
         )
     }
@@ -29,16 +32,18 @@ export default function MyApp({Component, pageProps}) {
     return (
         <>
             <UserAuthContextProvider>
-                <Layout>
-                    {noAuthRequired.includes(router.pathname) ? (
-                        <Component {...pageProps} />
-                    ) : (
-                        <ProtectedRoute>
+                <ChatContextProvider>
+                    <Layout>
+                        {noAuthRequired.includes(router.pathname) ? (
                             <Component {...pageProps} />
-                        </ProtectedRoute>
-                    )
-                    }
-                </Layout>
+                        ) : (
+                            <ProtectedRoute>
+                                <Component {...pageProps} />
+                            </ProtectedRoute>
+                        )
+                        }
+                    </Layout>
+                </ChatContextProvider>
             </UserAuthContextProvider>
         </>
     )

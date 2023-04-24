@@ -3,10 +3,7 @@ import Link from 'next/link';
 import ProfilePopup from "./ProfilePopup";
 import HelpPopup from "./HelpPopup";
 import React, {useEffect, useState} from "react";
-import {getAuth, onAuthStateChanged} from "firebase/auth";
-import {app, db} from "../../config/firebaseConfig";
-import { useAuth } from "components/Context/userAuthContext.js"
-import {useRouter} from "next/router";
+import YourProfilePopup from "../LoggedInPage/YourProfilePopup";
 
 export function Navbar() {
 
@@ -29,6 +26,8 @@ export function Navbar() {
     }
 
 
+
+
     return (
         <nav className="navbar">
             <div className="icon-container">
@@ -44,23 +43,23 @@ export function Navbar() {
                 id="list">
                 <li className="list-item">
                     <Link href="/MapPage">
-                        <button id="Map"
+                        <button id="Map" className="button"
                         >Map
                         </button>
                     </Link>
                 </li>
                 <li className="list-item">
                     <Link href="ChatPage">
-                        <button id="Chat"
+                        <button id="Chat" className="button"
                         >Chat
                         </button>
                     </Link>
                 </li>
                 <li className="list-item">
-                    <button onClick={showHelp}>Help</button>
+                    <button onClick={showHelp} className="button">Help</button>
                 </li>
                 <li className="list-item profile">
-                    <button>Profile</button>
+                    <button onClick={showProfile} className="button">Profile</button>
                 </li>
             </ul>
             <div className="profile-container"
@@ -79,7 +78,7 @@ export function Navbar() {
                            height={60}/>
                 </div>
             </div>
-            <ProfilePopup trigger={profileButtonPopup} setTrigger={setProfileButtonPopup} />
+            <YourProfilePopup trigger={profileButtonPopup} setTrigger={setProfileButtonPopup} />
             <HelpPopup trigger={helpButtonPopup} setTrigger={setHelpButtonPopup}/>
         </nav>)
 }

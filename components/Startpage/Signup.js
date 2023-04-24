@@ -34,22 +34,25 @@ export default function Signup(props) {
                 await signUp(createEmail, createPassword).then(r => {
                     try {
                         console.log(r.user.uid)
-
                          setDoc(doc(db, "users", r.user.uid), {
                             username: createUsername,
                             email: createEmail,
                             major: createMajor,
+                            bio: "",
+                            competencies: [],
                             location: []
-                        }
+                        })
+                        setDoc(doc(db, "userChats", r.user.uid), {}
                         ).then(r => {
                             console.log("success")
+                            router.push("/MapPage")
                          })
                     } catch (e) {
                         console.error("Error adding document: ", e);
                     }
                 })
                 alert("sign up successful")
-                await router.push("/MapPage")
+
                 // try {
                 //     await setDoc(doc(db, "users", createdUser.uid), {
                 //         username: createUsername,
@@ -129,16 +132,23 @@ export default function Signup(props) {
                                        required/>
                             </label>
                             <br/>
-                            <label>
+                            <label className={styles.marginLeft}>
                                 Password:
                                 <br/>
-                                <input className={styles.inputFields}
+                                <input className={styles.inputFieldPassword}
                                        type={showPassword? "text" : "password"}
                                        name="password"
                                        value={createPassword}
                                        onChange={(event) => setCreatePassword(event.target.value)}
-                                       required/>
-                                <Image src={showPassword?"/images/eyeClose.png":"/images/eyeOpen.png"} alt={"eyeClose"} height={20} width={25} onClick={handleShowPassword}></Image>
+                                       required
+                                />
+                                <Image
+                                       src={showPassword?"/images/eyeClosed.png":"/images/eyeOpened.png"}
+                                       alt={"eyeClose"}
+                                       height={20}
+                                       width={25}
+                                       onClick={handleShowPassword}>
+                                </Image>
                             </label>
                             <br/>
                             <label>

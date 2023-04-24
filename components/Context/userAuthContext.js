@@ -5,9 +5,10 @@ import {
     signInWithEmailAndPassword,
     signOut
 } from "firebase/auth";
-import {auth, db} from "../../config/firebaseConfig";
+import {auth, db, storage} from "../../config/firebaseConfig";
 import Loading from "../Loading";
 import {collection, doc, getDoc, setDoc, query, where, getDocs} from "firebase/firestore";
+import {ref,getDownloadURL} from "firebase/storage";
 
 
 const UserAuthContext = createContext();
@@ -63,6 +64,16 @@ export const UserAuthContextProvider = ({children}) => {
         }
     }
 
+    const getDisplayPicture = async (path) => {
+         return getDownloadURL(ref(storage, path))
+            .then((url) => {
+               return url
+            })
+            .catch((error) => {
+
+            });
+    }
+
     const getPins = async () => {
         const pins = []
         const docRef = await collection(db, "users")
@@ -78,7 +89,7 @@ export const UserAuthContextProvider = ({children}) => {
 
 
     return (
-        <UserAuthContext.Provider value={{user, signUp, logIn, logOut, getUserData, getPins}}>
+        <UserAuthContext.Provider value={{user, signUp, logIn, logOut, getUserData, getPins, getDisplayPicture}}>
             {loading ? <Loading/> : children}
         </UserAuthContext.Provider>
     )

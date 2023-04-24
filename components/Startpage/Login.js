@@ -65,17 +65,24 @@ export default function Login(props) {
                                        required/>
                             </label>
                             <br/>
-                            <label>
+                            <label  className={styles.marginLeft}>
                                 Password:
                                 <br/>
-                                <input className={styles.inputFields}
+                                <input className={styles.inputFieldPassword}
+
                                        type={showPassword? "text" : "password"}
                                        name="password"
                                        value={password}
                                        onChange={(event) => setPassword(event.target.value)}
-                                       required/>
-                                <Image src={showPassword?"/images/eyeClose.png":"/images/eyeOpen.png"} alt={"eyeClose"} height={20} width={25} onClick={handleShowPassword}></Image>
+                                       required
+                                />
 
+                            <Image className={styles.showHide}
+                                   src={showPassword?"/images/eyeClosed.png":"/images/eyeOpened.png"}
+                                   alt={"eyeClose"}
+                                   height={20}
+                                   width={25}
+                                   onClick={handleShowPassword}></Image>
                             </label>
                             <br/>
                             {errorMessage && <p>{errorMessage}</p>}
