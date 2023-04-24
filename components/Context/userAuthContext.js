@@ -7,7 +7,7 @@ import {
 } from "firebase/auth";
 import {auth, db, storage} from "../../config/firebaseConfig";
 import Loading from "../Loading";
-import {collection, doc, getDoc, setDoc, query, where, getDocs} from "firebase/firestore";
+import {collection, doc, getDoc, setDoc, query, where, getDocs, updateDoc} from "firebase/firestore";
 import {ref,getDownloadURL} from "firebase/storage";
 
 
@@ -45,8 +45,13 @@ export const UserAuthContextProvider = ({children}) => {
     }
 
     const logOut = async () => {
-        setUser(null);
-        await signOut(auth);
+        console.log(user.uid)
+        await updateDoc(doc(db, "users", user.uid), {
+            location: [],
+        }).then(async () => {
+            await signOut(auth);
+            setUser(null);
+        })
     }
 
     const getUserData = async (uid) => {

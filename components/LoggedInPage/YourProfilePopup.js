@@ -23,16 +23,18 @@ function YourProfilePopup(props) {
     const [editTrigger, setEditTrigger] = useState(false)
     const dataFetchedRef = useRef(false);
 
-    const {user, getUserData, getDisplayPicture, displayMajor} = useAuth()
+    const {user, getUserData, getDisplayPicture, displayMajor,logOut} = useAuth()
 
     const handleSignOut = () => {
         const auth = getAuth(app);
-        signOut(auth).then(() => {
-                alert("Signed out")
-            }
-        ).catch((error) => {
-            alert(error.message)
+        logOut().then(() => {
+            alert("Signed out")
         })
+        // signOut(auth).then(() => {
+        //     }
+        // ).catch((error) => {
+        //     alert(error.message)
+        // })
 
     }
 
