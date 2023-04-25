@@ -15,8 +15,6 @@ import OtherUserPopup from "../OtherUserPopup";
 //With inspiration from  "https://codesandbox.io/s/how-to-save-marker-location-when-adding-a-marker-with-onclick-on-map-in-react-leaflet-v3x-lghwn?file=/src/MyMap.jsx:0-41"
 
 let myMarker = null;
-const pinsArray = []
-
 
 export default function Map() {
 
@@ -31,7 +29,7 @@ export default function Map() {
     const [profilePopup, setProfilePopup] = useState(false);
     const [otherUserPopup, setOtherUserPopup] = useState(false);
     const [location, setLocation] = useState([]);
-    /*const pinsArray = []*/
+    const pinsArray = []
 
     const [isPinned, setIsPinned] = useState(null);
     const {user, getPins,getDisplayPicture} = useAuth()
@@ -42,10 +40,7 @@ export default function Map() {
         }else{
             console.log("User is not pinned")
         }
-
     }, [])
-
-
 
     let userIcon;
 
@@ -63,10 +58,6 @@ export default function Map() {
                         if (myMarker) {
                             myMarker.remove();
                         }
-
-
-
-
 
                         const {lat, lng} = e.latlng;
                         setLocation([lat, lng])
@@ -93,9 +84,6 @@ export default function Map() {
                     console.log("alla pins " + pinsArray)
                 })
             }
-
-            /*L.marker([59.8586, 17.6389], {icon: yourIcon}).addTo(map)
-            console.log("map whenready pins: " + pinsArray)*/
 
             if (pinsArray.length > 0) {
                 pinsArray.forEach((pin) => {
@@ -148,7 +136,6 @@ export default function Map() {
                         });
                     }
                     if (pin.major === "STS") {
-                        console.log("hittade major")
                         userIcon = new L.Icon({
                             iconSize: [35, 35],
                             iconUrl: "../images/markerIcons/STSPin.png",
