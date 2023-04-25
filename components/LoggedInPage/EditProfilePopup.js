@@ -49,7 +49,7 @@ function EditProfilePopup(props) {
             setMajor(props.data.major)
             setCompetencies(props.data.competencies)
             setBio(props.data.bio)
-            if (props.data.profilePictureURL === "") {
+            if (props.data.profilePictureURL === ""|| props.data.profilePictureURL === undefined) {
                 setProfilePicture("/images/profile.png")
             } else {
                 setProfilePictureURL(props.data.profilePictureURL)

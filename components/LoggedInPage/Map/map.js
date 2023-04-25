@@ -42,8 +42,8 @@ export default function Map() {
             console.log("User is not pinned")
         }
 
-    }, [])
 
+    }, [])
 
 
     function Markers() {
@@ -68,16 +68,15 @@ export default function Map() {
                         console.log("your position is: " + location)
 
                         //Your own marker
-                        myMarker = L.marker([lat, lng], {icon: yourIcon}).addTo(map).on("click", () => {
-                            triggerPopup();
-                        });
-                        setIsPinned(false)
+                        myMarker = L.marker([lat, lng], {icon: yourIcon}).addTo(map)
 
+                        setIsPinned(false)
                     }
                 }
-
             });
         map.whenReady(async() => {
+
+
 
             if (pinsArray.length === 0) {
                 await getPins().then((pins) => {
@@ -158,36 +157,29 @@ export default function Map() {
                         });
                     }
 
-                                L.marker(pin.location, {icon: userIcon}).addTo(map).on("click", () => {
-                                    console.log("User: " + pin.username)
-                                    setUsername(pin.username)
-                                    setEmail(pin.email)
-                                    setMajor(pin.major)
-                                    setCompetencies(pin.competencies)
-                                    setBio(pin.bio)
-                                    setProfilePictureURL(pin.profilePictureURL)
-                                    if (pin.profilePictureURL === undefined || pin.profilePictureURL === "") {
-                                        setProfilePicture("/images/profile.png")
-                                    } else {
-                                        setProfilePictureURL(pin.profilePictureURL)
-                                        getDisplayPicture(pin.profilePictureURL).then((r)=>
-                                            setProfilePicture(r)
-                                        )
-                                    }
-
+                    L.marker(pin.location, {icon: userIcon}).addTo(map).on("click", () => {
+                        console.log("User: " + pin.username)
+                        setUsername(pin.username)
+                        setEmail(pin.email)
+                        setMajor(pin.major)
+                        setCompetencies(pin.competencies)
+                        setBio(pin.bio)
+                        setProfilePictureURL(pin.profilePictureURL)
+                        if (pin.profilePictureURL === undefined || pin.profilePictureURL === "") {
+                            setProfilePicture("/images/profile.png")
+                        } else {
+                            setProfilePictureURL(pin.profilePictureURL)
+                            getDisplayPicture(pin.profilePictureURL).then((r)=>
+                                setProfilePicture(r)
+                            )
+                        }
                         setOtherUserPopup(true);
                     });
                 })
-             }
-            })
+            }
+        })
         return null;
     }
-
-
-    const triggerPopup = () => {
-        setProfilePopup(true);
-    }
-
 
     const removeMyMarker = async () => {
         if (myMarker) {
@@ -221,9 +213,7 @@ export default function Map() {
         getPins().then((pins) => {
             console.log(pins)
         })
-
     }
-
     return (
         <div>
             <div className={styles.buttonMarkers}>

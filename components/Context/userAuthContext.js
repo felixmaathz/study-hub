@@ -85,7 +85,6 @@ export const UserAuthContextProvider = ({children}) => {
                return url
             })
             .catch((error) => {
-
             });
     }
 
