@@ -26,8 +26,12 @@ export function Navbar() {
 
     useEffect(() => {
         if (user) {
-            getProfilePicture()
-            console.log("Profile picture updated")
+            if(user.profilePictureURL === undefined || user.profilePictureURL === ""){
+                console.log("No profile picture found")
+            }else{
+                getProfilePicture()
+                console.log("Profile picture updated")
+            }
         }
     },[getProfilePicture])
 
