@@ -1,5 +1,5 @@
 import {useAuth} from "../Context/userAuthContext";
-import { db } from "../../config/firebaseConfig";
+import {db} from "../../config/firebaseConfig";
 import {doc, updateDoc} from "firebase/firestore";
 import styles from "../../styles/popup.module.css";
 import EditProfilePopup from "./EditProfilePopup";
@@ -21,7 +21,7 @@ function YourProfilePopup(props) {
     const [editTrigger, setEditTrigger] = useState(false)
     const dataFetchedRef = useRef(false);
 
-    const {user, getDisplayPicture, displayMajor,logOut} = useAuth()
+    const {user, getUserData, getDisplayPicture, displayMajor, logOut} = useAuth()
 
     const handleSignOut = () => {
         logOut().then(() => {
@@ -36,24 +36,23 @@ function YourProfilePopup(props) {
 
     React.useEffect(() => {
         if (user && !dataFetchedRef.current) {
-            dataFetchedRef.current = true;
-
             setUsername(user.username)
             setEmail(user.email)
             setMajor(user.major)
             setCompetencies(user.competencies)
             setBio(user.bio)
-            if(user.profilePictureURL === undefined) {
+            if (user.profilePictureURL === undefined || user.profilePictureURL === "") {
                 console.log("No profile picture found")
-            }else{
+            } else {
                 setProfilePictureURL(user.profilePictureURL)
                 getDisplayPicture(user.profilePictureURL).then((r) => {
                     setProfilePicture(r)
+                    dataFetchedRef.current = true
                 })
-
             }
+            console.log("User data fetched")
         }
-    }, [])
+    },[props.trigger])
 
 
     const saveProfile = async (username, email, major, competencies, profilePictureURL, bio) => {
@@ -82,10 +81,10 @@ function YourProfilePopup(props) {
     }
 
 
-
     return (props.trigger) ? (
             <div className={styles.popup}>
-                <div style={{width:"100vw", height:"100vh", position:"absolute"}} onClick={()=>props.setTrigger(false)}></div>
+                <div style={{width: "100vw", height: "100vh", position: "absolute"}}
+                     onClick={() => props.setTrigger(false)}></div>
                 <div className={styles.popupInner}>
                     <div onClick={() => props.setTrigger(false)} className={styles.closeBtn}>
                         <span
@@ -105,7 +104,7 @@ function YourProfilePopup(props) {
                                     <h4>LVL 4</h4>
                                 </div>
                             </div>
-                            <div className={styles.bio}>{(bio.length>0) ? ('"'+bio+'"')
+                            <div className={styles.bio}>{(bio.length > 0) ? ('"' + bio + '"')
                                 : ""}</div>
                         </div>
 

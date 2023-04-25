@@ -24,7 +24,7 @@ export const UserAuthContextProvider = ({children}) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
-                await getUserData(user.uid).then(r => {
+                getUserData(user.uid).then(r => {
                     setUser({
                         uid: user.uid,
                         email: r.email,
@@ -85,7 +85,6 @@ export const UserAuthContextProvider = ({children}) => {
                return url
             })
             .catch((error) => {
-
             });
     }
 
@@ -95,6 +94,7 @@ export const UserAuthContextProvider = ({children}) => {
         const q = await query(docRef, where("location", "!=", []))
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
+            if(doc.id === user.uid) return
             pins.push(doc.data())
         })
         return pins

@@ -39,19 +39,28 @@ const ChatList = () => {
     }
 
     return (
-        <div className='chatList'>
-            {Object.entries(chats)?.sort((a,b)=>b[1].date - a[1].date).map((chat) => (
-            <div className='userChat' key={chat[0]} onClick={() => handleSelect(chat[1].userInfo)}>
-                <div className='imageSize'>
-                    <Image src="/images/profile.png" alt="profile" layout='fill'/>
+            <div className='containerUserChat'>
+                {Object.entries(chats)?.sort((a,b)=>b[1].date - a[1].date).map((chat) => (
+                <div className='userChat'
+                     key={chat[0]}
+                     onClick={() => handleSelect(chat[1].userInfo)}>
+
+                    <div className='imageSize'>
+                        <Image src="/images/profile.png" alt="profile" layout='fill'/>
+                    </div>
+
+                        <div className='userChatInfo'>
+                            <span>
+                                {chat[1].userInfo.username}
+                            </span>
+                            <p>
+                                {chat[1].lastMessage?.text}
+                            </p>
+                        </div>
                 </div>
-                <div className='userChatInfo'>
-                    <span>{chat[1].userInfo.username}</span>
-                    <p>{chat[1].lastMessage?.text}</p>
-                </div>
+                ))}
             </div>
-            ))}
-        </div>
+
     )
 }
 
