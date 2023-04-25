@@ -149,11 +149,11 @@ export default function Map() {
                                     setCompetencies(pin.competencies)
                                     setBio(pin.bio)
                                     setProfilePictureURL(pin.profilePictureURL)
-                                    if (profilePictureURL === undefined || profilePictureURL === "") {
+                                    if (pin.profilePictureURL === undefined || pin.profilePictureURL === "") {
                                         setProfilePicture("/images/profile.png")
                                     } else {
-                                        setProfilePictureURL(profilePictureURL)
-                                        getDisplayPicture(profilePictureURL).then((r)=>
+                                        setProfilePictureURL(pin.profilePictureURL)
+                                        getDisplayPicture(pin.profilePictureURL).then((r)=>
                                             setProfilePicture(r)
                                         )
                                     }
