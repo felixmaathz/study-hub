@@ -62,6 +62,7 @@ function EditProfilePopup(props) {
 
 
     const addCompetence = () => {
+        if (competence === "") return;
         setCompetencies([...competencies, "#" + competence + " "])
         setCompetence("")
     }
@@ -74,6 +75,14 @@ function EditProfilePopup(props) {
     };
 
     const handleSave = async () => {
+        if( username === "" ||
+            email === "" ||
+            major === "" ||
+            bio === "" ||
+            competencies.length === 0){
+            alert("Please fill in all fields")
+            return;
+        }
         if (imagePreview) {
             uploadImage().then(() => {
                 props.setEditTrigger(false)
@@ -120,8 +129,6 @@ function EditProfilePopup(props) {
     const previewImage = (event) => {
         setProfilePicture(event.target.files[0])
         setImagePreview(URL.createObjectURL(event.target.files[0]))
-
-
     }
 
     return (props.editTrigger) ? (
