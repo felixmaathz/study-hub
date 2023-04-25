@@ -1,11 +1,12 @@
 import styles from "../../styles/popup.module.css"
 import Image from 'next/image'
 import React, {useState} from "react";
-import {setDoc, doc} from "firebase/firestore";
+import {setDoc, doc, collection, query, where, getDoc, getDocs} from "firebase/firestore";
 import {app, db} from "../../config/firebaseConfig";
 import {useRouter} from "next/router";
 
-import { useAuth } from "components/Context/userAuthContext.js"
+import {useAuth} from "components/Context/userAuthContext.js"
+
 
 export default function Signup(props) {
 
@@ -16,37 +17,38 @@ export default function Signup(props) {
     const [createUsername, setCreateUsername] = useState("")
     const [createRepeatPassword, setCreateRepeatPassword] = useState("")
     const [createMajor, setCreateMajor] = useState("")
+    const [usernameAvailable, setUsernameAvailable] = useState(false)
 
     const router = useRouter();
 
-    const { user, signUp, saveUserData } = useAuth()
+    const {user, signUp, saveUserData} = useAuth()
 
     const handleSignUp = async (event) => {
         event.preventDefault();
-        if (!(  createUsername === ""
+        if (!(createUsername === ""
                 || createEmail === ""
                 || createPassword === ""
                 || createRepeatPassword === ""
-                || createMajor === "")
-                && createPassword === createRepeatPassword){
+                || createMajor === ""
+                || !usernameAvailable)
+            && createPassword === createRepeatPassword) {
             try {
                 await signUp(createEmail, createPassword).then(r => {
                     try {
                         console.log(r.user.uid)
-                            setDoc(doc(db, "users", r.user.uid), {
-                                username: createUsername,
-                                email: createEmail,
-                                major: createMajor,
-                                bio: "",
-                                competencies: [],
-                                location: []
-                            })
-
+                        setDoc(doc(db, "users", r.user.uid), {
+                            username: createUsername,
+                            email: createEmail,
+                            major: createMajor,
+                            bio: "",
+                            competencies: [],
+                            location: []
+                        })
                         setDoc(doc(db, "userChats", r.user.uid), {}
                         ).then(r => {
                             console.log("success")
                             router.push("/MapPage")
-                         })
+                        })
                     } catch (e) {
                         console.error("Error adding document: ", e);
                     }
@@ -74,11 +76,11 @@ export default function Signup(props) {
     }
 
     const nextForm = () => {
-        if (!(  createUsername === ""
+        if (!(createUsername === ""
                 || createEmail === ""
                 || createPassword === ""
                 || createRepeatPassword === "")
-                && createPassword === createRepeatPassword) {
+            && createPassword === createRepeatPassword) {
             const firstForm = document.getElementById("firstForm");
             firstForm.style.display = "none";
             const secondForm = document.getElementById("secondForm");
@@ -91,6 +93,23 @@ export default function Signup(props) {
     const [showPassword, setShowPassword] = useState(false);
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
+    }
+
+    const checkUsernameAvailability = async (e) => {
+        setCreateUsername(e.target.value)
+        if(e.target.value.length >= 4){
+            const userRef = collection(db, "users");
+            const q = query(userRef, where("username", "==", createUsername));
+            const querySnapshot = await getDocs(q);
+            const userDoc = querySnapshot.docs[0];
+            if (userDoc) {
+                setUsernameAvailable(false)
+            } else {
+                setUsernameAvailable(true)
+            }
+        }else{
+            setUsernameAvailable(false)
+        }
     }
 
     return (props.trigger) ? (
@@ -110,15 +129,24 @@ export default function Signup(props) {
 
                         <div className={styles.container} id="firstForm">
                             <div className={styles.heading1}>Sign Up</div>
-                            <label>
+                            <label className={styles.labelContainer}>
                                 Username:
                                 <br/>
                                 <input className={styles.inputFields}
                                        type="text"
                                        name="name"
                                        value={createUsername}
-                                       onChange={(event) => setCreateUsername(event.target.value)}
+                                       onChange={(e)=>checkUsernameAvailability(e)}
                                        required/>
+                                {usernameAvailable ?
+                                    <p className={styles.usernameAvailable}><span className="material-symbols-outlined">
+                                    done
+                                    </span></p>
+                                    :
+                                    <p className={styles.usernameAvailable}><span className="material-symbols-outlined">
+                                        close
+                                    </span></p>
+                                }
                             </label>
                             <br/>
                             <label>
@@ -136,18 +164,18 @@ export default function Signup(props) {
                                 Password:
                                 <br/>
                                 <input className={styles.inputFieldPassword}
-                                       type={showPassword? "text" : "password"}
+                                       type={showPassword ? "text" : "password"}
                                        name="password"
                                        value={createPassword}
                                        onChange={(event) => setCreatePassword(event.target.value)}
                                        required
                                 />
                                 <Image
-                                       src={showPassword?"/images/eyeClosed.png":"/images/eyeOpened.png"}
-                                       alt={"eyeClose"}
-                                       height={20}
-                                       width={25}
-                                       onClick={handleShowPassword}>
+                                    src={showPassword ? "/images/eyeClosed.png" : "/images/eyeOpened.png"}
+                                    alt={"eyeClose"}
+                                    height={20}
+                                    width={25}
+                                    onClick={handleShowPassword}>
                                 </Image>
                             </label>
                             <br/>
