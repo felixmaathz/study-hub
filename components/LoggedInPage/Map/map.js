@@ -16,6 +16,7 @@ import OtherUserPopup from "../OtherUserPopup";
 
 let myMarker = null;
 
+
 export default function Map() {
 
     const [username, setUsername] = useState("");
@@ -40,7 +41,10 @@ export default function Map() {
         }else{
             console.log("User is not pinned")
         }
+
     }, [])
+
+
 
     let userIcon;
 
@@ -154,22 +158,22 @@ export default function Map() {
                         });
                     }
 
-                    L.marker(pin.location, {icon: userIcon}).addTo(map).on("click", () => {
-                        console.log("User: " + pin.username)
-                        setUsername(pin.username)
-                        setEmail(pin.email)
-                        setMajor(pin.major)
-                        setCompetencies(pin.competencies)
-                        setBio(pin.bio)
-                        setProfilePictureURL(pin.profilePictureURL)
-                        if (profilePictureURL === undefined || profilePictureURL === "") {
-                            setProfilePicture("/images/profile.png")
-                        } else {
-                            setProfilePictureURL(profilePictureURL)
-                            getDisplayPicture(profilePictureURL).then((r)=>
-                                setProfilePicture(r)
-                            )
-                        }
+                                L.marker(pin.location, {icon: userIcon}).addTo(map).on("click", () => {
+                                    console.log("User: " + pin.username)
+                                    setUsername(pin.username)
+                                    setEmail(pin.email)
+                                    setMajor(pin.major)
+                                    setCompetencies(pin.competencies)
+                                    setBio(pin.bio)
+                                    setProfilePictureURL(pin.profilePictureURL)
+                                    if (pin.profilePictureURL === undefined || pin.profilePictureURL === "") {
+                                        setProfilePicture("/images/profile.png")
+                                    } else {
+                                        setProfilePictureURL(pin.profilePictureURL)
+                                        getDisplayPicture(pin.profilePictureURL).then((r)=>
+                                            setProfilePicture(r)
+                                        )
+                                    }
 
                         setOtherUserPopup(true);
                     });
