@@ -18,6 +18,7 @@ export default function Signup(props) {
     const [createRepeatPassword, setCreateRepeatPassword] = useState("")
     const [createMajor, setCreateMajor] = useState("")
     const [usernameAvailable, setUsernameAvailable] = useState(false)
+    const [emailAvailable, setEmailAvailable] = useState(false)
 
     const router = useRouter();
 
@@ -79,7 +80,9 @@ export default function Signup(props) {
         if (!(createUsername === ""
                 || createEmail === ""
                 || createPassword === ""
-                || createRepeatPassword === "")
+                || createRepeatPassword === ""
+                || !emailAvailable)
+
             && createPassword === createRepeatPassword) {
             const firstForm = document.getElementById("firstForm");
             firstForm.style.display = "none";
@@ -109,6 +112,20 @@ export default function Signup(props) {
             }
         }else{
             setUsernameAvailable(false)
+        }
+    }
+
+    const checkEmailAvailability = async (e) => {
+        setCreateEmail(e.target.value)
+        const userRef = collection(db, "users");
+        const q = query(userRef, where("email", "==", e.target.value));
+        const querySnapshot = await getDocs(q);
+        const userDoc = querySnapshot.docs[0];
+        if (userDoc) {
+            setEmailAvailable(false)
+
+        } else {
+            setEmailAvailable(true)
         }
     }
 
@@ -149,14 +166,14 @@ export default function Signup(props) {
                                 }
                             </label>
                             <br/>
-                            <label>
+                            <label className={styles.labelContainer}>
                                 Email:
                                 <br/>
                                 <input className={styles.inputFields}
                                        type="email"
                                        name="email"
                                        value={createEmail}
-                                       onChange={(event) => setCreateEmail(event.target.value)}
+                                       onChange={(e)=>checkEmailAvailability(e)}
                                        required/>
                             </label>
                             <br/>
