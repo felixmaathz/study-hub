@@ -231,11 +231,16 @@ export default function Map() {
                     center={{lat: 59.85882, lng: 17.63889}}
                     zoom={15}
                     style={{height: "100vh", zIndex: '1'}}
-                    zoomOnScroll={false}>
+                    zoomOnScroll={false}
+                    worldCopyJump={true}
+                    minZoom={5}
+
+                    >
 
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                        url='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'/>
+                        url='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
+                        />
 
                     <Markers/>
                 </MapContainer>
