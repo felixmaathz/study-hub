@@ -140,22 +140,33 @@ const Search = () => {
     return (
         <div className='search'>
             <div className='searchForm'>
-                <input type='text' placeholder='Search for a user' onKeyDown={handleKey} onChange={handleFilter} value={usernameSearch}/>
+                <input type='text'
+                       placeholder='Search for a user'
+                       onKeyDown={handleKey}
+                       onChange={handleFilter}
+                       value={usernameSearch}/>
             </div>
             {filteredData.length > 0 && (
-            <div className='chatList'>
+            <div className='resultList'>
                 {filteredData.slice(0,10).map((username) => (
-                    <div className='userChat' onClick={() => handleTest(username)} >{username} </div>
+                    <div className='individualResult' onClick={() => handleTest(username)} >
+                        {username}
+                    </div>
 
                 ))}
             </div>
-            )}
 
-            {error && <span>User Not Found</span>}
-            {userSearch && <div className='userChat' onClick={handleSelect}>
-                <div className='imageSize'>
-                    <Image src="/images/profile.png" alt="profile" layout='fill'/>
-                </div>
+            )}
+            {error &&
+                <span>
+                    User Not Found
+                </span>}
+            {userSearch &&
+
+                <div className='userChat' onClick={handleSelect}>
+                    <div className='imageSize'>
+                        <Image src="/images/profile.png" alt="profile" layout='fill'/>
+                    </div>
                 <div className='userChatInfo'>
                     <span>{userSearch.username}</span>
                 </div>
