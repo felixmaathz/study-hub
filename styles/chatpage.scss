@@ -74,6 +74,13 @@
         }
     }
 
+
+    .chatList{
+        overflow-x: hidden;
+        overflow-y: scroll;
+        max-height: 400px;
+    }
+
     .chat{
         border-left: 1px solid black;
         flex: 2;
