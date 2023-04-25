@@ -21,6 +21,10 @@ const Search = () => {
 
     useEffect(() => {
 
+        // console.log("USER SEARCH: ", userSearch);
+        if (userSearch !== null) {
+            handleSelect(userSearch);
+        }
         const getUsernames = async () => {
             // Get a reference to the "users" collection
             const usersCol = collection(db, "users");
@@ -42,7 +46,7 @@ const Search = () => {
 
         // Call the getUsernames function to retrieve the usernames
         getUsernames();
-    }, []);
+    }, [userSearch]);
 
     const handleFilter = (e) => {
         const searchWord = e.target.value
@@ -59,40 +63,35 @@ const Search = () => {
     }
 
     const handleSearch = async (clickedName) => {
-        const q = query(collection(db, "users"), where('username', '==', clickedName));
-
-        console.log("usernameSearch:", usernameSearch)
         try {
+            const q = query(collection(db, "users"), where('username', '==', clickedName));
+            // console.log("Query:", q);
             const querySnapshot = await getDocs(q);
+            // console.log("Query Snapshot:", querySnapshot);
             querySnapshot.forEach((doc) => {
-                console.log("docsQ:", querySnapshot);
-                setUserSearch(doc.data()) ;
-                setUserSearch(prevState => {
-                    return {
-                        ...prevState,
-                        uid: doc.id
-                    };
+                // console.log("Document:", doc.data());
+                setUserSearch({
+                    ...doc.data(),
+                    uid: doc.id
                 });
-
             });
-        }catch(error) {
+        } catch (error) {
+            // console.error("Error:", error);
             setError(true);
         }
     };
+
     const handleKey = (e) => {
-        // e.code === "Enter" && handleSearch();
+    //     // e.code === "Enter" && handleSearch();
     }
 
     const handleTest = async (username) => {
         await setFilteredData([username]);
         await setUsernameSearch(username);
         await handleSearch(username);
-        // await handleSelect();
-        console.log("test:", username);
 
-        // let filterNames = filteredData;
-        // console.log("filter:", setFilteredData)
-        // console.log("test:", filterNames);
+        // await console.log("username:", username)
+
 
     }
 

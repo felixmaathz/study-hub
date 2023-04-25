@@ -8,7 +8,7 @@ import Layout from "../components/LoggedInPage/Layout";
 
 // Sidebar and Chat and all components inside them have been
 // inspired by https://github.com/safak/youtube2022/tree/react-chat
-export default function MapPage() {
+export default function ChatPage() {
     return(
         <div>
             <main>
