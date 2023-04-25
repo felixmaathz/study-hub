@@ -46,14 +46,14 @@ export default function Map() {
 
 
 
-    let userIcon;
-
-    const yourIcon = L.icon({
-        iconSize: [35, 35],
-        iconUrl: "../images/markerIcons/yourPin.png",
-    });
-
     function Markers() {
+        let userIcon;
+
+        const yourIcon = L.icon({
+            iconSize: [35, 35],
+            iconUrl: "../images/markerIcons/yourPin.png",
+        });
+
         const map = useMapEvents(
             {
                 click: (e) => {
