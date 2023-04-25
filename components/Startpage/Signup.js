@@ -99,7 +99,7 @@ export default function Signup(props) {
         setCreateUsername(e.target.value)
         if(e.target.value.length >= 4){
             const userRef = collection(db, "users");
-            const q = query(userRef, where("username", "==", createUsername));
+            const q = query(userRef, where("username", "==", e.target.value));
             const querySnapshot = await getDocs(q);
             const userDoc = querySnapshot.docs[0];
             if (userDoc) {
