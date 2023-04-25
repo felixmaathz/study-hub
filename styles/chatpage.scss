@@ -110,6 +110,7 @@
     .chat{
         border-left: 1px solid black;
         width: 100%;
+        height: 100%;
         background-color: #333333;
         margin-top: 5em;
         margin-bottom: 3.5em;
@@ -131,6 +132,7 @@
             height: 34.5em;
             overflow-y: scroll;
             overflow-x: hidden;
+            max-height: 920px;
 
         }
 
@@ -189,10 +191,12 @@
         .chatInput{
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            height: 6vh;
+            height: 3em;
+            bottom: 3.5em;
             background-color: white;
             border: 1px solid black;
+            margin-top: 2em;
+            position: sticky;
 
             input{
                 width: 100%;
