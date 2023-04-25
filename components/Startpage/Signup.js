@@ -79,7 +79,8 @@ export default function Signup(props) {
         if (!(createUsername === ""
                 || createEmail === ""
                 || createPassword === ""
-                || createRepeatPassword === "")
+                || createRepeatPassword === ""
+                || !usernameAvailable)
             && createPassword === createRepeatPassword) {
             const firstForm = document.getElementById("firstForm");
             firstForm.style.display = "none";
@@ -139,11 +140,11 @@ export default function Signup(props) {
                                        onChange={(e)=>checkUsernameAvailability(e)}
                                        required/>
                                 {usernameAvailable ?
-                                    <p className={styles.usernameAvailable}><span className="material-symbols-outlined">
+                                    <p className={styles.fieldIcon}><span className="material-symbols-outlined">
                                     done
                                     </span></p>
                                     :
-                                    <p className={styles.usernameAvailable}><span className="material-symbols-outlined">
+                                    <p className={styles.fieldIcon}><span className="material-symbols-outlined">
                                         close
                                     </span></p>
                                 }
@@ -160,23 +161,25 @@ export default function Signup(props) {
                                        required/>
                             </label>
                             <br/>
-                            <label className={styles.marginLeft}>
+                            <label className={styles.labelContainer}>
                                 Password:
                                 <br/>
-                                <input className={styles.inputFieldPassword}
+                                <input className={styles.inputFields}
                                        type={showPassword ? "text" : "password"}
                                        name="password"
                                        value={createPassword}
                                        onChange={(event) => setCreatePassword(event.target.value)}
                                        required
                                 />
-                                <Image
-                                    src={showPassword ? "/images/eyeClosed.png" : "/images/eyeOpened.png"}
-                                    alt={"eyeClose"}
-                                    height={20}
-                                    width={25}
-                                    onClick={handleShowPassword}>
-                                </Image>
+                                {!showPassword ?
+                                    <p className={styles.fieldIcon}><span onClick={handleShowPassword} className="material-symbols-outlined">
+                                        visibility
+                                    </span></p>
+                                    :
+                                    <p className={styles.fieldIcon}><span onClick={handleShowPassword} className="material-symbols-outlined">
+                                        visibility_off
+                                    </span></p>
+                                }
                             </label>
                             <br/>
                             <label>
