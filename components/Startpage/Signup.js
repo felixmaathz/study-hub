@@ -219,6 +219,7 @@ export default function Signup(props) {
                                         value={createMajor}
                                         onChange={(event) => setCreateMajor(event.target.value)}
                                         required>
+                                    <option value="" selected disabled hidden></option>
                                     <option value="E">Electrical Engineering</option>
                                     <option value="ES">Energy Systems Engineering</option>
                                     <option value="I">Industrial Engineering and Management</option>
