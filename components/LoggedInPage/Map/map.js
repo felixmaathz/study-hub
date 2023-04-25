@@ -17,6 +17,7 @@ import OtherUserPopup from "../OtherUserPopup";
 let myMarker = null;
 const pinsArray = [];
 
+
 export default function Map() {
 
     const [username, setUsername] = useState("");
@@ -35,26 +36,24 @@ export default function Map() {
     const {user, getPins,getDisplayPicture} = useAuth()
 
     React.useEffect(() => {
-        // if(user.location.length > 0){
-        //     console.log("User is pinned")
-        // }else{
-        //     console.log("User is not pinned")
-        // }
+        if(user.location.length > 0){
+            console.log("User is pinned")
+        }else{
+            console.log("User is not pinned")
+        }
 
     }, [])
 
 
 
-
-
-    let userIcon;
-
-    const yourIcon = L.icon({
-        iconSize: [35, 35],
-        iconUrl: "../images/markerIcons/yourPin.png",
-    });
-
     function Markers() {
+        let userIcon;
+
+        const yourIcon = L.icon({
+            iconSize: [35, 35],
+            iconUrl: "../images/markerIcons/yourPin.png",
+        });
+
         const map = useMapEvents(
             {
                 click: (e) => {
@@ -63,10 +62,6 @@ export default function Map() {
                         if (myMarker) {
                             myMarker.remove();
                         }
-
-
-
-
 
                         const {lat, lng} = e.latlng;
                         setLocation([lat, lng])
@@ -77,7 +72,6 @@ export default function Map() {
                             triggerPopup();
                         });
                         setIsPinned(false)
-                        console.log("pin false")
 
                     }
                 }
@@ -91,17 +85,9 @@ export default function Map() {
                     pins.forEach((pin) => {
                         pinsArray.push(pin)
                     })
+                    console.log("alla pins " + pinsArray)
                 })
             }
-
-            if(user.location.length > 0){
-                console.log("User is pinned")
-                myMarker = L.marker(user.location, {icon: yourIcon}).addTo(map)
-                setIsPinned(true)
-            }
-
-            /*L.marker([59.8586, 17.6389], {icon: yourIcon}).addTo(map)
-            console.log("map whenready pins: " + pinsArray)*/
 
             if (pinsArray.length > 0) {
                 pinsArray.forEach((pin) => {
@@ -192,11 +178,8 @@ export default function Map() {
                         setOtherUserPopup(true);
                     });
                 })
-            }
-
+             }
             })
-
-
         return null;
     }
 
@@ -214,7 +197,7 @@ export default function Map() {
         const docRef = await updateDoc(doc(db, "users", uid), {
             location: []
         })
-
+        setIsPinned(false);
     }
 
     const saveMarkerPosition = async () => {
@@ -223,6 +206,7 @@ export default function Map() {
         const docRef = await updateDoc(doc(db, "users", uid), {
             location: location
         })
+        setIsPinned(true);
     }
 
     function handleClick() {
@@ -231,7 +215,6 @@ export default function Map() {
         } else {
             saveMarkerPosition();
         }
-        setIsPinned(!isPinned);
     }
 
     const getAllPins = () => {
