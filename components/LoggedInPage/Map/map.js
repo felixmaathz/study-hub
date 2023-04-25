@@ -16,11 +16,16 @@ import OtherUserPopup from "../OtherUserPopup";
 
 let myMarker = null;
 
+
 export default function Map() {
 
     const [username, setUsername] = useState("");
-    const [major, setMajor] = useState("");
     const [email, setEmail] = useState("");
+    const [major, setMajor] = useState("");
+    const [competencies, setCompetencies] = useState([]);
+    const [bio, setBio] = useState("");
+    const [profilePictureURL, setProfilePictureURL] = useState("")
+    const [profilePicture, setProfilePicture] = useState("")
 
     const [profilePopup, setProfilePopup] = useState(false);
     const [otherUserPopup, setOtherUserPopup] = useState(false);
@@ -28,9 +33,14 @@ export default function Map() {
     const pinsArray = []
 
     const [isPinned, setIsPinned] = useState(null);
-    const {user, getPins} = useAuth()
+    const {user, getPins,getDisplayPicture} = useAuth()
 
     React.useEffect(() => {
+        if(user.location.length > 0){
+            console.log("User is pinned")
+        }else{
+            console.log("User is not pinned")
+        }
         getPins().then((pins) => {
             console.log(pins)
             pins.forEach((pin) => {
@@ -40,13 +50,18 @@ export default function Map() {
         })
     }, [])
 
+
+
+
+
+    let userIcon;
+
     const yourIcon = L.icon({
-        iconSize: [30, 30],
-        iconUrl: "https://cdn-icons-png.flaticon.com/512/447/447031.png",
+        iconSize: [35, 35],
+        iconUrl: "../images/markerIcons/yourPin.png",
     });
 
     function Markers() {
-
         const map = useMapEvents(
             {
                 click: (e) => {
@@ -58,15 +73,97 @@ export default function Map() {
 
                         if (pinsArray.length > 0) {
                             pinsArray.forEach((pin) => {
-                                L.marker(pin.location, {icon: yourIcon}).addTo(map).on("click", () => {
+                                if (pin.major === "E") {
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/EPin.png",
+                                    });
+                                }
+                                if (pin.major === "ES") {
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/ESPin.png",
+                                    });
+                                }
+                                if (pin.major === "F") {
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/FPin.png",
+                                    });
+                                }
+                                if (pin.major === "I") {
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/IPin.png",
+                                    });
+                                }
+                                if (pin.major === "IT") {
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/ITPin.png",
+                                    });
+                                }
+                                if (pin.major === "K") {
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/KPin.png",
+                                    });
+                                }
+                                if (pin.major === "Other") {
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/OtherPin.png",
+                                    });
+                                }
+                                if (pin.major === "Q") {
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/QPin.png",
+                                    });
+                                }
+                                if (pin.major === "STS") {
+                                    console.log("hittade major")
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/STSPin.png",
+                                    });
+                                }
+                                if (pin.major === "W") {
+                                    userIcon =new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/WPin.png",
+                                    });
+                                }
+                                if (pin.major === "X") {
+                                    userIcon = new L.Icon({
+                                        iconSize: [35, 35],
+                                        iconUrl: "../images/markerIcons/XPin.png",
+                                    });
+                                }
+
+                                L.marker(pin.location, {icon: userIcon}).addTo(map).on("click", () => {
                                     console.log("User: " + pin.username)
                                     setUsername(pin.username)
                                     setEmail(pin.email)
                                     setMajor(pin.major)
+                                    setCompetencies(pin.competencies)
+                                    setBio(pin.bio)
+                                    setProfilePictureURL(pin.profilePictureURL)
+                                    if (profilePictureURL === undefined || profilePictureURL === "") {
+                                        setProfilePicture("/images/profile.png")
+                                    } else {
+                                        setProfilePictureURL(profilePictureURL)
+                                        getDisplayPicture(profilePictureURL).then((r)=>
+                                            setProfilePicture(r)
+                                        )
+                                    }
+
                                     setOtherUserPopup(true);
                                 });
                             })
                         }
+
+
 
                         const {lat, lng} = e.latlng;
                         setLocation([lat, lng])
@@ -156,6 +253,9 @@ export default function Map() {
                     username: username
                     , major: major
                     , email: email
+                    , competencies: competencies
+                    , bio: bio
+                    , profilePictureURL: profilePictureURL
                 }}/>
             </div>
         </div>

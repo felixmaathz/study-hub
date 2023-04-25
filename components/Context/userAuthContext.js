@@ -7,7 +7,7 @@ import {
 } from "firebase/auth";
 import {auth, db, storage} from "../../config/firebaseConfig";
 import Loading from "../Loading";
-import {collection, doc, getDoc, setDoc, query, where, getDocs} from "firebase/firestore";
+import {collection, doc, getDoc, setDoc, query, where, getDocs, updateDoc} from "firebase/firestore";
 import {ref,getDownloadURL} from "firebase/storage";
 
 
@@ -22,11 +22,21 @@ export const UserAuthContextProvider = ({children}) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
-                setUser({
-                    uid: user.uid,
-                });
+                await getUserData(user.uid).then(r => {
+                    setUser({
+                        uid: user.uid,
+                        email: r.email,
+                        username: r.username,
+                        major: r.major,
+                        competencies: r.competencies,
+                        bio: r.bio,
+                        profilePictureURL: r.profilePictureURL,
+                        location: r.location,
+                    })
+                    console.log(r)
+                })
             } else {
                 setUser(null);
             }
@@ -45,8 +55,13 @@ export const UserAuthContextProvider = ({children}) => {
     }
 
     const logOut = async () => {
-        setUser(null);
-        await signOut(auth);
+        console.log(user.uid)
+        await updateDoc(doc(db, "users", user.uid), {
+            location: [],
+        }).then(async () => {
+            await signOut(auth);
+            setUser(null);
+        })
     }
 
     const getUserData = async (uid) => {
@@ -85,11 +100,38 @@ export const UserAuthContextProvider = ({children}) => {
         return pins
     }
 
+    const displayMajor = (major) => {
+        switch (major) {
+            case "E":
+                return "Electrical Engineering"
+            case "ES":
+                return "Energy Systems Engineering"
+            case "I":
+                return "Industrial Engineering and Management"
+            case "IT":
+                return "Computer and Information Engineering"
+            case "K":
+                return "Chemical Engineering"
+            case "W":
+                return "Environmental and Water Engineering"
+            case "X":
+                return "Molecular Biotechnology Engineering"
+            case "STS":
+                return "Sociotechnical Systems Engineering"
+            case "F":
+                return "Engineering Physics"
+            case "Q":
+                return "Materials Engineering"
+            case "Other":
+                return "Other"
+    }
+}
+
 
 
 
     return (
-        <UserAuthContext.Provider value={{user, signUp, logIn, logOut, getUserData, getPins, getDisplayPicture}}>
+        <UserAuthContext.Provider value={{user, signUp, logIn, logOut, getUserData, getPins, getDisplayPicture, displayMajor}}>
             {loading ? <Loading/> : children}
         </UserAuthContext.Provider>
     )
