@@ -17,10 +17,14 @@ const singleMessage = ({message}) => {
 
     const getProfilePicture = () => {
         getDisplayPicture(user.profilePictureURL).then((r) => {
-            setProfilePicture(r)
+            if (r) {
+                setProfilePicture(r);
+            }
         })
          getDisplayPicture("profilePictures/" + data.user.uid).then((s) => {
-             setSendersPicture(s)
+             if (s) {
+                 setSendersPicture(s);
+             }
         })
     }
 
@@ -36,18 +40,19 @@ const singleMessage = ({message}) => {
         <div ref={ref}
             className={`message ${message.senderId === user.uid && 'owner'}`}>
             <div className='messageInfo'>
-                <div className='avatarContainer'>
-                    <Image className='imageSizeChat'
-                           src={
-                           message.senderId === user.uid
-                                ? profilePicture
-                                : sendersPicture}
-                           alt='profile'
-                           width={50}
-                           height={50}/>
-                </div>
+                <Image  className='imageSizeChat'
+                        src={
+                        message.senderId === user.uid
+                        ? profilePicture
+                        : sendersPicture
+                            }
+
+                        alt='profile'
+                        width={50}
+                        height={50}/>
                 <span>Just now</span>
             </div>
+
             <div className='messageContent'>
                 <p>{message.text}</p>
             </div>
