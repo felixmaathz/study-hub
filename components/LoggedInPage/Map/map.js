@@ -15,7 +15,7 @@ import OtherUserPopup from "../OtherUserPopup";
 //With inspiration from  "https://codesandbox.io/s/how-to-save-marker-location-when-adding-a-marker-with-onclick-on-map-in-react-leaflet-v3x-lghwn?file=/src/MyMap.jsx:0-41"
 
 let myMarker = null;
-
+const pinsArray = [];
 
 export default function Map() {
 
@@ -30,17 +30,16 @@ export default function Map() {
     const [profilePopup, setProfilePopup] = useState(false);
     const [otherUserPopup, setOtherUserPopup] = useState(false);
     const [location, setLocation] = useState([]);
-    const pinsArray = []
 
     const [isPinned, setIsPinned] = useState(null);
     const {user, getPins,getDisplayPicture} = useAuth()
 
     React.useEffect(() => {
-        if(user.location.length > 0){
-            console.log("User is pinned")
-        }else{
-            console.log("User is not pinned")
-        }
+        // if(user.location.length > 0){
+        //     console.log("User is pinned")
+        // }else{
+        //     console.log("User is not pinned")
+        // }
 
     }, [])
 
@@ -78,6 +77,7 @@ export default function Map() {
                             triggerPopup();
                         });
                         setIsPinned(false)
+                        console.log("pin false")
 
                     }
                 }
@@ -91,8 +91,13 @@ export default function Map() {
                     pins.forEach((pin) => {
                         pinsArray.push(pin)
                     })
-                    console.log("alla pins " + pinsArray)
                 })
+            }
+
+            if(user.location.length > 0){
+                console.log("User is pinned")
+                myMarker = L.marker(user.location, {icon: yourIcon}).addTo(map)
+                setIsPinned(true)
             }
 
             /*L.marker([59.8586, 17.6389], {icon: yourIcon}).addTo(map)
@@ -149,7 +154,6 @@ export default function Map() {
                         });
                     }
                     if (pin.major === "STS") {
-                        console.log("hittade major")
                         userIcon = new L.Icon({
                             iconSize: [35, 35],
                             iconUrl: "../images/markerIcons/STSPin.png",
@@ -210,7 +214,7 @@ export default function Map() {
         const docRef = await updateDoc(doc(db, "users", uid), {
             location: []
         })
-        setIsPinned(false);
+
     }
 
     const saveMarkerPosition = async () => {
@@ -219,7 +223,6 @@ export default function Map() {
         const docRef = await updateDoc(doc(db, "users", uid), {
             location: location
         })
-        setIsPinned(true);
     }
 
     function handleClick() {
@@ -228,6 +231,7 @@ export default function Map() {
         } else {
             saveMarkerPosition();
         }
+        setIsPinned(!isPinned);
     }
 
     const getAllPins = () => {
@@ -260,7 +264,7 @@ export default function Map() {
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
                         url='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'/>
 
-                    <Markers userMarkers={pinsArray}/>
+                    <Markers/>
                 </MapContainer>
                 <OtherUserPopup trigger={otherUserPopup} setTrigger={setOtherUserPopup} data={{
                     username: username
