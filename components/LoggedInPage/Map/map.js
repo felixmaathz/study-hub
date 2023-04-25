@@ -15,7 +15,7 @@ import OtherUserPopup from "../OtherUserPopup";
 //With inspiration from  "https://codesandbox.io/s/how-to-save-marker-location-when-adding-a-marker-with-onclick-on-map-in-react-leaflet-v3x-lghwn?file=/src/MyMap.jsx:0-41"
 
 let myMarker = null;
-const pinsArray = []
+const pinsArray = [];
 
 
 export default function Map() {
@@ -235,7 +235,7 @@ export default function Map() {
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
                         url='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'/>
 
-                    <Markers userMarkers={pinsArray}/>
+                    <Markers/>
                 </MapContainer>
                 <OtherUserPopup trigger={otherUserPopup} setTrigger={setOtherUserPopup} data={{
                     username: username
