@@ -22,7 +22,7 @@ export const ChatContextProvider = ({children}) => {
     const [loading, setLoading] = useState(true);
 
     const INITIAL_STATE ={
-        chadId:"null",
+        chatId:"null",
         user:{}
     }
 
