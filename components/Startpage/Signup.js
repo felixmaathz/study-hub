@@ -7,7 +7,6 @@ import {useRouter} from "next/router";
 
 import { useAuth } from "components/Context/userAuthContext.js"
 
-
 export default function Signup(props) {
 
 
@@ -34,14 +33,15 @@ export default function Signup(props) {
                 await signUp(createEmail, createPassword).then(r => {
                     try {
                         console.log(r.user.uid)
-                         setDoc(doc(db, "users", r.user.uid), {
-                            username: createUsername,
-                            email: createEmail,
-                            major: createMajor,
-                            bio: "",
-                            competencies: [],
-                            location: []
-                        })
+                            setDoc(doc(db, "users", r.user.uid), {
+                                username: createUsername,
+                                email: createEmail,
+                                major: createMajor,
+                                bio: "",
+                                competencies: [],
+                                location: []
+                            })
+
                         setDoc(doc(db, "userChats", r.user.uid), {}
                         ).then(r => {
                             console.log("success")

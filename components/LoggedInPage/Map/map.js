@@ -76,6 +76,8 @@ export default function Map() {
             });
         map.whenReady(async() => {
 
+
+
             if (pinsArray.length === 0) {
                 await getPins().then((pins) => {
                     console.log(pins)
