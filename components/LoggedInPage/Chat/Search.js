@@ -4,6 +4,9 @@ import { db, app } from '../../../config/firebaseConfig';
 import {collection, getDocs, query, where, setDoc, updateDoc, serverTimestamp, getDoc, doc, getFirestore} from 'firebase/firestore';
 import Image from "next/image";
 import {useAuth} from "../../Context/userAuthContext";
+import {handleInternalServerErrorResponse} from "next/dist/server/future/helpers/response-handlers";
+
+// This component has been inspired by https://github.com/machadop1407/React-Search-Bar
 
 const Search = () => {
     const [usernameSearch, setUsernameSearch] = useState('');
@@ -17,7 +20,7 @@ const Search = () => {
     const [usernames, setUsernames] = useState([]);
 
     useEffect(() => {
-        // Define an async function to retrieve the usernames
+
         const getUsernames = async () => {
             // Get a reference to the "users" collection
             const usersCol = collection(db, "users");
@@ -48,16 +51,17 @@ const Search = () => {
         });
         setUsernameSearch(e.target.value);
         setFilteredData(newFilter);
+
         if(e.target.value.length === 0) {
             setFilteredData([]);
         }
 
     }
 
-    const handleSearch = async () => {
-        const q = query(collection(db, "users"), where('username', '==', usernameSearch));
+    const handleSearch = async (clickedName) => {
+        const q = query(collection(db, "users"), where('username', '==', clickedName));
 
-        console.log("usersearch:", userSearch)
+        console.log("usernameSearch:", usernameSearch)
         try {
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
@@ -76,13 +80,30 @@ const Search = () => {
         }
     };
     const handleKey = (e) => {
-        e.code === "Enter" && handleSearch();
+        // e.code === "Enter" && handleSearch();
     }
+
+    const handleTest = async (username) => {
+        await setFilteredData([username]);
+        await setUsernameSearch(username);
+        await handleSearch(username);
+        // await handleSelect();
+        console.log("test:", username);
+
+        // let filterNames = filteredData;
+        // console.log("filter:", setFilteredData)
+        // console.log("test:", filterNames);
+
+    }
+
+
+
 
     const handleSelect = async () => {
         const combinedId = user.uid > userSearch.uid ? user.uid + userSearch.uid : userSearch.uid + user.uid;
         console.log(combinedId);
         console.log(userSearch);
+        console.log("usernameSearch:", usernameSearch);
         try {
             const res = await getDoc(doc(db, "chats", combinedId));
 
@@ -122,9 +143,10 @@ const Search = () => {
                 <input type='text' placeholder='Search for a user' onKeyDown={handleKey} onChange={handleFilter} value={usernameSearch}/>
             </div>
             {filteredData.length > 0 && (
-            <div className='dataResult'>
-                {filteredData.slice(0,15).map((username) => (
-                    <div className='dataItem' key={username}>{username}</div>
+            <div className='chatList'>
+                {filteredData.slice(0,10).map((username) => (
+                    <div className='userChat' onClick={() => handleTest(username)} >{username} </div>
+
                 ))}
             </div>
             )}
