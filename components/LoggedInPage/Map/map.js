@@ -10,12 +10,13 @@ import {app, db} from "../../../config/firebaseConfig";
 import {useAuth} from "../../Context/userAuthContext";
 import {collection, getDoc, doc, getDocs, updateDoc} from "firebase/firestore";
 import OtherUserPopup from "../OtherUserPopup";
+import {usePin} from "../../Context/pinContext";
 
 
 //With inspiration from  "https://codesandbox.io/s/how-to-save-marker-location-when-adding-a-marker-with-onclick-on-map-in-react-leaflet-v3x-lghwn?file=/src/MyMap.jsx:0-41"
 
 let myMarker = null;
-const pinsArray = [];
+let pinsArray = [];
 
 
 export default function Map() {
@@ -31,22 +32,45 @@ export default function Map() {
     const [profilePopup, setProfilePopup] = useState(false);
     const [otherUserPopup, setOtherUserPopup] = useState(false);
     const [location, setLocation] = useState([]);
-
     const [isPinned, setIsPinned] = useState(null);
-    const {user, getPins,getDisplayPicture} = useAuth()
+    const [key,setKey] = useState(0)
+
+    const {user, getPins, getDisplayPicture} = useAuth()
+    const {userJoined, userLeft} = usePin()
 
     React.useEffect(() => {
-        if(user.location.length > 0){
-            console.log("User is pinned")
-        }else{
-            console.log("User is not pinned")
+        if (userJoined) {
+            console.log("User joined: " + userJoined)
+            fetchPins().then(r => {
+                console.log("pins fetched")
+                setKey(key=>key+1)
+            })
         }
-    }, [])
+        if (userLeft) {
+            console.log("User left: " + userLeft)
+            fetchPins().then(r => {
+                console.log("pins fetched")
+                setKey(key=>key+1)
+            })
+        }
 
+
+    }, [userJoined, userLeft])
+
+
+    const fetchPins = async () => {
+        pinsArray = []
+        await getPins().then((pins) => {
+            console.log(pins)
+            pins.forEach((pin) => {
+                pinsArray.push(pin)
+            })
+            console.log("alla pins " + pinsArray)
+        })
+    }
 
     function Markers() {
         let userIcon;
-
         const yourIcon = new L.Icon({
             iconSize: [35, 35],
             iconUrl: "../images/markerIcons/yourPin.png",
@@ -67,24 +91,16 @@ export default function Map() {
                         console.log("your position is: " + location)
 
                         //Your own marker
-                        myMarker = L.marker([lat, lng], {icon: yourIcon}).addTo(map)
 
+                        myMarker = L.marker([lat, lng], {icon: yourIcon}).addTo(map)
                         setIsPinned(false)
                     }
                 }
             });
-        map.whenReady(async() => {
-
+        map.whenReady(async () => {
             if (pinsArray.length === 0) {
-                await getPins().then((pins) => {
-                    console.log(pins)
-                    pins.forEach((pin) => {
-                        pinsArray.push(pin)
-                    })
-                    console.log("alla pins " + pinsArray)
-                })
+                await fetchPins()
             }
-
             if (pinsArray.length > 0) {
                 pinsArray.forEach((pin) => {
                     if (pin.major === "E") {
@@ -142,7 +158,7 @@ export default function Map() {
                         });
                     }
                     if (pin.major === "W") {
-                        userIcon =new L.Icon({
+                        userIcon = new L.Icon({
                             iconSize: [35, 35],
                             iconUrl: "../images/markerIcons/WPin.png",
                         });
@@ -166,7 +182,7 @@ export default function Map() {
                             setProfilePicture("/images/profile.png")
                         } else {
                             setProfilePictureURL(pin.profilePictureURL)
-                            getDisplayPicture(pin.profilePictureURL).then((r)=>
+                            getDisplayPicture(pin.profilePictureURL).then((r) =>
                                 setProfilePicture(r)
                             )
                         }
@@ -179,7 +195,6 @@ export default function Map() {
     }
 
     const removeMyMarker = async () => {
-
         if (myMarker) {
             myMarker.remove();
         }
@@ -233,13 +248,14 @@ export default function Map() {
                     zoomOnScroll={false}
                     worldCopyJump={true}
                     minZoom={5}
+                    key={key}
 
-                    >
+                >
 
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
                         url='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
-                        />
+                    />
 
                     <Markers/>
                 </MapContainer>
