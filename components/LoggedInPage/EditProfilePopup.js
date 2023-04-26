@@ -77,9 +77,7 @@ function EditProfilePopup(props) {
     const handleSave = async () => {
         if( username === "" ||
             email === "" ||
-            major === "" ||
-            bio === "" ||
-            competencies.length === 0){
+            major === "" ){
             alert("Please fill in all fields")
             return;
         }
@@ -180,6 +178,7 @@ function EditProfilePopup(props) {
                                         type="text"
                                         value={bio}
                                         className={styles.inputFields}
+                                        placeholder={"What's on your mind?"}
                                         onChange={event => setBio(event.target.value)}/>
                                 </label>
 
@@ -190,10 +189,11 @@ function EditProfilePopup(props) {
                         </div>
 
                         <div className={styles.userInfo}>
-                            <label className={styles.labelContainer}>Username:
-                                <input value={username} onChange={event => setUsername(event.target.value)}
-                                       className={styles.inputFields}/>
-                            </label>
+                            {/*<label className={styles.labelContainer}>Username:*/}
+                            {/*    <input value={username} onChange={event => setUsername(event.target.value)}*/}
+                            {/*           className={styles.inputFields}/>*/}
+                            {/*</label>*/}
+                            <h1>{username}</h1>
                             <br/>
                             {/*<input value={email} disabled className={styles.inputFields}/>*/}
                             <label className={styles.labelContainer}>Major:
