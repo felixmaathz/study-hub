@@ -3,7 +3,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import React, {useState, useMemo} from "react";
 import ProfilePopup from "../ProfilePopup";
-import styles from '../../../styles/clearButton.module.css';
+import styles from '../../../styles/map.module.css';
 
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import {app, db} from "../../../config/firebaseConfig";
@@ -48,11 +48,11 @@ export default function Map() {
 
     function Markers() {
         let userIcon;
-
-        const yourIcon = L.icon({
+        const yourIcon = new L.Icon({
             iconSize: [35, 35],
             iconUrl: "../images/markerIcons/yourPin.png",
         });
+
 
         const map = useMapEvents(
             {
@@ -68,15 +68,13 @@ export default function Map() {
                         console.log("your position is: " + location)
 
                         //Your own marker
-                        myMarker = L.marker([lat, lng], {icon: yourIcon}).addTo(map)
 
+                        myMarker = L.marker([lat, lng], {icon: yourIcon}).addTo(map)
                         setIsPinned(false)
                     }
                 }
             });
         map.whenReady(async() => {
-
-
 
             if (pinsArray.length === 0) {
                 await getPins().then((pins) => {
@@ -204,6 +202,7 @@ export default function Map() {
     function handleClick() {
         if (isPinned) {
             removeMyMarker();
+
         } else {
             saveMarkerPosition();
         }

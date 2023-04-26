@@ -65,10 +65,10 @@ export default function Login(props) {
                                        required/>
                             </label>
                             <br/>
-                            <label  className={styles.marginLeft}>
+                            <label  className={styles.labelContainer}>
                                 Password:
                                 <br/>
-                                <input className={styles.inputFieldPassword}
+                                <input className={styles.inputFields}
 
                                        type={showPassword? "text" : "password"}
                                        name="password"
@@ -76,13 +76,15 @@ export default function Login(props) {
                                        onChange={(event) => setPassword(event.target.value)}
                                        required
                                 />
-
-                            <Image className={styles.showHide}
-                                   src={showPassword?"/images/eyeClosed.png":"/images/eyeOpened.png"}
-                                   alt={"eyeClose"}
-                                   height={20}
-                                   width={25}
-                                   onClick={handleShowPassword}></Image>
+                                {!showPassword ?
+                                    <p className={styles.fieldIcon}><span onClick={handleShowPassword} className="material-symbols-outlined">
+                                        visibility
+                                    </span></p>
+                                    :
+                                    <p className={styles.fieldIcon}><span onClick={handleShowPassword} className="material-symbols-outlined">
+                                        visibility_off
+                                    </span></p>
+                                }
                             </label>
                             <br/>
                             {errorMessage && <p>{errorMessage}</p>}
