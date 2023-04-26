@@ -25,7 +25,7 @@ function YourProfilePopup(props) {
 
     const handleSignOut = () => {
         logOut().then(() => {
-            alert("Signed out")
+            console.log("Signed out")
         })
 
     }
