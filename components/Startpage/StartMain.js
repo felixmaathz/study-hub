@@ -42,7 +42,7 @@ function mainPic() {
                 </div>
             </div>
 
-            <Image src={'/images/startpicture.png'}
+            <Image src={'/images/startPicture.png'}
                    layout="fill"
                      alt="logotype"
                    className={'start-map'} />
