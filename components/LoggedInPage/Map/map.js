@@ -41,13 +41,12 @@ export default function Map() {
         }else{
             console.log("User is not pinned")
         }
-
-
     }, [])
 
 
     function Markers() {
         let userIcon;
+
         const yourIcon = new L.Icon({
             iconSize: [35, 35],
             iconUrl: "../images/markerIcons/yourPin.png",
@@ -68,8 +67,8 @@ export default function Map() {
                         console.log("your position is: " + location)
 
                         //Your own marker
-
                         myMarker = L.marker([lat, lng], {icon: yourIcon}).addTo(map)
+
                         setIsPinned(false)
                     }
                 }
@@ -180,6 +179,7 @@ export default function Map() {
     }
 
     const removeMyMarker = async () => {
+
         if (myMarker) {
             myMarker.remove();
         }
