@@ -2,6 +2,7 @@
     display: flex;
     height: 100%;
     width:100%;
+    overflow: hidden;
 
     .sidebar{
         width: 390px;
@@ -13,7 +14,7 @@
         flex-direction: column;
 
         .search{
-            background-color: blue;
+            background-color: #333333;
             z-index: 99;
             height: 80px;
             width: 390px;
@@ -68,10 +69,12 @@
 
         .containerUserChat{
             width: 390px;
-            padding-top: 80px;
+            max-height: calc(100vh - 14rem);
+            //padding-top: 80px;
+            margin-top: 80px;
             height: 100%;
             display: flex;
-            justify-content: center;
+            //justify-content: center; DENNA FUCKAR CSS SIDEBAREN
             align-items: center;
             flex-direction: column;
             overflow-y: scroll;
