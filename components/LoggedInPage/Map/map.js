@@ -35,28 +35,53 @@ export default function Map() {
     const [isPinned, setIsPinned] = useState(null);
     const [key,setKey] = useState(0)
 
+    const [center, setCenter] = useState([59.85882,17.63889]);
+    const [zoom, setZoom] = useState(15);
+
     const {user, getPins, getDisplayPicture} = useAuth()
     const {userJoined, userLeft} = usePin()
 
     React.useEffect(() => {
-        if (userJoined) {
-            console.log("User joined: " + userJoined)
+        if (userJoined && userJoined.uid !== user.uid){
+            console.log("User joined: " + userJoined.username)
             fetchPins().then(r => {
                 console.log("pins fetched")
-                setKey(key=>key+1)
+                handleReload()
+
             })
         }
         if (userLeft) {
-            console.log("User left: " + userLeft)
+            console.log("User left: " + userLeft.username)
             fetchPins().then(r => {
                 console.log("pins fetched")
-                setKey(key=>key+1)
+                handleReload()
+
             })
         }
 
 
     }, [userJoined, userLeft])
 
+
+    const saveZoom = (event) => {
+        const map = event.target;
+        const newZoom = map.getZoom();
+
+        localStorage.setItem('mapZoom', JSON.stringify(newZoom));
+
+        setZoom(newZoom);
+        console.log("zoom saved")
+
+    }
+
+    const handleReload = () => {
+        console.log("reload")
+        const currentCenter = center;
+        const currentZoom = zoom;
+        setKey(key=>key+1)
+        setCenter(currentCenter);
+        setZoom(currentZoom);
+    }
 
     const fetchPins = async () => {
         pinsArray = []
@@ -95,8 +120,21 @@ export default function Map() {
                         myMarker = L.marker([lat, lng], {icon: yourIcon}).addTo(map)
                         setIsPinned(false)
                     }
+                },
+                moveend: (e) => {
+                    const map = e.target;
+                    const newCenter = map.getCenter();
+                    const newZoom = map.getZoom();
+
+                    localStorage.setItem('mapCenter', JSON.stringify(newCenter));
+                    localStorage.setItem('mapZoom', JSON.stringify(newZoom));
+
+                    setCenter(newCenter);
+                    setZoom(newZoom);
+                    console.log("center saved")
                 }
-            });
+            }
+            );
         map.whenReady(async () => {
             if (pinsArray.length === 0) {
                 await fetchPins()
@@ -240,15 +278,16 @@ export default function Map() {
                     : null}
             </div>
 
-            <div>
+            <div style={{width: '100%', height: '100%'}}>
                 <MapContainer
-                    center={{lat: 59.85882, lng: 17.63889}}
-                    zoom={15}
+                    center={center}
+                    zoom={zoom}
                     style={{height: "100vh", zIndex: '1'}}
                     zoomOnScroll={false}
                     worldCopyJump={true}
                     minZoom={5}
                     key={key}
+
 
                 >
 
