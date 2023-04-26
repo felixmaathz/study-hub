@@ -18,6 +18,15 @@ import {usePin} from "../../Context/pinContext";
 let myMarker = null;
 let pinsArray = [];
 
+const yourPinnedIcon = new L.Icon({
+    iconSize: [35, 35],
+    iconUrl: "../images/markerIcons/yourPinnedPin.png",
+});
+
+const yourIcon = new L.Icon({
+    iconSize: [35, 35],
+    iconUrl: "../images/markerIcons/yourPin.png",
+});
 
 export default function Map() {
 
@@ -42,7 +51,7 @@ export default function Map() {
     const {userJoined, userLeft} = usePin()
 
     React.useEffect(() => {
-        if (userJoined && userJoined.uid !== user.uid){
+        if (userJoined && userJoined !== user.username){
             console.log("User joined: " + userJoined.username)
             fetchPins().then(r => {
                 console.log("pins fetched")
@@ -50,7 +59,7 @@ export default function Map() {
 
             })
         }
-        if (userLeft) {
+        if (userLeft && userLeft !== user.username) {
             console.log("User left: " + userLeft.username)
             fetchPins().then(r => {
                 console.log("pins fetched")
@@ -96,11 +105,15 @@ export default function Map() {
 
     function Markers() {
         let userIcon;
-        const yourIcon = new L.Icon({
+       /* const yourIcon = new L.Icon({
             iconSize: [35, 35],
-            iconUrl: "../images/markerIcons/yourPin.png",
+            iconUrl: "../images/markerIcons/yourPinnedPin.png",
         });
 
+        const yourIconTwo = new L.Icon({
+            iconSize: [35, 35],
+            iconUrl: "../images/markerIcons/WPin.png",
+        });*/
 
         const map = useMapEvents(
             {
@@ -118,6 +131,7 @@ export default function Map() {
                         //Your own marker
 
                         myMarker = L.marker([lat, lng], {icon: yourIcon}).addTo(map)
+
                         setIsPinned(false)
                     }
                 },
@@ -233,6 +247,7 @@ export default function Map() {
     }
 
     const removeMyMarker = async () => {
+        myMarker.setIcon(yourIcon)
         if (myMarker) {
             myMarker.remove();
         }
@@ -244,6 +259,7 @@ export default function Map() {
     }
 
     const saveMarkerPosition = async () => {
+        myMarker.setIcon(yourPinnedIcon)
         console.log("your position is: " + location)
         const uid = user.uid
         const docRef = await updateDoc(doc(db, "users", uid), {

@@ -18,24 +18,24 @@ export const PinContextProvider = ({children}) => {
             snapshot.docChanges().forEach((change) => {
                 if (change.type === "added") {
                     // console.log("New pin: ", change.doc.data().username);
-                    handleUserJoined(change.doc.data())
+                    handleUserJoined(change.doc.data().username)
                 }
                 if (change.type === "removed") {
                     // console.log("Removed pin: ", change.doc.data().username);
-                    handleUserLeft(change.doc.data())
+                    handleUserLeft(change.doc.data().username)
                 }
             });
         });
     },[])
 
 
-    const handleUserJoined = (user) => {
-        setUserJoined(user)
+    const handleUserJoined = (username) => {
+        setUserJoined(username)
         setUserLeft(null)
     }
 
-    const handleUserLeft = (user) => {
-        setUserLeft(user)
+    const handleUserLeft = (username) => {
+        setUserLeft(username)
         setUserJoined(null)
     }
 
