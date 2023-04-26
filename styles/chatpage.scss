@@ -2,7 +2,6 @@
     display: flex;
     height:100vh;
     width:100vw;
-    overflow: hidden;
 
     .sidebar{
         width: 390px;
@@ -13,7 +12,7 @@
         flex-direction: column;
 
         .search{
-            margin: 20px;
+
             .searchForm{
                 padding: 10px;
                 input{
@@ -58,11 +57,13 @@
         }
 
         .containerUserChat{
-            width: 390px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+            //width: 390px;
+            //display: flex;
+            //justify-content: center;
+            //align-items: center;
+            //flex-direction: column;
+            overflow-y: scroll;
+
             .userChat {
                 display: flex;
                 align-items: center;
@@ -74,6 +75,8 @@
                 border-radius: 60px;
                 background-color: rgba(214, 214, 214, 0.29);
                 padding: 10px;
+
+
                 &:hover{
                     background-color: rgba(214, 214, 214, 0.5);
                 }

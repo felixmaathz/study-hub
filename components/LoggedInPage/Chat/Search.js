@@ -82,7 +82,7 @@ const Search = () => {
     };
 
     const handleKey = (e) => {
-    //     // e.code === "Enter" && handleSearch();
+        // e.code === "Enter" && handleSearch();
     }
 
     const handleTest = async (username) => {
@@ -154,22 +154,7 @@ const Search = () => {
 
                 ))}
             </div>
-
             )}
-            {error &&
-                <span>
-                    User Not Found
-                </span>}
-            {userSearch &&
-
-                <div className='userChat' onClick={handleSelect}>
-                    <div className='imageSize'>
-                        <Image src="/images/profile.png" alt="profile" layout='fill'/>
-                    </div>
-                <div className='userChatInfo'>
-                    <span>{userSearch.username}</span>
-                </div>
-            </div>}
         </div>
     )
 }

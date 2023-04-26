@@ -25,6 +25,9 @@ const chatInputField = () => {
     const {user} = useAuth()
 
 
+    const handlePress = (e) => {
+        e.code === "Enter" && handleSend();
+    }
     const handleSend = async () =>{
         const userDocRef = doc(db, "users", user.uid);
         const userDocSnapshot = await getDoc(userDocRef);
@@ -34,6 +37,7 @@ const chatInputField = () => {
             console.log("Username:", username);
 
             // if(img){
+            //
             //
             // }else{
             await updateDoc(doc(db, "chats", data.chatId), {
@@ -73,7 +77,7 @@ const chatInputField = () => {
     }
     return (
         <div className='chatInput'>
-            <input type='text' placeholder='Type a message...' onChange={e=>setText(e.target.value)} value={text}/>
+            <input type='text' placeholder='Type a message...' onKeyDown={handlePress} onChange={e=>setText(e.target.value)} value={text}/>
             <div className='send'>
                 <input type='file' style={{display:'none'}} id='file' onChange={e=>setImg(e.target.files[0])}/>
                 <label htmlFor='file'>
