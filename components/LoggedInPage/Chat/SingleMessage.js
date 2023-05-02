@@ -36,6 +36,7 @@ const singleMessage = ({message}) => {
     }, [message, getProfilePicture])
 
 
+
     return (
         <div ref={ref}
             className={`message ${message.senderId === user.uid && 'owner'}`}>
@@ -50,7 +51,7 @@ const singleMessage = ({message}) => {
                         alt='profile'
                         width={50}
                         height={50}/>
-                <span>Just now</span>
+                <span>{message.date.toDate().toDateString()+" "+message.date.toDate().toLocaleTimeString()}</span>
             </div>
 
             <div className='messageContent'>

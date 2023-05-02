@@ -12,14 +12,17 @@ const ChatList = () => {
 
     const [chats, setChats] = useState([])
     const [loading, setLoading] = useState(true);
+    const [displayPicture, setDisplayPicture] = useState(null);
 
-    const {user} = useAuth();
-    const {dispatch} = useChatContext();
+    const {user, getDisplayPicture} = useAuth();
+    const {dispatch,data} = useChatContext();
+
 
     useEffect(() => {
         const getChats = () => {
             const unsub = onSnapshot(doc(db, "userChats", user.uid), (doc) => {
                 setChats(doc.data());
+                console.log("docdata", doc.data())
                 setLoading(false);
             });
 
@@ -30,6 +33,7 @@ const ChatList = () => {
         user.uid && getChats();
     },[user.uid]);
 
+
     const handleSelect = (u) => {
         dispatch({type:"CHANGE_USER", payload:u});
     }
@@ -37,6 +41,9 @@ const ChatList = () => {
     if (loading) {
         return <Loading/>
     }
+
+
+
 
     return (
             <div className='containerUserChat'>
@@ -46,7 +53,8 @@ const ChatList = () => {
                      onClick={() => handleSelect(chat[1].userInfo)}>
 
                     <div className='imageSize'>
-                        <Image src="/images/profile.png" alt="profile" layout='fill'/>
+                        {chat[1].userInfo.profilePictureURL ? chat[1].userInfo.profilePictureURL : <Image src={"/images/profile.png"} alt="profile" layout='fill'/>}
+
                     </div>
 
                         <div className='userChatInfo'>

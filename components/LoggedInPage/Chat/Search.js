@@ -100,11 +100,12 @@ const Search = () => {
 
     const handleSelect = async () => {
         const combinedId = user.uid > userSearch.uid ? user.uid + userSearch.uid : userSearch.uid + user.uid;
-        console.log(combinedId);
-        console.log(userSearch);
-        console.log("usernameSearch:", usernameSearch);
+        // console.log(combinedId);
+        // console.log(userSearch);
+        // console.log("usernameSearch:", usernameSearch);
         try {
             const res = await getDoc(doc(db, "chats", combinedId));
+            // console.log("userSearchPIC!!!!:", userSearch.profilePictureURL);
 
             if(!res.exists()){
 
@@ -114,23 +115,26 @@ const Search = () => {
                    [combinedId+".userInfo"]: {
                        uid: userSearch.uid,
                        username: userSearch.username,
-                       //photoURL: userSearch.photoURL
+                       profilePictureURL: userSearch.profilePictureURL
                    },
                     [combinedId+".date"]: serverTimestamp()
                 });
+
 
                 await updateDoc(doc(db, "userChats", userSearch.uid), {
                    [combinedId+".userInfo"]: {
                        uid:user.uid,
                        username: user.username,
-                       //photoURL: user.photoURL
+                       profilePictureURL: user.profilePictureURL
                    },
                     [combinedId+".date"]: serverTimestamp()
                 });
 
+
                 }
             }
         catch(error) {}
+        console.log("PLSPLSPLS", userSearch.profilePictureURL);
         setUserSearch(null);
         setUsernameSearch('');
         setFilteredData([]);
