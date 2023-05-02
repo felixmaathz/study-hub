@@ -10,12 +10,11 @@
         height: calc(100vh - 8rem);
         background-color: #333333;
         display: flex;
-        align-items: center;
+        //align-items: center;
         flex-direction: column;
 
         .search{
             background-color: #333333;
-            z-index: 99;
             height: 80px;
             width: 390px;
             display: flex;
@@ -23,6 +22,7 @@
             align-items: center;
             flex-direction: column;
             position: absolute;
+
             .searchForm{
                 input{
                     border: none;
@@ -37,7 +37,8 @@
                 width: 200px;
                 overflow-x: hidden;
                 overflow-y: scroll;
-                z-index: 9;
+                margin-bottom: 8px;
+
                 .individualResult {
                     display: flex;
                     justify-content: center;
