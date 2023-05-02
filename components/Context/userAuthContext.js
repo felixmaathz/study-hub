@@ -81,13 +81,19 @@ export const UserAuthContextProvider = ({children}) => {
         }
     }
 
+
     const getDisplayPicture = async (path) => {
-        if(path === undefined || path === "") return "/images/profile.png"
-         return getDownloadURL(ref(storage, path))
+        if(path === undefined || path === ""){
+            console.log("No profile picture found")
+            return "/images/profile.png"
+        }
+        return getDownloadURL(ref(storage, path))
             .then((url) => {
-               return url
+                console.log("Profile picture found")
+                return url
             })
             .catch((error) => {
+                console.log(error)
             });
     }
 

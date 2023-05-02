@@ -14,6 +14,8 @@ export function Navbar() {
 
     const {user, getDisplayPicture} = useAuth()
 
+
+
     const getProfilePicture = () => {
         if(isLoading){
             setProfilePicture("/images/loadingProfilePicture.gif")
@@ -25,13 +27,9 @@ export function Navbar() {
     }
 
     useEffect(() => {
+        console.log(user)
         if (user) {
-            if(user.profilePictureURL === undefined || user.profilePictureURL === ""){
-                console.log("No profile picture found")
-            }else{
-                getProfilePicture()
-                console.log("Profile picture updated")
-            }
+            getProfilePicture()
         }
     },[getProfilePicture])
 

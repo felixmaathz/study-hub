@@ -41,18 +41,13 @@ function YourProfilePopup(props) {
             setMajor(user.major)
             setCompetencies(user.competencies)
             setBio(user.bio)
-            if (user.profilePictureURL === undefined || user.profilePictureURL === "") {
-                console.log("No profile picture found")
-            } else {
-                setProfilePictureURL(user.profilePictureURL)
-                getDisplayPicture(user.profilePictureURL).then((r) => {
-                    setProfilePicture(r)
-                    dataFetchedRef.current = true
-                })
-            }
-            console.log("User data fetched")
+            setProfilePictureURL(user.profilePictureURL)
+            getDisplayPicture(user.profilePictureURL).then((r) => {
+                setProfilePicture(r)
+                dataFetchedRef.current = true
+            })
         }
-    },[props.trigger])
+    }, [props.trigger])
 
 
     const saveProfile = async (username, email, major, competencies, profilePictureURL, bio) => {
@@ -65,6 +60,7 @@ function YourProfilePopup(props) {
         getDisplayPicture(profilePictureURL).then((r) => {
             setProfilePicture(r)
         })
+
         console.log(username, email, major, competencies, profilePictureURL)
 
         const docRef = await updateDoc(doc(db, "users", user.uid), {

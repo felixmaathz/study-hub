@@ -38,7 +38,6 @@ function EditProfilePopup(props) {
     const [imagePreview, setImagePreview] = useState(null)
     const [profilePicture, setProfilePicture] = useState(null)
     const [profilePictureURL, setProfilePictureURL] = useState("")
-
     const {user, getDisplayPicture} = useAuth()
 
     React.useEffect(() => {
@@ -49,14 +48,11 @@ function EditProfilePopup(props) {
             setMajor(props.data.major)
             setCompetencies(props.data.competencies)
             setBio(props.data.bio)
-            if (props.data.profilePictureURL === ""|| props.data.profilePictureURL === undefined) {
-                setProfilePicture("/images/profile.png")
-            } else {
-                setProfilePictureURL(props.data.profilePictureURL)
-                getDisplayPicture(props.data.profilePictureURL).then((r) => {
-                    setProfilePicture(r)
-                })
-            }
+            setProfilePictureURL(props.data.profilePictureURL)
+            getDisplayPicture(props.data.profilePictureURL).then((r) => {
+                setProfilePicture(r)
+            })
+
         }
     }, [props.editTrigger])
 
@@ -82,7 +78,8 @@ function EditProfilePopup(props) {
             return;
         }
         if (imagePreview) {
-            uploadImage().then(() => {
+            console.log(profilePictureURL)
+            await uploadImage().then(() => {
                 props.setEditTrigger(false)
                 props.saveProfile(username, email, major, competencies, profilePictureURL, bio)
                 setImagePreview(null)

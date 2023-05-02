@@ -72,17 +72,6 @@ export default function Map() {
     }, [userJoined, userLeft])
 
 
-    const saveZoom = (event) => {
-        const map = event.target;
-        const newZoom = map.getZoom();
-
-        localStorage.setItem('mapZoom', JSON.stringify(newZoom));
-
-        setZoom(newZoom);
-        console.log("zoom saved")
-
-    }
-
     const handleReload = () => {
         console.log("reload")
         const currentCenter = center;
@@ -230,15 +219,11 @@ export default function Map() {
                         setCompetencies(pin.competencies)
                         setBio(pin.bio)
                         setProfilePictureURL(pin.profilePictureURL)
-                        if (pin.profilePictureURL === undefined || pin.profilePictureURL === "") {
-                            setProfilePicture("/images/profile.png")
-                        } else {
-                            setProfilePictureURL(pin.profilePictureURL)
-                            getDisplayPicture(pin.profilePictureURL).then((r) =>
+                        getDisplayPicture(pin.profilePictureURL).then((r) => {
                                 setProfilePicture(r)
-                            )
-                        }
-                        setOtherUserPopup(true);
+                                setOtherUserPopup(true);
+                            }
+                        )
                     });
                 })
             }
@@ -277,11 +262,16 @@ export default function Map() {
         }
     }
 
-    const getAllPins = () => {
-        getPins().then((pins) => {
-            console.log(pins)
-        })
+    const clearProfile = () => {
+        setUsername("")
+        setEmail("")
+        setMajor("")
+        setCompetencies("")
+        setBio("")
+        setProfilePictureURL("")
+        setProfilePicture("")
     }
+
     return (
         <div>
             <div className={styles.buttonMarkers}>
@@ -314,7 +304,11 @@ export default function Map() {
 
                     <Markers/>
                 </MapContainer>
-                <OtherUserPopup trigger={otherUserPopup} setTrigger={setOtherUserPopup} data={{
+                <OtherUserPopup
+                    trigger={otherUserPopup}
+                    setTrigger={setOtherUserPopup}
+                    clearProfile={clearProfile}
+                    data={{
                     username: username
                     , major: major
                     , email: email

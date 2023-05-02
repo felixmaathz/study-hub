@@ -13,27 +13,25 @@ function OtherUserPopup(props) {
     const [profilePictureURL, setProfilePictureURL] = useState("")
     const [profilePicture, setProfilePicture] = useState("")
 
-    const {user, getUserData, getDisplayPicture, displayMajor} = useAuth()
+    const {getDisplayPicture, displayMajor} = useAuth()
 
     React.useEffect(() => {
         if (props.data) {
-            setProfilePicture("/images/profile.png")
             setUsername(props.data.username)
             setEmail(props.data.email)
             setMajor(props.data.major)
             setCompetencies(props.data.competencies)
             setBio(props.data.bio)
-            if (props.data.profilePictureURL === undefined || props.data.profilePictureURL === "") {
-            } else {
-                setProfilePictureURL(props.data.profilePictureURL)
-                getDisplayPicture(props.data.profilePictureURL).then((r) =>
-                    setProfilePicture(r))
-            }
+            setProfilePictureURL(props.data.profilePictureURL)
+            getDisplayPicture(props.data.profilePictureURL).then((r) => {
+                setProfilePicture(r)
+            })
         }
-    }, [props.data])
+    }, [props.trigger])
 
     const closePopup = () => {
         props.setTrigger(false)
+        props.clearProfile()
     }
 
     return (props.trigger) ? (
@@ -67,7 +65,7 @@ function OtherUserPopup(props) {
                                 <h4 className={styles.major}>{displayMajor(major)}</h4>
 
                                 <div className={styles.profileCompetencies}>
-                                    {(competencies !== undefined) ? (
+                                    {(competencies.length > 0) ? (
                                         <p>{competencies.map((c) => {
                                             return c + " "
                                         })}</p>
