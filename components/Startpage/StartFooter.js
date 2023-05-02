@@ -1,15 +1,16 @@
-import logoType from "public/images/logotype.png";
+import logoType from "public/images/favicon.png";
 import Image from "next/image";
 
 function StartFooter(){
     return (
         <div className="start-layout-footer" >
-                <div className="start-layout-footer-container-book-logo">
+
                     <Image src={logoType}
-                           layout="fill"
+                           width={60}
+                            height={60}
                             alt="logotype"
                            className={'book-logo'}/>
-                </div>
+
 
                 <div>
                     Contact us at study-hub@team.net. v. 2.1.05

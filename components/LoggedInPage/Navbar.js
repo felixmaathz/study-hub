@@ -27,8 +27,9 @@ export function Navbar() {
     }
 
     useEffect(() => {
-        console.log(user)
         if (user) {
+            console.log(user)
+
             getProfilePicture()
         }
     },[getProfilePicture])
@@ -46,11 +47,6 @@ export function Navbar() {
         const list = document.getElementById('list');
         list.classList.toggle("active");
     }
-
-
-
-
-
 
     return (
         <nav className="navbar">

@@ -8,9 +8,9 @@ import {useAuth} from "../Context/userAuthContext";
 import {doc, updateDoc} from "firebase/firestore";
 
 
-function CompetencyList({competencies, onRemove}) {
+export function CompetencyList({competencies, onRemove}) {
     return (
-        <>
+        <div className={styles.showCompetencies}>
             {(competencies.length > 0) ? (
                 competencies.map((competency, index) => (
                     <p
@@ -23,7 +23,7 @@ function CompetencyList({competencies, onRemove}) {
                 <h3>No competencies added :(</h3>
             )
             }
-        </>
+        </div>
     );
 }
 
@@ -42,7 +42,7 @@ function EditProfilePopup(props) {
 
     React.useEffect(() => {
         if (props.data) {
-            console.log(props.data)
+            console.log("Edit profile popup triggered")
             setUsername(props.data.username)
             setEmail(props.data.email)
             setMajor(props.data.major)
@@ -52,17 +52,14 @@ function EditProfilePopup(props) {
             getDisplayPicture(props.data.profilePictureURL).then((r) => {
                 setProfilePicture(r)
             })
-
         }
     }, [props.editTrigger])
-
 
     const addCompetence = () => {
         if (competence === "") return;
         setCompetencies([...competencies, "#" + competence + " "])
         setCompetence("")
     }
-
 
     const handleRemoveCompetency = (index) => {
         const newCompetencies = [...competencies];
@@ -78,7 +75,6 @@ function EditProfilePopup(props) {
             return;
         }
         if (imagePreview) {
-            console.log(profilePictureURL)
             await uploadImage().then(() => {
                 props.setEditTrigger(false)
                 props.saveProfile(username, email, major, competencies, profilePictureURL, bio)
@@ -86,16 +82,18 @@ function EditProfilePopup(props) {
                 alert("Profile saved! New picture uploaded!")
             })
         } else {
-
             props.setEditTrigger(false)
             props.saveProfile(username, email, major, competencies, profilePictureURL, bio)
             alert("Profile saved!")
         }
     }
+
+
     const handleCancel = () => {
         setImagePreview(null)
         props.setEditTrigger(false)
     }
+
 
     const uploadImage = async () => {
         if (profilePicture === null) return;
@@ -103,25 +101,19 @@ function EditProfilePopup(props) {
             alert('File size is too big!');
             return;
         }
+        console.log(profilePictureURL)
+        console.log("profilePictures/" + user.uid)
         const storageRef = ref(storage, "profilePictures/" + user.uid);
-        await uploadBytes(storageRef, profilePicture).then((snapshot) => {
-            associateUser().then(r => {
-                console.log("Associated user with image! " + user.uid);
-                setProfilePictureURL("profilePictures/" + user.uid)
-                getDisplayPicture(profilePictureURL).then((r) => {
-                    setProfilePicture(r)
-                })
+        await uploadBytes(storageRef, profilePicture).then(() => {
+            getDisplayPicture(profilePictureURL).then((r) => {
+                setProfilePicture(r)
             })
         })
     }
 
-    const associateUser = async () => {
-        const docRef = await updateDoc(doc(db, "users", user.uid), {
-            profilePictureURL: "profilePictures/" + user.uid
-        })
-    }
 
     const previewImage = (event) => {
+        setProfilePictureURL("profilePictures/" + user.uid)
         setProfilePicture(event.target.files[0])
         setImagePreview(URL.createObjectURL(event.target.files[0]))
     }
@@ -235,10 +227,7 @@ function EditProfilePopup(props) {
                                 </label>
                             </div>
                             <div className={styles.competencies}>
-                                {competencies.length > 0 ? (
-                                    <p>Click to remove competence!</p>
-                                ) : ""}
-                                <div className={styles.showCompetencies}>
+                                <div>
                                     <CompetencyList competencies={competencies} onRemove={handleRemoveCompetency}/>
                                 </div>
                             </div>

@@ -223,6 +223,7 @@ export default function Map() {
                         getDisplayPicture(pin.profilePictureURL).then((r) => {
                                 setProfilePicture(r)
                                 setOtherUserPopup(true);
+                                dataFetchedRef.current = true;
                             }
                         )
                     });

@@ -6,6 +6,7 @@ import {app, db} from "../../config/firebaseConfig";
 import {useRouter} from "next/router";
 
 import {useAuth} from "components/Context/userAuthContext.js"
+import {CompetencyList} from "../LoggedInPage/EditProfilePopup";
 
 
 export default function Signup(props) {
@@ -17,12 +18,14 @@ export default function Signup(props) {
     const [createUsername, setCreateUsername] = useState("")
     const [createRepeatPassword, setCreateRepeatPassword] = useState("")
     const [createMajor, setCreateMajor] = useState("")
+    const [createCompetence, setCreateCompetence] = useState("")
+    const [createCompetencies, setCreateCompetencies] = useState([]);
     const [usernameAvailable, setUsernameAvailable] = useState(false)
     const [emailAvailable, setEmailAvailable] = useState(false)
 
     const router = useRouter();
 
-    const {user, signUp, saveUserData} = useAuth()
+    const {signUp} = useAuth()
 
     const handleSignUp = async (event) => {
         event.preventDefault();
@@ -42,8 +45,9 @@ export default function Signup(props) {
                             email: createEmail,
                             major: createMajor,
                             bio: "",
-                            competencies: [],
-                            location: []
+                            competencies: createCompetencies,
+                            location: [],
+                            profilePictureURL: ""
                         })
                         setDoc(doc(db, "userChats", r.user.uid), {}
                         ).then(r => {
@@ -56,17 +60,6 @@ export default function Signup(props) {
                 })
                 alert("sign up successful")
 
-                // try {
-                //     await setDoc(doc(db, "users", createdUser.uid), {
-                //         username: createUsername,
-                //         email: createEmail,
-                //         major: createMajor,
-                //         location: []
-                //     }
-                //     );
-                // } catch (e) {
-                //     console.error("Error adding document: ", e);
-                // }
             } catch (error) {
                 setErrorMessage(error.message);
             }
@@ -83,7 +76,7 @@ export default function Signup(props) {
                 || !emailAvailable
                 || createRepeatPassword === ""
                 || !usernameAvailable)
-            && createPassword === createRepeatPassword) {
+                && createPassword === createRepeatPassword) {
             const firstForm = document.getElementById("firstForm");
             firstForm.style.display = "none";
             const secondForm = document.getElementById("secondForm");
@@ -100,7 +93,7 @@ export default function Signup(props) {
 
     const checkUsernameAvailability = async (e) => {
         setCreateUsername(e.target.value)
-        if(e.target.value.length >= 4){
+        if (e.target.value.length >= 4) {
             const userRef = collection(db, "users");
             const q = query(userRef, where("username", "==", e.target.value));
             const querySnapshot = await getDocs(q);
@@ -110,7 +103,7 @@ export default function Signup(props) {
             } else {
                 setUsernameAvailable(true)
             }
-        }else{
+        } else {
             setUsernameAvailable(false)
         }
     }
@@ -129,12 +122,45 @@ export default function Signup(props) {
         }
     }
 
+    const closePopup = () => {
+        props.setTrigger(false)
+        setCreateUsername("")
+        setCreateEmail("")
+        setCreatePassword("")
+        setCreateRepeatPassword("")
+        setCreateMajor("")
+        setUsernameAvailable(false)
+        setEmailAvailable(false)
+    }
+
+    const goBack = () => {
+        const firstForm = document.getElementById("firstForm");
+        firstForm.style.display = "flex";
+        const secondForm = document.getElementById("secondForm");
+        secondForm.style.display = "none";
+    }
+
+    const addCompetence = () => {
+        if (createCompetence === "") return;
+        setCreateCompetencies([...createCompetencies, "#" + createCompetence + " "])
+        setCreateCompetence("")
+    }
+
+    const handleRemoveCompetency = (index) => {
+        const newCompetencies = [...createCompetencies];
+        newCompetencies.splice(index, 1);
+        setCreateCompetencies(newCompetencies);
+    }
+
     return (props.trigger) ? (
         <>
             <div className={styles.popup}>
                 <div className={styles.popupInner}>
-                    <button className={styles.closeBtn} onClick={() => props.setTrigger(false)}/>
-
+                    <button className={styles.closeBtn} onClick={closePopup}>
+                        <span className="material-symbols-outlined">
+                            close
+                        </span>
+                    </button>
                     <Image src="/images/favicon.png"
                            alt="icon"
                            width={60}
@@ -153,7 +179,7 @@ export default function Signup(props) {
                                        type="text"
                                        name="name"
                                        value={createUsername}
-                                       onChange={(e)=>checkUsernameAvailability(e)}
+                                       onChange={(e) => checkUsernameAvailability(e)}
                                        required/>
                                 {usernameAvailable ?
                                     <p className={styles.fieldIcon}><span className="material-symbols-outlined">
@@ -173,7 +199,7 @@ export default function Signup(props) {
                                        type="email"
                                        name="email"
                                        value={createEmail}
-                                       onChange={(e)=>checkEmailAvailability(e)}
+                                       onChange={(e) => checkEmailAvailability(e)}
                                        required/>
                             </label>
                             <br/>
@@ -188,17 +214,19 @@ export default function Signup(props) {
                                        required
                                 />
                                 {!showPassword ?
-                                    <p className={styles.fieldIcon}><span onClick={handleShowPassword} className="material-symbols-outlined">
+                                    <p className={styles.fieldIcon}><span onClick={handleShowPassword}
+                                                                          className="material-symbols-outlined">
                                         visibility
                                     </span></p>
                                     :
-                                    <p className={styles.fieldIcon}><span onClick={handleShowPassword} className="material-symbols-outlined">
+                                    <p className={styles.fieldIcon}><span onClick={handleShowPassword}
+                                                                          className="material-symbols-outlined">
                                         visibility_off
                                     </span></p>
                                 }
                             </label>
                             <br/>
-                            <label>
+                            <label className={styles.labelContainer}>
                                 Confirm Password:
                                 <br/>
                                 <input className={styles.inputFields}
@@ -211,7 +239,14 @@ export default function Signup(props) {
                             <button type="button" className={styles.popupButtons} onClick={nextForm}> Next</button>
                         </div>
                         <div className={styles.secondContainer} id="secondForm">
-                            <label>
+                            <p>Dont worry, you can change these later!</p>
+                            <button className={styles.backButton} onClick={goBack}>
+                                <span
+                                    className="material-symbols-outlined">
+                                arrow_back
+                                </span>
+                            </button>
+                            <label className={styles.labelContainer}>
                                 Choose your Major:
                                 <br/>
                                 <select className={styles.inputFields}
@@ -234,7 +269,36 @@ export default function Signup(props) {
                                 </select>
                             </label>
                             <br/>
+                            <label className={styles.labelContainer}>Competence (optional):
+                                <input type="text"
+                                       className={styles.inputFields}
+                                       placeholder={"Add competence..."}
+                                       value={createCompetence}
+                                       onChange={(event) => {
+                                           const newVal = event.target.value.replace(/\s/g, '')
+                                           setCreateCompetence(newVal)
+                                       }
+                                       }/>
+                                <button onClick={addCompetence}
+                                        className={styles.addCompetenceButton}
+                                        type="button"><span
+                                    className="material-symbols-outlined">
+                                    add
+                                </span>
+                                </button>
+                            </label>
+
+
+                            <br/>
                             {errorMessage && <p>{errorMessage}</p>}
+
+                            <div>
+                                <div className={styles.showCompetencies}>
+                                    <CompetencyList competencies={createCompetencies}
+                                                    onRemove={handleRemoveCompetency}/>
+                                </div>
+                            </div>
+
                             <button type="submit" className={styles.popupButtons}>Sign Up</button>
                         </div>
                     </form>

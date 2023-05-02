@@ -24,21 +24,21 @@ function mainPic() {
                 <div className="welcome-text">
                     <h1>Find experts in your area!</h1>
 
-                    <div>
+                    <span className="welcome-text-light">
 
                         Hello and welcome to StudyHub!
                         The ultimate social media platform for students.
                         Connect with your fellow classmates through our interactive map interface
                         and learn by both teaching and receiving help.
 
-                    </div>
+                    </span>
 
                 </div>
 
                 <div className='buttons-position'>
-                    <button className='button-login' onClick={() => setLogButtonPopup(true)}>Log in</button>
+                    <button className='button-login' onClick={() => setLogButtonPopup(true)}>LOG IN</button>
                     <br/>
-                    <button className='button-signup' onClick={() => setSignButtonPopup(true)}>Sign up</button>
+                    <button className='button-signup' onClick={() => setSignButtonPopup(true)}>SIGN UP</button>
                 </div>
             </div>
 
@@ -77,17 +77,16 @@ function mainPic() {
                             A highway for knowledge distribution
                         </h2>
 
-                        <div>
+                        <div className="about-us-text">
                             We're students, just like you. We've all endured long waiting times on stackoverflow,
-                            sometimes you can't even fully confide in ChatGPT's ability to help you
-                            (Try asking it about SQL queries, big lol). Our solution is a web application for a closely connected community of students.
+                            our solution is a web application for a closely connected community of students.
                             It does its magic over the interface of a map, where you can see all other logged on students. It lets you interact,
                             so you can be there for each other, one as a student tutor, and the other as a helpee. The helpee then rates its tutor, kinda like uber.
                             If you have a great rating, people will want your help, and they'll even pay for it!
                         </div>
 
                         <div className='about-us-position'>
-                            <button className='button-signup' onClick={() => setAboutUsPopUp(true)}>About Us</button>
+                            <button className='button-about-us' onClick={() => setAboutUsPopUp(true)}>ABOUT US</button>
                         </div>
                     </div>
                 </div>

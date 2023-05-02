@@ -109,6 +109,8 @@ export const UserAuthContextProvider = ({children}) => {
         return pins
     }
 
+
+
     const displayMajor = (major) => {
         switch (major) {
             case "E":

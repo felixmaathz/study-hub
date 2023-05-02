@@ -2,13 +2,13 @@ import {useAuth} from "../Context/userAuthContext";
 import {db} from "../../config/firebaseConfig";
 import {doc, updateDoc} from "firebase/firestore";
 import styles from "../../styles/popup.module.css";
-import EditProfilePopup from "./EditProfilePopup";
+import EditYourProfilePopup from "./EditProfilePopup";
 import React, {useRef, useState} from "react";
 import Image from "next/image";
+import EditProfilePopup from "./EditProfilePopup";
 
 
 function YourProfilePopup(props) {
-
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -21,7 +21,7 @@ function YourProfilePopup(props) {
     const [editTrigger, setEditTrigger] = useState(false)
     const dataFetchedRef = useRef(false);
 
-    const {user, getUserData, getDisplayPicture, displayMajor, logOut} = useAuth()
+    const {user, getDisplayPicture, displayMajor, logOut} = useAuth()
 
     const handleSignOut = () => {
         logOut().then(() => {
@@ -63,7 +63,7 @@ function YourProfilePopup(props) {
 
         console.log(username, email, major, competencies, profilePictureURL)
 
-        const docRef = await updateDoc(doc(db, "users", user.uid), {
+        await updateDoc(doc(db, "users", user.uid), {
             username: username,
             email: email,
             major: major,
@@ -71,6 +71,7 @@ function YourProfilePopup(props) {
             profilePictureURL: profilePictureURL,
             bio: bio
         }).then(() => {
+
             props.update()
             console.log("Profile updated")
         })
