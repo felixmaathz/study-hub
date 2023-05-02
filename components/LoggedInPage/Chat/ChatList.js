@@ -12,9 +12,11 @@ const ChatList = () => {
 
     const [chats, setChats] = useState([])
     const [loading, setLoading] = useState(true);
+    const [displayPicture, setDisplayPicture] = useState(null);
 
-    const {user} = useAuth();
-    const {dispatch} = useChatContext();
+    const {user, getDisplayPicture} = useAuth();
+    const {dispatch,data} = useChatContext();
+
 
     useEffect(() => {
         const getChats = () => {
@@ -32,6 +34,13 @@ const ChatList = () => {
 
     const handleSelect = (u) => {
         dispatch({type:"CHANGE_USER", payload:u});
+
+        if (window.matchMedia("(max-width: 800px)").matches) {
+            const chat = document.getElementsByClassName('chat')[0];
+            chat.style.display = "block";
+            const sidebar = document.getElementsByClassName('sidebar')[0];
+            sidebar.style.display = "none"; // optional chaining used here
+        }
     }
 
     if (loading) {
@@ -46,7 +55,8 @@ const ChatList = () => {
                      onClick={() => handleSelect(chat[1].userInfo)}>
 
                     <div className='imageSize'>
-                        <Image src="/images/profile.png" alt="profile" layout='fill'/>
+                        {chat[1].userInfo.profilePictureURL ? chat[1].userInfo.profilePictureURL : <Image src={"/images/profile.png"} alt="profile" layout='fill'/>}
+
                     </div>
 
                         <div className='userChatInfo'>

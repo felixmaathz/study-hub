@@ -85,7 +85,7 @@ const chatInputField = () => {
                         <Image src={AddImage} alt='addImage' />
                     </div>
                 </label>
-                <button onClick={handleSend}>Send</button>
+                <button onClick={handleSend} className='sendButton'>Send</button>
             </div>
         </div>
     )
