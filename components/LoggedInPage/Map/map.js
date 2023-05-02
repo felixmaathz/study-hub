@@ -1,7 +1,7 @@
 import {MapContainer, TileLayer, useMapEvents, Marker} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import React, {useState, useMemo} from "react";
+import React, {useState, useMemo, useRef} from "react";
 import ProfilePopup from "../ProfilePopup";
 import styles from '../../../styles/map.module.css';
 
@@ -46,6 +46,7 @@ export default function Map() {
 
     const [center, setCenter] = useState([59.85882,17.63889]);
     const [zoom, setZoom] = useState(15);
+    const dataFetchedRef = useRef(false);
 
     const {user, getPins, getDisplayPicture} = useAuth()
     const {userJoined, userLeft} = usePin()
@@ -142,7 +143,7 @@ export default function Map() {
             if (pinsArray.length === 0) {
                 await fetchPins()
             }
-            if (pinsArray.length > 0) {
+            if (pinsArray.length > 0 && !dataFetchedRef.current) {
                 pinsArray.forEach((pin) => {
                     if (pin.major === "E") {
                         userIcon = new L.Icon({
