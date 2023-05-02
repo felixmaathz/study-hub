@@ -4,6 +4,7 @@ import profile from '../../../public/images/profile.png';
 import {useChatContext} from "../../Context/chatContext";
 import {useAuth} from "../../Context/userAuthContext";
 import {useRef, useState, useEffect} from "react";
+import messages from "./Messages";
 
 const singleMessage = ({message}) => {
 
@@ -35,7 +36,6 @@ const singleMessage = ({message}) => {
 
     }, [message, getProfilePicture])
 
-
     return (
         <div ref={ref}
             className={`message ${message.senderId === user.uid && 'owner'}`}>
@@ -50,7 +50,7 @@ const singleMessage = ({message}) => {
                         alt='profile'
                         width={50}
                         height={50}/>
-                <span>Just now</span>
+                <span>{messages.date}</span>
             </div>
 
             <div className='messageContent'>
