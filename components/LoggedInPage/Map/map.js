@@ -1,7 +1,7 @@
 import {MapContainer, TileLayer, useMapEvents, Marker} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import React, {useState, useMemo} from "react";
+import React, {useState, useMemo, useRef} from "react";
 import ProfilePopup from "../ProfilePopup";
 import styles from '../../../styles/map.module.css';
 
@@ -46,6 +46,7 @@ export default function Map() {
 
     const [center, setCenter] = useState([59.85882,17.63889]);
     const [zoom, setZoom] = useState(15);
+    const dataFetchedRef = useRef(false);
 
     const {user, getPins, getDisplayPicture} = useAuth()
     const {userJoined, userLeft} = usePin()
@@ -71,17 +72,6 @@ export default function Map() {
 
     }, [userJoined, userLeft])
 
-
-    const saveZoom = (event) => {
-        const map = event.target;
-        const newZoom = map.getZoom();
-
-        localStorage.setItem('mapZoom', JSON.stringify(newZoom));
-
-        setZoom(newZoom);
-        console.log("zoom saved")
-
-    }
 
     const handleReload = () => {
         console.log("reload")
@@ -153,7 +143,7 @@ export default function Map() {
             if (pinsArray.length === 0) {
                 await fetchPins()
             }
-            if (pinsArray.length > 0) {
+            if (pinsArray.length > 0 && !dataFetchedRef.current) {
                 pinsArray.forEach((pin) => {
                     if (pin.major === "E") {
                         userIcon = new L.Icon({
@@ -230,15 +220,11 @@ export default function Map() {
                         setCompetencies(pin.competencies)
                         setBio(pin.bio)
                         setProfilePictureURL(pin.profilePictureURL)
-                        if (pin.profilePictureURL === undefined || pin.profilePictureURL === "") {
-                            setProfilePicture("/images/profile.png")
-                        } else {
-                            setProfilePictureURL(pin.profilePictureURL)
-                            getDisplayPicture(pin.profilePictureURL).then((r) =>
+                        getDisplayPicture(pin.profilePictureURL).then((r) => {
                                 setProfilePicture(r)
-                            )
-                        }
-                        setOtherUserPopup(true);
+                                setOtherUserPopup(true);
+                            }
+                        )
                     });
                 })
             }
@@ -277,11 +263,16 @@ export default function Map() {
         }
     }
 
-    const getAllPins = () => {
-        getPins().then((pins) => {
-            console.log(pins)
-        })
+    const clearProfile = () => {
+        setUsername("")
+        setEmail("")
+        setMajor("")
+        setCompetencies("")
+        setBio("")
+        setProfilePictureURL("")
+        setProfilePicture("")
     }
+
     return (
         <div>
             <div className={styles.buttonMarkers}>
@@ -314,7 +305,11 @@ export default function Map() {
 
                     <Markers/>
                 </MapContainer>
-                <OtherUserPopup trigger={otherUserPopup} setTrigger={setOtherUserPopup} data={{
+                <OtherUserPopup
+                    trigger={otherUserPopup}
+                    setTrigger={setOtherUserPopup}
+                    clearProfile={clearProfile}
+                    data={{
                     username: username
                     , major: major
                     , email: email

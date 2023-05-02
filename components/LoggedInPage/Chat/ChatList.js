@@ -22,7 +22,6 @@ const ChatList = () => {
         const getChats = () => {
             const unsub = onSnapshot(doc(db, "userChats", user.uid), (doc) => {
                 setChats(doc.data());
-                console.log("docdata", doc.data())
                 setLoading(false);
             });
 
@@ -33,17 +32,20 @@ const ChatList = () => {
         user.uid && getChats();
     },[user.uid]);
 
-
     const handleSelect = (u) => {
         dispatch({type:"CHANGE_USER", payload:u});
+
+        if (window.matchMedia("(max-width: 800px)").matches) {
+            const chat = document.getElementsByClassName('chat')[0];
+            chat.style.display = "block";
+            const sidebar = document.getElementsByClassName('sidebar')[0];
+            sidebar.style.display = "none"; // optional chaining used here
+        }
     }
 
     if (loading) {
         return <Loading/>
     }
-
-
-
 
     return (
             <div className='containerUserChat'>

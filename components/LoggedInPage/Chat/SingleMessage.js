@@ -4,6 +4,7 @@ import profile from '../../../public/images/profile.png';
 import {useChatContext} from "../../Context/chatContext";
 import {useAuth} from "../../Context/userAuthContext";
 import {useRef, useState, useEffect} from "react";
+import messages from "./Messages";
 
 const singleMessage = ({message}) => {
 
@@ -34,7 +35,6 @@ const singleMessage = ({message}) => {
         console.log("Profile picture updated")
 
     }, [message, getProfilePicture])
-
 
 
     return (
