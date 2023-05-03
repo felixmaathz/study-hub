@@ -24,6 +24,8 @@ function OtherUserPopup(props) {
     const [competencies, setCompetencies] = useState([]);
     const [bio, setBio] = useState("");
     const [XP, setXP] = useState(0);
+    const [level, setLevel] = useState(0)
+
     const [profilePictureURL, setProfilePictureURL] = useState("")
     const [profilePicture, setProfilePicture] = useState("")
     const [profileLikes, setProfileLikes] = useState([])
@@ -44,8 +46,13 @@ function OtherUserPopup(props) {
             getDisplayPicture(props.data.profilePictureURL).then((r) => {
                 setProfilePicture(r)
             })
+            calculateLevel()
         }
     }, [props.trigger])
+
+    const calculateLevel = () => {
+        setLevel(Math.floor(props.data.XP / 100))
+    }
 
     const closePopup = () => {
         props.setTrigger(false)
@@ -120,7 +127,7 @@ function OtherUserPopup(props) {
                                     fill="true"
                                     className={styles.profileFrame}/>
                                 <div className={styles.level}>
-                                    <h4>LVL 4</h4>
+                                    <h4>LVL {level}</h4>
                                 </div>
 
                             </div>
