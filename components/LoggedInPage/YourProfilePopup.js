@@ -15,6 +15,9 @@ function YourProfilePopup(props) {
     const [major, setMajor] = useState("");
     const [competencies, setCompetencies] = useState([]);
     const [bio, setBio] = useState("");
+    const [XP, setXP] = useState(0);
+    const [profileLikes, setProfileLikes] = useState([])
+    const [level, setLevel] = useState(0)
     const [profilePictureURL, setProfilePictureURL] = useState("")
     const [profilePicture, setProfilePicture] = useState("/images/profile.png")
 
@@ -35,20 +38,26 @@ function YourProfilePopup(props) {
     }
 
     React.useEffect(() => {
-        if (user && !dataFetchedRef.current) {
+        if (user) {
             setUsername(user.username)
             setEmail(user.email)
             setMajor(user.major)
             setCompetencies(user.competencies)
             setBio(user.bio)
+            setXP(user.XP)
+            setProfileLikes(user.profileLikes)
             setProfilePictureURL(user.profilePictureURL)
             getDisplayPicture(user.profilePictureURL).then((r) => {
                 setProfilePicture(r)
                 dataFetchedRef.current = true
             })
+            calculateLevel()
         }
     }, [props.trigger])
 
+    const calculateLevel = () => {
+        setLevel(Math.floor(user.XP / 100))
+    }
 
     const saveProfile = async (username, email, major, competencies, profilePictureURL, bio) => {
         setUsername(username)
@@ -60,8 +69,6 @@ function YourProfilePopup(props) {
         getDisplayPicture(profilePictureURL).then((r) => {
             setProfilePicture(r)
         })
-
-        console.log(username, email, major, competencies, profilePictureURL)
 
         await updateDoc(doc(db, "users", user.uid), {
             username: username,
@@ -98,7 +105,7 @@ function YourProfilePopup(props) {
                                     fill="true"
                                     className={styles.profileFrame}/>
                                 <div className={styles.level}>
-                                    <h4>LVL 4</h4>
+                                    <h4>LVL {level}</h4>
                                 </div>
                             </div>
                             <div className={styles.bio}>{(bio.length > 0) ? ('"' + bio + '"')

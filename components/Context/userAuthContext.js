@@ -34,6 +34,8 @@ export const UserAuthContextProvider = ({children}) => {
                         major: r.major,
                         competencies: r.competencies,
                         bio: r.bio,
+                        XP: r.XP,
+                        profileLikes: r.profileLikes,
                         profilePictureURL: r.profilePictureURL,
                         location: r.location,
                     })
