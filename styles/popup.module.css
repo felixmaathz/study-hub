@@ -195,9 +195,11 @@
     justify-content: center;
     align-items: flex-start;
     position: relative;
+    gap: 5px;
 }
 
 .label {
+
     font-size: 0.8em;
     font-weight: 600;
     margin-bottom: 10px;
@@ -249,7 +251,7 @@
 }
 
 .userPictureContainer {
-    width: 50%;
+    width: 40%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -340,11 +342,13 @@
 }
 
 .competence {
-    padding: 8px;
+    height: 20px;
+    padding: 5px;
     border-radius: 20px;
     display: flex;
     align-items: center;
     cursor: pointer;
+    margin: 0px;
 
 }
 
@@ -355,6 +359,7 @@
 }
 
 .showCompetencies {
+    margin-top: 10px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -376,6 +381,7 @@
 @media only screen and (max-width: 800px) {
     .textContainer {
         width: 95%;
+        text-align: left;
     }
 
     .heading1 {
@@ -430,9 +436,9 @@
     }
 
     .userInfo {
-        width: 100%;
+        width: 90%;
         align-items: center;
-
+        justify-content: space-around;
     }
 
     .username {

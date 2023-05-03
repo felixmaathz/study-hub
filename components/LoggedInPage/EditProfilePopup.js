@@ -143,7 +143,7 @@ function EditProfilePopup(props) {
                                         )
                                 }
                                 <div className={styles.level}>
-                                    <h4>LVL 4</h4>
+                                    <h4>LVL 800</h4>
                                 </div>
                                 <input
                                     type="file"
@@ -182,7 +182,7 @@ function EditProfilePopup(props) {
                             {/*    <input value={username} onChange={event => setUsername(event.target.value)}*/}
                             {/*           className={styles.inputFields}/>*/}
                             {/*</label>*/}
-                            <h1>{username}</h1>
+                            <h2>{username}</h2>
                             <br/>
                             {/*<input value={email} disabled className={styles.inputFields}/>*/}
                             <label className={styles.labelContainer}>Major:
