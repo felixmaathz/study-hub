@@ -120,9 +120,9 @@ function EditProfilePopup(props) {
 
     return (props.editTrigger) ? (
             <div className={styles.editPopup}>
-                <div className={styles.popupInner}>
+                <div className={styles.popupInnerEdit}>
                     <div className={styles.profileLayout}>
-                        <div className={styles.userPictureContainer}>
+                        <div className={styles.userPictureContainerEdit}>
                             <div className={styles.userProfilePicture}>
                                 {
                                     imagePreview ? (
@@ -161,6 +161,7 @@ function EditProfilePopup(props) {
                                     </div>
                                 </label>
                             </div>
+                            <h2 className={styles.displayNameTwo}>{username}</h2>
                             <div className={styles.container}>
                                 <label className={styles.labelContainer}>Bio:
                                     <input
@@ -171,9 +172,11 @@ function EditProfilePopup(props) {
                                         onChange={event => setBio(event.target.value)}/>
                                 </label>
 
-                                <button onClick={handleSave} className={styles.popupButtons}>Save profile</button>
+                                <div className={styles.displayButtons}>
+                                    <button onClick={handleSave} className={styles.popupButtons}>Save profile</button>
 
-                                <button onClick={handleCancel} className={styles.popupButtons}> Cancel</button>
+                                    <button onClick={handleCancel} className={styles.popupButtons}> Cancel</button>
+                                </div>
                             </div>
                         </div>
 
@@ -182,9 +185,10 @@ function EditProfilePopup(props) {
                             {/*    <input value={username} onChange={event => setUsername(event.target.value)}*/}
                             {/*           className={styles.inputFields}/>*/}
                             {/*</label>*/}
-                            <h2>{username}</h2>
+                            <h2 className={styles.displayName}>{username}</h2>
                             <br/>
                             {/*<input value={email} disabled className={styles.inputFields}/>*/}
+
                             <label className={styles.labelContainer}>Major:
                                 <select className={styles.inputFields}
                                         name="major"
@@ -230,6 +234,11 @@ function EditProfilePopup(props) {
                                 <div>
                                     <CompetencyList competencies={competencies} onRemove={handleRemoveCompetency}/>
                                 </div>
+                            </div>
+                            <div className={styles.displayButtonsTwo}>
+                                <button onClick={handleSave} className={styles.popupButtons}>Save profile</button>
+
+                                <button onClick={handleCancel} className={styles.popupButtons}> Cancel</button>
                             </div>
 
                         </div>
