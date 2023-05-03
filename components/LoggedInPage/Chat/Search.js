@@ -106,9 +106,10 @@ const Search = () => {
             const res = await getDoc(doc(db, "chats", combinedId));
             // console.log("userSearchPIC!!!!:", userSearch.profilePictureURL);
 
-            if(!res.exists()){
+            if(!res.exists()) {
 
-                await setDoc(doc(db,"chats", combinedId), {messages: [] });
+                await setDoc(doc(db, "chats", combinedId), {messages: []});
+            }
 
                 await updateDoc(doc(db, "userChats", user.uid), {
                    [combinedId+".userInfo"]: {
@@ -129,11 +130,9 @@ const Search = () => {
                     [combinedId+".date"]: serverTimestamp()
                 });
 
-
-                }
             }
         catch(error) {}
-        console.log("PLSPLSPLS", userSearch.profilePictureURL);
+        // console.log("PLSPLSPLS", userSearch.profilePictureURL);
         setUserSearch(null);
         setUsernameSearch('');
         setFilteredData([]);
