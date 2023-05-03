@@ -12,7 +12,7 @@ const ChatList = () => {
 
     const [chats, setChats] = useState([])
     const [loading, setLoading] = useState(true);
-    const [displayPicture, setDisplayPicture] = useState(null);
+    const [displayPictures, setDisplayPictures] = useState({});
 
     const {user, getDisplayPicture} = useAuth();
     const {dispatch,data} = useChatContext();
@@ -32,6 +32,21 @@ const ChatList = () => {
         user.uid && getChats();
     },[user.uid]);
 
+    useEffect(() => {
+        const fetchDisplayPicture = async (url, chatId) => {
+            const res = await getDisplayPicture(url);
+            setDisplayPictures(prevState => ({...prevState, [chatId]: res}));
+        }
+
+        if (chats) {
+            Object.entries(chats).forEach(([chatId, chat]) => {
+                if (chat.userInfo && chat.userInfo.profilePictureURL) {
+                    fetchDisplayPicture(chat.userInfo.profilePictureURL, chatId);
+                }
+            })
+        }
+    }, [chats]);
+
     const handleSelect = (u) => {
         dispatch({type:"CHANGE_USER", payload:u});
 
@@ -41,6 +56,8 @@ const ChatList = () => {
             const sidebar = document.getElementsByClassName('sidebar')[0];
             sidebar.style.display = "none"; // optional chaining used here
         }
+
+
     }
 
     if (loading) {
@@ -55,8 +72,7 @@ const ChatList = () => {
                      onClick={() => handleSelect(chat[1].userInfo)}>
 
                     <div className='imageSize'>
-                        {chat[1].userInfo.profilePictureURL ? chat[1].userInfo.profilePictureURL : <Image src={"/images/profile.png"} alt="profile" layout='fill'/>}
-
+                        {<Image src={displayPictures[chat[0]] || "/images/profile.png"} alt="profile" layout='fill' />}
                     </div>
 
                         <div className='userChatInfo'>
