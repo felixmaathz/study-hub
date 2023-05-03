@@ -7,7 +7,11 @@ function HelpPopup(props){
     return (props.trigger) ? (
         <div className={styles.popup}>
             <div className={styles.popupInner}>
-                <button className={styles.closeBtn} onClick = {() => props.setTrigger(false)}>X</button>
+                <button className={styles.closeBtn} onClick = {() => props.setTrigger(false)}>
+                    <span className="material-symbols-outlined">
+                            close
+                        </span>
+                </button>
 
                 <div className={styles.container}>
                     <h2>What is this sorcery?</h2>

@@ -8,16 +8,25 @@ function AboutUsPopUp(props) {
     return (props.trigger) ? (
         <div className={styles.popup}>
             <div className={styles.popupInner}>
-                <button className={styles.closeBtn} onClick = {() => props.setTrigger(false)}>X</button>
+                <button className={styles.closeBtn} onClick = {() => props.setTrigger(false)}>
+                    <span className="material-symbols-outlined">
+                            close
+                        </span>
+                </button>
 
                 <div className={styles.container}>
+                    <h2>
+                        Hello there!
+                    </h2>
                     <h3>
-                        yadayada
+                        Welcome to StudyHub!
+                        We're a small team consisting of four students; Felix "the backend monster" Maathz, Gabriel "leaflet" Martens, Simon "fixes everything" Olofsson and Hugo "CSS king" Asztély.
+                        This web application was made as a project for one of our courses at Uppsala University, but we hope it doesn't stop as a school project, and that it actually becomes a
+                        useful and maybe even fun tool for students in their studies. Enjoy!
+                        <br/>
+                        <br/>
+                        // Fogen Industries Inc.
                     </h3>
-                    <h4>
-                       "I go sell coke to your ho, sorry if you didn't know. That your girl loves my blow, one hit... now the girl on the pole.
-                        <br/>I love sellin' blow! I love sellin' blow! I love sellin' blow! I love sellin' blow!" - Complete Poems, Karin Boye
-                    </h4>
                 </div>
             </div>
         </div>

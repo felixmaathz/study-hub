@@ -152,76 +152,89 @@ button.button-about-us:hover {
   height: 100vh;
   z-index: 1;
   display: flex;
+  justify-content: center;
+  align-items: center;
+
   background-color: #FDF0E9;
-  justify-content: center;
-  align-items: center;
-}
+  .about-us-container {
+    width: 90%;
+    height: 90%;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
 
-.about-us-container {
-  height: 80%;
-  width: 85%;
-  align-items: center;
-  justify-content: space-around;
-  object-fit: contain;
-  z-index: 0;
-  display: flex;
-  border-color: black;
-  border-top: 3px solid #F3D1BF;
-  border-bottom: 3px solid #F3D1BF;
-}
+    object-fit: contain;
+    z-index: 0;
 
-.pic-about-us-container {
-  width: 25vw;
-  height: 25vw;
-  position: relative;
-  z-index: 3;
-  object-fit: contain;
-  justify-content: center;
+    display: flex;
+    flex-direction: row;
 
-  .pic-about-us {
-    position: relative;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
+    border-color: black;
+    border-top: 3px solid #F3D1BF;
+    border-bottom: 3px solid #F3D1BF;
+
+      .pic-about-us-container {
+        width: 25vw;
+        height: 25vw;
+        position: relative;
+        z-index: 3;
+        object-fit: contain;
+        justify-content: center;
+        .pic-about-us {
+          position: relative;
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+    .text-about-us-container {
+      width: 80%;
+      height: auto;
+      z-index: 3;
+      display: flex;
+      justify-content: center;
+      object-fit: contain;
+      color: #391400;
+
+        h1{
+          display: flex;
+          justify-content: center;
+        }
+        h2{
+          display: flex;
+          justify-content: center;
+        }
+        .about-us-text {
+          color: #806355;
+          line-height: 1.5em;
+        }
+        .about-us-text {
+          color: #806355;
+          line-height: 1.5em;
+        }
+        .button-about-us {
+          border-radius: 6px;
+          color: #391400;
+          background-color: #ffffff;
+          font-weight: 800;
+          width: 140px;
+          height: 50px;
+          border: none;
+          box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.25);
+          font-size:14px;
+          cursor: pointer;
+          transition: 0.25s;
+          margin-top: 2vw;
+        }
+        .about-us-position {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+    }
+
   }
 }
-
-.text-about-us-container {
-  width: 60%;
-  height: 50vh;
-  z-index: 3;
-  display: flex;
-  justify-content: center;
-  object-fit: contain;
-  color: #391400
-}
-
-.about-us-text {
-  color: #806355;
-  line-height: 1.5em;
-}
-
-.button-about-us {
-  border-radius: 6px;
-  color: #391400;
-  background-color: #ffffff;
-  font-weight: 800;
-  width: 140px;
-  height: 50px;
-  border: none;
-  box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.25);
-  font-size:14px;
-  cursor: pointer;
-  transition: 0.25s;
-  margin-top: 2vw;
-}
-
-.about-us-position {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 
 .start-layout-footer {
   background-color: #333333;
@@ -233,21 +246,22 @@ button.button-about-us:hover {
   width: 100%;
   height: 20vh;
   z-index: 1;
-}
+  .start-layout-footer-container-book-logo {
+    width: 5vw;
+    height: auto;
+    position: relative;
+    z-index: 0;
 
-.start-layout-footer-container-book-logo {
-  width: 5vw;
-  height: auto;
-  position: relative;
-  z-index: 0;
-
-  .book-logo {
-    width: 100%;
-    height: 100%;
-    position: relative !important;
-    object-fit: cover;
+    .book-logo {
+      width: 100%;
+      height: 100%;
+      position: relative !important;
+      object-fit: cover;
+    }
   }
 }
+
+
 
 @media only screen and (max-width: 800px) {
 
