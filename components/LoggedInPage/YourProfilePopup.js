@@ -79,10 +79,10 @@ function YourProfilePopup(props) {
 
 
     return (props.trigger) ? (
-            <div className={styles.popup}>
+            <div className={styles.popupProfile}>
                 <div style={{width: "100vw", height: "100vh", position: "absolute"}}
                      onClick={() => props.setTrigger(false)}></div>
-                <div className={styles.popupInner}>
+                <div className={styles.popupInnerProfile}>
                     <div onClick={() => props.setTrigger(false)} className={styles.closeBtn}>
                         <span
                             className="material-symbols-outlined">

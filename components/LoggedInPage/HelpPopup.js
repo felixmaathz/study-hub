@@ -13,7 +13,7 @@ function HelpPopup(props){
                         </span>
                 </button>
 
-                <div className={styles.container}>
+                <div className={styles.textContainer}>
                     <h2>What is this sorcery?</h2>
                     <h4>Tricky interface? I doubt it, I bet you clicked here just for the hell of it. But if you're seriously in need of help in order to proceed;
                         put down your pin anywhere on the map, however, preferably where you are located. Save the pin using the big red button.

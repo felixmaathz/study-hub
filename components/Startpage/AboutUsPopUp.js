@@ -14,7 +14,7 @@ function AboutUsPopUp(props) {
                         </span>
                 </button>
 
-                <div className={styles.container}>
+                <div className={styles.textContainer}>
                     <h2>
                         Hello there!
                     </h2>
