@@ -30,11 +30,14 @@ const yourIcon = new L.Icon({
 
 export default function Map() {
 
+    const [otherUserID, setOtherUserID] = useState("");
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [major, setMajor] = useState("");
     const [competencies, setCompetencies] = useState([]);
     const [bio, setBio] = useState("");
+    const [profileLikes, setProfileLikes] = useState([])
+    const [XP, setXP] = useState(0)
     const [profilePictureURL, setProfilePictureURL] = useState("")
     const [profilePicture, setProfilePicture] = useState("")
 
@@ -214,11 +217,14 @@ export default function Map() {
 
                     L.marker(pin.location, {icon: userIcon}).addTo(map).on("click", () => {
                         console.log("User: " + pin.username)
+                        setOtherUserID(pin.uid)
                         setUsername(pin.username)
                         setEmail(pin.email)
                         setMajor(pin.major)
                         setCompetencies(pin.competencies)
                         setBio(pin.bio)
+                        setProfileLikes(pin.profileLikes)
+                        setXP(pin.XP)
                         setProfilePictureURL(pin.profilePictureURL)
                         getDisplayPicture(pin.profilePictureURL).then((r) => {
                                 setProfilePicture(r)
@@ -311,11 +317,14 @@ export default function Map() {
                     setTrigger={setOtherUserPopup}
                     clearProfile={clearProfile}
                     data={{
-                    username: username
+                      otherUserID: otherUserID
+                    , username: username
                     , major: major
                     , email: email
                     , competencies: competencies
                     , bio: bio
+                    , profileLikes: profileLikes
+                    , XP: XP
                     , profilePictureURL: profilePictureURL
                 }}/>
             </div>
