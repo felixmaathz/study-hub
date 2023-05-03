@@ -8,8 +8,9 @@ function LogInPopUp(props) {
     return (props.trigger) ? (
         <div className={styles.popup}>
             <div className={styles.popupInner}>
-            <button className={styles.closeBtn} onClick = {() => props.setTrigger(false)}
-            >X</button>
+                <button className={styles.closeBtn} onClick = {() => props.setTrigger(false)}>
+                    X
+                </button>
 
                 <div className={styles.container}>
                     <h3>Fill in your information to log in</h3>

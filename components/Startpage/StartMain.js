@@ -78,11 +78,11 @@ function mainPic() {
                         </h2>
 
                         <div className="about-us-text">
-                            We're students, just like you. We've all endured long waiting times on stackoverflow,
+                            We've all endured long waiting times on stackoverflow,
                             our solution is a web application for a closely connected community of students.
                             It does its magic over the interface of a map, where you can see all other logged on students. It lets you interact,
-                            so you can be there for each other, one as a student tutor, and the other as a helpee. The helpee then rates its tutor, kinda like uber.
-                            If you have a great rating, people will want your help, and they'll even pay for it!
+                            so you can be there for each other, one as a student tutor, and the other as a helpee. If the tutoring
+                            is satisfactory, the helpee may choose to commend his tutor, this improves the tutor's rating.
                         </div>
 
                         <div className='about-us-position'>
