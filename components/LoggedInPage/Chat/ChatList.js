@@ -60,9 +60,12 @@ const ChatList = () => {
 
     }
 
+    console.log("chats: ", chats);
+
     if (loading) {
         return <Loading/>
     }
+
 
     return (
             <div className='containerUserChat'>

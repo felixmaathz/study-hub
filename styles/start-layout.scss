@@ -159,7 +159,7 @@ button.button-about-us:hover {
   .about-us-container {
     width: 90%;
     height: 90%;
-    gap: 20px;
+    gap: 50px;
     justify-content: center;
     align-items: center;
 
@@ -188,7 +188,7 @@ button.button-about-us:hover {
         }
       }
     .text-about-us-container {
-      width: 80%;
+      width: 70%;
       height: auto;
       z-index: 3;
       display: flex;
@@ -203,10 +203,6 @@ button.button-about-us:hover {
         h2{
           display: flex;
           justify-content: center;
-        }
-        .about-us-text {
-          color: #806355;
-          line-height: 1.5em;
         }
         .about-us-text {
           color: #806355;
