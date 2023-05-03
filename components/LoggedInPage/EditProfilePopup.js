@@ -38,7 +38,7 @@ function EditProfilePopup(props) {
     const [imagePreview, setImagePreview] = useState(null)
     const [profilePicture, setProfilePicture] = useState(null)
     const [profilePictureURL, setProfilePictureURL] = useState("")
-    const {user, getDisplayPicture} = useAuth()
+    const {user, getDisplayPicture,updateUser} = useAuth()
 
     React.useEffect(() => {
         if (props.data) {
