@@ -34,7 +34,7 @@ const singleMessage = ({message}) => {
         getProfilePicture()
         console.log("Profile picture updated")
 
-    }, [message, getProfilePicture])
+    }, []) //message, getProfilePicture
 
 
     return (

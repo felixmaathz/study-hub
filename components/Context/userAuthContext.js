@@ -104,7 +104,7 @@ export const UserAuthContextProvider = ({children}) => {
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
             if(doc.id === user.uid) return
-            pins.push(doc.data())
+            pins.push({...doc.data(), uid: doc.id})
         })
         return pins
     }

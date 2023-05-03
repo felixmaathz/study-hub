@@ -2,26 +2,33 @@ import React, {useRef, useState} from "react";
 import styles from "../../styles/popup.module.css";
 import {useAuth} from "../Context/userAuthContext";
 import Image from "next/image";
+import {collection, doc, getDocs, setDoc, Timestamp, arrayRemove, arrayUnion} from "firebase/firestore";
+import {db} from "../../config/firebaseConfig";
 
 
 function OtherUserPopup(props) {
+    const [userID, setUserID] = useState("")
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [major, setMajor] = useState("");
     const [competencies, setCompetencies] = useState([]);
     const [bio, setBio] = useState("");
+    const [XP, setXP] = useState(0);
     const [profilePictureURL, setProfilePictureURL] = useState("")
     const [profilePicture, setProfilePicture] = useState("")
+    const [profileLikes, setProfileLikes] = useState([])
 
-    const {getDisplayPicture, displayMajor} = useAuth()
+    const {getDisplayPicture, displayMajor, user} = useAuth()
 
     React.useEffect(() => {
         if (props.data) {
+            setUserID(props.data.otherUserID)
             setUsername(props.data.username)
             setEmail(props.data.email)
             setMajor(props.data.major)
             setCompetencies(props.data.competencies)
             setBio(props.data.bio)
+            setXP(props.data.XP)
             setProfilePictureURL(props.data.profilePictureURL)
             getDisplayPicture(props.data.profilePictureURL).then((r) => {
                 setProfilePicture(r)
@@ -32,6 +39,17 @@ function OtherUserPopup(props) {
     const closePopup = () => {
         props.setTrigger(false)
         props.clearProfile()
+    }
+
+    const handleLike = async () => {
+        const docRef = doc(db, "users", userID);
+        await setDoc(docRef, {
+            profileLikes: arrayRemove(user.uid) ,
+        }, {merge: true})
+        await setDoc(docRef, {
+            profileLikes: arrayUnion(user.uid) ,
+            XP: props.data.XP+10,
+        }, {merge: true})
     }
 
     return (props.trigger) ? (
@@ -76,6 +94,7 @@ function OtherUserPopup(props) {
                                 <br/>
                                 <div className={styles.buttonLayout}>
                                     <button className={styles.popupButtons}>Message</button>
+                                    <button onClick={handleLike}>Like</button>
                                 </div>
                             </div>
                     </div>

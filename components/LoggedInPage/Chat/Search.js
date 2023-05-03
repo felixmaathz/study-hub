@@ -49,18 +49,17 @@ const Search = () => {
     }, [userSearch]);
 
     const handleFilter = (e) => {
-        const searchWord = e.target.value
+        const searchWord = e.target.value;
         const newFilter = usernames.filter((value) => {
-            return value.toLowerCase().includes(searchWord.toLowerCase());
+            return value?.toLowerCase().includes(searchWord.toLowerCase());
         });
         setUsernameSearch(e.target.value);
         setFilteredData(newFilter);
 
-        if(e.target.value.length === 0) {
+        if (e.target.value.length === 0) {
             setFilteredData([]);
         }
-
-    }
+    };
 
     const handleSearch = async (clickedName) => {
         try {

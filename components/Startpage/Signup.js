@@ -47,7 +47,9 @@ export default function Signup(props) {
                             bio: "",
                             competencies: createCompetencies,
                             location: [],
-                            profilePictureURL: ""
+                            profilePictureURL: "",
+                            XP: 0,
+                            profileLikes: [],
                         })
                         setDoc(doc(db, "userChats", r.user.uid), {}
                         ).then(r => {
