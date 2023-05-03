@@ -143,7 +143,13 @@ function OtherUserPopup(props) {
                             <br/>
                             <div className={styles.buttonLayout}>
                                 <button className={styles.popupButtons}>Message</button>
-                                <button onClick={handleLike}>Like</button>
+                                <div className={styles.handleLikeButton}>
+                                    <span onClick={handleLike}
+                                          className="material-symbols-outlined"
+                                          style={{fontSize: '30px'}}>
+                                        thumb_up
+                                    </span>
+                                </div>
                             </div>
                             {likeMessage && <span>{likeMessage}</span>}
                         </div>
