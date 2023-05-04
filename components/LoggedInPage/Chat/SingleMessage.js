@@ -38,24 +38,28 @@ const singleMessage = ({message}) => {
 
 
     return (
-        <div ref={ref}
-            className={`message ${message.senderId === user.uid && 'owner'}`}>
-            <div className='messageInfo'>
-                <Image  className='imageSizeChat'
-                        src={
-                        message.senderId === user.uid
-                        ? profilePicture
-                        : sendersPicture
-                            }
+        <div>
+            <div ref={ref} className={`message ${message.senderId === user.uid && 'owner'}`}>
+                <div className='messageInfo'>
+                    <Image  className='imageSizeChat'
+                            src={
+                            message.senderId === user.uid
+                            ? profilePicture
+                            : sendersPicture
+                                }
 
-                        alt='profile'
-                        width={50}
-                        height={50}/>
-                <span>{message.date.toDate().toDateString()+" "+message.date.toDate().toLocaleTimeString()}</span>
+                            alt='profile'
+                            width={50}
+                            height={50}/>
+                </div>
+
+                <div className='messageContent'>
+                    <p>{message.text}</p>
+                </div>
             </div>
 
-            <div className='messageContent'>
-                <p>{message.text}</p>
+            <div>
+                <span>{message.date.toDate().toDateString()+" "+message.date.toDate().toLocaleTimeString()}</span>
             </div>
         </div>
     )

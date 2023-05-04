@@ -34,7 +34,7 @@ function OtherUserPopup(props) {
     const {getDisplayPicture, displayMajor, user} = useAuth()
 
     React.useEffect(() => {
-        if (props.data) {
+        if (props.data && props.trigger) {
             setUserID(props.data.otherUserID)
             setUsername(props.data.username)
             setEmail(props.data.email)
@@ -57,6 +57,16 @@ function OtherUserPopup(props) {
     const closePopup = () => {
         props.setTrigger(false)
         props.clearProfile()
+        setUsername("")
+        setEmail("")
+        setMajor("")
+        setCompetencies([])
+        setBio("")
+        setXP(0)
+        setProfilePictureURL("")
+        setProfilePicture("/images/profile.png")
+        setProfileLikes([])
+        setLikeMessage("")
     }
 
     const handleLike = async () => {
@@ -150,7 +160,13 @@ function OtherUserPopup(props) {
                             <br/>
                             <div className={styles.buttonLayout}>
                                 <button className={styles.popupButtons}>Message</button>
-                                <button onClick={handleLike}>Like</button>
+                                <div className={styles.handleLikeButton}>
+                                    <span onClick={handleLike}
+                                          className="material-symbols-outlined"
+                                          style={{fontSize: '30px'}}>
+                                        thumb_up
+                                    </span>
+                                </div>
                             </div>
                             {likeMessage && <span>{likeMessage}</span>}
                         </div>
