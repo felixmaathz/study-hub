@@ -6,6 +6,7 @@ import EditYourProfilePopup from "./EditProfilePopup";
 import React, {useRef, useState} from "react";
 import Image from "next/image";
 import EditProfilePopup from "./EditProfilePopup";
+import NotificationPopup from "./NotificationPopup";
 
 
 function YourProfilePopup(props) {
@@ -22,6 +23,7 @@ function YourProfilePopup(props) {
     const [profilePicture, setProfilePicture] = useState("/images/profile.png")
 
     const [editTrigger, setEditTrigger] = useState(false)
+    const [notificationTrigger, setNotificationTrigger] = useState(false)
     const dataFetchedRef = useRef(false);
 
     const {user, getDisplayPicture, displayMajor, logOut} = useAuth()
@@ -96,6 +98,11 @@ function YourProfilePopup(props) {
                             close
                             </span>
                     </div>
+                    <div onClick={() => setNotificationTrigger(true)} className={styles.notification}>
+                        <span className="material-symbols-outlined">
+                            notifications
+                        </span>
+                    </div>
                     <div className={styles.profileLayout}>
                         <div className={styles.userPictureContainer}>
                             <div className={styles.userProfilePicture}>
@@ -143,11 +150,19 @@ function YourProfilePopup(props) {
                                     major: major,
                                     competencies: competencies,
                                     profilePictureURL: profilePictureURL,
-                                    bio: bio
+                                    bio: bio,
+                                    level: level
                                 }}
                                 editTrigger={editTrigger}
                                 setEditTrigger={setEditTrigger}
                                 saveProfile={saveProfile}
+                            />
+                            <NotificationPopup
+                                notificationTrigger={notificationTrigger}
+                                setNotificationTrigger={setNotificationTrigger}
+                            data={{
+                                profileLikes: profileLikes
+                            }}
                             />
                         </div>
                     </div>

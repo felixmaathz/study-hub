@@ -35,6 +35,8 @@ function EditProfilePopup(props) {
     const [competence, setCompetence] = useState("")
     const [competencies, setCompetencies] = useState([]);
     const [bio, setBio] = useState("");
+
+    const [level, setLevel] = useState(0)
     const [imagePreview, setImagePreview] = useState(null)
     const [profilePicture, setProfilePicture] = useState(null)
     const [profilePictureURL, setProfilePictureURL] = useState("")
@@ -48,12 +50,15 @@ function EditProfilePopup(props) {
             setMajor(props.data.major)
             setCompetencies(props.data.competencies)
             setBio(props.data.bio)
+            setLevel(props.data.level)
             setProfilePictureURL(props.data.profilePictureURL)
             getDisplayPicture(props.data.profilePictureURL).then((r) => {
                 setProfilePicture(r)
             })
+
         }
     }, [props.editTrigger])
+
 
     const addCompetence = () => {
         if (competence === "") return;
@@ -143,7 +148,7 @@ function EditProfilePopup(props) {
                                         )
                                 }
                                 <div className={styles.level}>
-                                    <h4>LVL 800</h4>
+                                    <h4>LVL {level}</h4>
                                 </div>
                                 <input
                                     type="file"
