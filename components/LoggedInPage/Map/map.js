@@ -15,6 +15,8 @@ import {usePin} from "../../Context/pinContext";
 
 //With inspiration from  "https://codesandbox.io/s/how-to-save-marker-location-when-adding-a-marker-with-onclick-on-map-in-react-leaflet-v3x-lghwn?file=/src/MyMap.jsx:0-41"
 
+
+
 let myMarker = null;
 let myOldMarker = null;
 let pinsArray = [];
@@ -59,8 +61,6 @@ export default function Map() {
 
     React.useEffect(() => {
 
-
-
         if (userJoined && userJoined !== user.username){
             console.log("User joined: " + userJoined.username)
             fetchPins().then(r => {
@@ -77,9 +77,8 @@ export default function Map() {
 
             })
         }
-
-
     }, [userJoined, userLeft])
+
 
 
     const handleReload = () => {
@@ -128,7 +127,6 @@ export default function Map() {
                         console.log("your position is: " + location)
 
                         //Your own marker
-
                         myMarker = L.marker([lat, lng], {icon: yourIcon}).addTo(map)
 
                         setIsPinned(false)
@@ -243,8 +241,6 @@ export default function Map() {
                 })
             }
             if (user.location.length > 0 && pinFetch ===false)  {
-                console.log("hej")
-
                 if (myOldMarker) {
                     myOldMarker.remove();
                 }
@@ -259,6 +255,7 @@ export default function Map() {
     const removeMyMarker = async () => {
 
         if (myMarker) {
+            setPinFetch(true)
             myMarker.remove();
         }
 
