@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styles from "../../styles/popup.module.css";
 import {useAuth} from "../Context/userAuthContext";
 import Image from "next/image";
@@ -14,6 +14,10 @@ import {
     getDoc
 } from "firebase/firestore";
 import {db} from "../../config/firebaseConfig";
+import Link from "next/link";
+import {Router} from "next/router";
+import { useRouter } from 'next/router';
+import {useChatContext} from "../Context/chatContext";
 
 
 function OtherUserPopup(props) {
@@ -32,6 +36,7 @@ function OtherUserPopup(props) {
     const [likeMessage, setLikeMessage] = useState("")
 
     const {getDisplayPicture, displayMajor, user} = useAuth()
+    const {dispatch} = useChatContext();
 
     React.useEffect(() => {
         if (props.data) {
@@ -108,6 +113,17 @@ function OtherUserPopup(props) {
         })
     }
 
+    const router = useRouter();
+
+    const handleMessageButton = async () => {
+        await router.push({
+            pathname: '/ChatPage',
+            query: { otherUserID: userID, otherUsername: username },
+        });
+        // await dispatch({type:"CHANGE_USER", payload:userID, username});
+        // console.log("userID: " + userID + " username: " + username)
+    }
+
     return (props.trigger) ? (
             <div className={styles.popup}>
                 <div style={{width: "100vw", height: "100vh", position: "absolute"}} onClick={closePopup}></div>
@@ -149,7 +165,7 @@ function OtherUserPopup(props) {
                             </div>
                             <br/>
                             <div className={styles.buttonLayout}>
-                                <button className={styles.popupButtons}>Message</button>
+                                <button className={styles.popupButtons} onClick={handleMessageButton}>Message</button>
                                 <div className={styles.handleLikeButton}>
                                     <span onClick={handleLike}
                                           className="material-symbols-outlined"
