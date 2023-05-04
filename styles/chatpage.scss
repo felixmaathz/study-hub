@@ -255,8 +255,8 @@
                     }
 
                     .chatImageStyle:hover {
-                        transform: scale(1.05);
-                        transition: 0.2s all linear;
+                        transform: scale(1.1);
+                        transition: 0.15s all linear;
                     }
 
                     .sendButtonContainer{
@@ -266,10 +266,9 @@
                         justify-content: center;
                         align-items: center;
                         border-radius: 10px;
+                        cursor: pointer;
 
                         .sendButton {
-
-
                             display: flex;
                             justify-content: center;
                             align-items: center;
@@ -277,8 +276,8 @@
                         }
                     }
                     .sendButtonContainer:hover {
-                        transform: scale(1.05);
-                        transition: 0.2s all linear;
+                        transform: scale(1.1);
+                        transition: 0.15s all linear;
                     }
 
                 }
