@@ -6,35 +6,14 @@ import {useAuth} from "../../Context/userAuthContext";
 import {useRef, useState, useEffect} from "react";
 import messages from "./Messages";
 
-const singleMessage = ({message}) => {
+const singleMessage = ({message, profilePicture, sendersPicture}) => {
 
-    const [profilePicture, setProfilePicture] = useState(profile)
-    const [sendersPicture, setSendersPicture] = useState(profile)
 
     const { data } = useChatContext();
     const {user, getDisplayPicture} = useAuth()
 
     const ref = useRef()
 
-    const getProfilePicture = () => {
-        getDisplayPicture(user.profilePictureURL).then((r) => {
-            if (r) {
-                setProfilePicture(r);
-            }
-        })
-         getDisplayPicture("profilePictures/" + data.user.uid).then((s) => {
-             if (s) {
-                 setSendersPicture(s);
-             }
-        })
-    }
-
-    useEffect(() => {
-        ref.current.scrollIntoView({behavior: 'smooth'})
-        getProfilePicture()
-        console.log("Profile picture updated")
-
-    }, []) //message, getProfilePicture
 
 
     return (
