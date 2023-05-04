@@ -11,6 +11,8 @@ import {router} from "next/client";
 // This component has been inspired by https://github.com/machadop1407/React-Search-Bar
 
 const Search = () => {
+
+
     const [usernameSearch, setUsernameSearch] = useState('');
     const [userSearch, setUserSearch] = useState(null);
     const [error, setError] = useState(false);
@@ -22,6 +24,7 @@ const Search = () => {
 
     const [usernames, setUsernames] = useState([]);
 
+    let userChatElement = document.querySelector('.containerUserChat');
     useEffect(() => {
 
         // console.log("USER SEARCH: ", userSearch);
@@ -61,6 +64,10 @@ const Search = () => {
     }, []);
 
     const handleFilter = (e) => {
+
+        if (e.target.value.length >= 0) {
+        userChatElement.style.display = 'none';}
+
         const searchWord = e.target.value;
         const newFilter = usernames.filter((value) => {
             return value?.toLowerCase().includes(searchWord.toLowerCase());
@@ -70,10 +77,12 @@ const Search = () => {
 
         if (e.target.value.length === 0) {
             setFilteredData([]);
+            userChatElement.style.display = 'flex'
         }
     };
 
     const handleSearch = async (clickedName) => {
+        userChatElement.style.display = 'flex';
         try {
             const q = query(collection(db, "users"), where('username', '==', clickedName));
             // console.log("Query:", q);
