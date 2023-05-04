@@ -76,16 +76,31 @@ const chatInputField = () => {
         }
     }
     return (
-        <div className='chatInput'>
-            <input type='text' placeholder='Type a message...' onKeyDown={handlePress} onChange={e=>setText(e.target.value)} value={text}/>
-            <div className='send'>
-                <input type='file' style={{display:'none'}} id='file' onChange={e=>setImg(e.target.files[0])}/>
-                <label htmlFor='file'>
-                    <div className='chatImageStyle'>
-                        <Image src={AddImage} alt='addImage' />
+        <div className='chatInputContainer'>
+            <div className='chatInput'>
+                <input type='text'
+                       placeholder='Type a message...'
+                       onKeyDown={handlePress}
+                       onChange={e=>setText(e.target.value)}
+                       value={text}
+                       style={{marginLeft: '15px'}}/>
+                <div className='send'>
+                    <input type='file' style={{display:'none'}} id='file' onChange={e=>setImg(e.target.files[0])}/>
+                    <label htmlFor='file'>
+                        <div className='chatImageStyle'>
+                            <span className="material-symbols-outlined"
+                                  style={{fontSize: '35px', color: 'black', opacity: '100'}}>
+                                photo_library
+                            </span>
+                        </div>
+                    </label>
+                    <div className='sendButtonContainer' onClick={handleSend}>
+                        <span className="material-symbols-outlined"
+                              style={{color: 'green', opacity:'100', fontSize: '35px'}}>
+                            send
+                        </span>
                     </div>
-                </label>
-                <button onClick={handleSend} className='sendButton'>Send</button>
+                </div>
             </div>
         </div>
     )

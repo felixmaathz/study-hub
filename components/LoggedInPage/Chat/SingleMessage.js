@@ -39,7 +39,11 @@ const singleMessage = ({message}) => {
 
     return (
         <div>
+            <div style={{'marginBottom':'-15px'}}>
+                <span>{message.date.toDate().toDateString()+" "+message.date.toDate().toLocaleTimeString()}</span>
+            </div>
             <div ref={ref} className={`message ${message.senderId === user.uid && 'owner'}`}>
+
                 <div className='messageInfo'>
                     <Image  className='imageSizeChat'
                             src={
@@ -58,9 +62,7 @@ const singleMessage = ({message}) => {
                 </div>
             </div>
 
-            <div>
-                <span>{message.date.toDate().toDateString()+" "+message.date.toDate().toLocaleTimeString()}</span>
-            </div>
+
         </div>
     )
 }
