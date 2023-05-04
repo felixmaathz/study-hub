@@ -82,7 +82,6 @@ const Search = () => {
     };
 
     const handleSearch = async (clickedName) => {
-        userChatElement.style.display = 'flex';
         try {
             const q = query(collection(db, "users"), where('username', '==', clickedName));
             // console.log("Query:", q);
