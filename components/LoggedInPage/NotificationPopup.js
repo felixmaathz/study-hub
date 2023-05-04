@@ -41,7 +41,7 @@ export default function NotificationPopup(props) {
 
     return (props.notificationTrigger) ? (
         <>
-            <div style={{width: "100vw", height: "100vh", position: "absolute"}}
+            <div style={{width: "100%", height: "100%", position: "absolute", top: "0", left: "0"}}
                  onClick={closePopup}></div>
             <div className={styles.notificationPopupInner}>
                 <div onClick={() => props.setNotificationTrigger(false)} className={styles.closeBtn}>
@@ -52,18 +52,18 @@ export default function NotificationPopup(props) {
                 </div>
                 <div className={styles.notificationScroll}>
                     {usernames.map((user) => (
-                        <div className={styles.notificationText}>
-                            <p>{user.username} has liked your profile!</p>
+                        <div className={styles.notificationContainer}>
+                            <div className={styles.notificationMessage}>{user.username} has liked your profile!</div>
                             {((Date.now() - user.time.getTime()) < 604800000) ? (
-                                <p>{dayList[user.time.getDay() - 1].substring(0, 3)}{user.time.toLocaleTimeString('en-US', {
+                                <div className={styles.notificationTime}>{" "+dayList[user.time.getDay() - 1].substring(0, 3)+" "}{user.time.toLocaleTimeString('en-US', {
                                     hour: '2-digit',
                                     minute: '2-digit',
-                                })}</p>
+                                })}</div>
                             ) : (
-                                <p>{user.time.toLocaleDateString() + " "}{user.time.toLocaleTimeString('en-US', {
+                                <div>{" "+user.time.toLocaleDateString() + " "}{user.time.toLocaleTimeString('en-US', {
                                     hour: '2-digit',
                                     minute: '2-digit',
-                                })}</p>
+                                })}</div>
                             )
                             }
 
