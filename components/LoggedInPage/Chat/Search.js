@@ -5,6 +5,7 @@ import {collection, getDocs, query, where, setDoc, updateDoc, serverTimestamp, g
 import Image from "next/image";
 import {useAuth} from "../../Context/userAuthContext";
 import {handleInternalServerErrorResponse} from "next/dist/server/future/helpers/response-handlers";
+import {useChatContext} from "../../Context/chatContext";
 
 // This component has been inspired by https://github.com/machadop1407/React-Search-Bar
 
@@ -16,6 +17,7 @@ const Search = () => {
     const [filteredData, setFilteredData] = useState([]);
 
     const {user} = useAuth();
+    const {dispatch,data} = useChatContext();
 
     const [usernames, setUsernames] = useState([]);
 
@@ -24,6 +26,7 @@ const Search = () => {
         // console.log("USER SEARCH: ", userSearch);
         if (userSearch !== null) {
             handleSelect(userSearch);
+            dispatch({type:"CHANGE_USER", payload:userSearch}); // Makes the person you are clicking on appear at the top of chatlist.
         }
         const getUsernames = async () => {
             // Get a reference to the "users" collection
@@ -73,6 +76,7 @@ const Search = () => {
                     ...doc.data(),
                     uid: doc.id
                 });
+                // console.log("User Search:", userSearch);
             });
         } catch (error) {
             // console.error("Error:", error);
