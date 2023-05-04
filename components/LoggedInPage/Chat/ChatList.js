@@ -1,12 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
 import {useState, useEffect, useContext} from 'react';
-import {doc, onSnapshot} from 'firebase/firestore';
+import {doc, onSnapshot, collection, query, where, getDocs} from 'firebase/firestore';
 import {db} from '../../../config/firebaseConfig';
 import {useAuth} from "../../Context/userAuthContext";
 import {useChatContext} from "../../Context/chatContext";
 import {useRouter} from "next/router";
 import Loading from 'components/Loading.js';
+import {router} from "next/client";
 
 const ChatList = () => {
 
@@ -38,14 +39,14 @@ const ChatList = () => {
             setDisplayPictures(prevState => ({...prevState, [chatId]: res}));
         }
 
-        if (chats) {
             Object.entries(chats).forEach(([chatId, chat]) => {
                 if (chat.userInfo && chat.userInfo.profilePictureURL) {
                     fetchDisplayPicture(chat.userInfo.profilePictureURL, chatId);
                 }
             })
-        }
+
     }, [chats]);
+
 
     const handleSelect = (u) => {
         dispatch({type:"CHANGE_USER", payload:u});
@@ -65,6 +66,7 @@ const ChatList = () => {
     if (loading) {
         return <Loading/>
     }
+
 
 
     return (

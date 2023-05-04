@@ -16,6 +16,7 @@ import {usePin} from "../../Context/pinContext";
 //With inspiration from  "https://codesandbox.io/s/how-to-save-marker-location-when-adding-a-marker-with-onclick-on-map-in-react-leaflet-v3x-lghwn?file=/src/MyMap.jsx:0-41"
 
 let myMarker = null;
+let myOldMarker = null;
 let pinsArray = [];
 
 const yourPinnedIcon = new L.Icon({
@@ -50,11 +51,16 @@ export default function Map() {
     const [center, setCenter] = useState([59.85882,17.63889]);
     const [zoom, setZoom] = useState(15);
     const dataFetchedRef = useRef(false);
+    const [pinFetch, setPinFetch] = useState(false);
 
     const {user, getPins, getDisplayPicture} = useAuth()
     const {userJoined, userLeft} = usePin()
 
+
     React.useEffect(() => {
+
+
+
         if (userJoined && userJoined !== user.username){
             console.log("User joined: " + userJoined.username)
             fetchPins().then(r => {
@@ -141,8 +147,9 @@ export default function Map() {
                     console.log("center saved")
                 }
             }
-            );
+        );
         map.whenReady(async () => {
+
             if (pinsArray.length === 0) {
                 await fetchPins()
             }
@@ -235,15 +242,31 @@ export default function Map() {
                     });
                 })
             }
+            if (user.location.length > 0 && pinFetch ===false)  {
+                console.log("hej")
+
+                if (myOldMarker) {
+                    myOldMarker.remove();
+                }
+                    myOldMarker = L.marker(user.location, {icon: yourPinnedIcon}).addTo(map)
+                    console.log("your old marker placed")
+                setIsPinned(true)
+            }
         })
         return null;
     }
 
     const removeMyMarker = async () => {
-        myMarker.setIcon(yourIcon)
+
         if (myMarker) {
             myMarker.remove();
         }
+
+        if(myOldMarker){
+            setPinFetch(true)
+            myOldMarker.remove();
+        }
+
         const uid = user.uid;
         const docRef = await updateDoc(doc(db, "users", uid), {
             location: []
