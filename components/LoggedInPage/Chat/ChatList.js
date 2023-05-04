@@ -39,13 +39,12 @@ const ChatList = () => {
             setDisplayPictures(prevState => ({...prevState, [chatId]: res}));
         }
 
-        if (chats) {
             Object.entries(chats).forEach(([chatId, chat]) => {
                 if (chat.userInfo && chat.userInfo.profilePictureURL) {
                     fetchDisplayPicture(chat.userInfo.profilePictureURL, chatId);
                 }
             })
-        }
+
     }, [chats]);
 
 
