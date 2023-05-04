@@ -39,7 +39,7 @@ function OtherUserPopup(props) {
     const {dispatch} = useChatContext();
 
     React.useEffect(() => {
-        if (props.data) {
+        if (props.data && props.trigger) {
             setUserID(props.data.otherUserID)
             setUsername(props.data.username)
             setEmail(props.data.email)
@@ -62,6 +62,16 @@ function OtherUserPopup(props) {
     const closePopup = () => {
         props.setTrigger(false)
         props.clearProfile()
+        setUsername("")
+        setEmail("")
+        setMajor("")
+        setCompetencies([])
+        setBio("")
+        setXP(0)
+        setProfilePictureURL("")
+        setProfilePicture("/images/profile.png")
+        setProfileLikes([])
+        setLikeMessage("")
     }
 
     const handleLike = async () => {
