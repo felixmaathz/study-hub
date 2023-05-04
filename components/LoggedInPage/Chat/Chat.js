@@ -20,7 +20,7 @@ const Chat = () => {
     return (
         <div className='chat'>
             <div className='positioningExit'>
-                <span>
+                <span style={{opacity: '1'}}>
                     You are chatting with: {data.user?.username}
                 </span>
                 <button className='exitButton'
