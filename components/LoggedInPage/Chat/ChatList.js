@@ -75,7 +75,10 @@ const ChatList = () => {
                      onClick={() => handleSelect(chat[1].userInfo)}>
 
                     <div className='imageSize'>
-                        {<Image src={displayPictures[chat[0]] || "/images/profile.png"} alt="profile" layout='fill' />}
+                        {<Image className='imageSizeChatList'
+                                src={displayPictures[chat[0]] || "/images/profile.png"}
+                                alt="profile"
+                                layout='fill' />}
                     </div>
 
                         <div className='userChatInfo'>
