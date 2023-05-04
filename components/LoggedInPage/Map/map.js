@@ -58,9 +58,6 @@ export default function Map() {
 
 
     React.useEffect(() => {
-
-
-
         if (userJoined && userJoined !== user.username){
             console.log("User joined: " + userJoined.username)
             fetchPins().then(r => {
