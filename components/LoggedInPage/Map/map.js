@@ -81,6 +81,7 @@ export default function Map() {
         })}
     }, [])
 
+
     const handleReload = () => {
         console.log("reload")
         const currentCenter = center;
@@ -269,7 +270,7 @@ export default function Map() {
             setMyMarkerPlaced(false)
         }
 
-        if (myOldMarker) {
+        if(myOldMarker){
             setPinFetch(true)
             myOldMarker.remove();
             setMyMarkerPlaced(false)
