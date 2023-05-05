@@ -101,6 +101,7 @@ export function Navbar() {
                     <button onClick={showHelp} className="button">Help</button>
                 </li>
                 <li className="list-item profile">
+                    {(notification) ? <div className="notis"></div> : null}
                     <button onClick={showProfile} className="button">Profile</button>
                 </li>
             </ul>

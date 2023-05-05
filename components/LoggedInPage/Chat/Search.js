@@ -6,12 +6,12 @@ import Image from "next/image";
 import {useAuth} from "../../Context/userAuthContext";
 import {handleInternalServerErrorResponse} from "next/dist/server/future/helpers/response-handlers";
 import {useChatContext} from "../../Context/chatContext";
-import {router} from "next/client";
-
+import {useRouter} from "next/router";
 // This component has been inspired by https://github.com/machadop1407/React-Search-Bar
 
 const Search = () => {
 
+    const router = useRouter();
 
     const [usernameSearch, setUsernameSearch] = useState('');
     const [userSearch, setUserSearch] = useState(null);
