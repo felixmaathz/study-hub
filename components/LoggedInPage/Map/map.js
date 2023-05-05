@@ -20,6 +20,7 @@ import {usePin} from "../../Context/pinContext";
 let myMarker = null;
 let myOldMarker = null;
 let pinsArray = [];
+let myLocation;
 
 const yourPinnedIcon = new L.Icon({
     iconSize: [35, 35],
@@ -77,6 +78,7 @@ export default function Map() {
             })
         }
     }, [userJoined, userLeft])
+
 
 
 
@@ -239,6 +241,11 @@ export default function Map() {
                     });
                 })
             }
+
+
+
+
+
             if (user.location.length > 0 && pinFetch ===false)  {
                 console.log("hej")
 
@@ -251,6 +258,10 @@ export default function Map() {
             }
         })
         return null;
+    }
+
+    const handleMapLoad = () => {
+        console.log("map loaded")
     }
 
     const removeMyMarker = async () => {
