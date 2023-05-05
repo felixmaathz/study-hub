@@ -14,6 +14,7 @@ export default function NotificationPopup(props) {
     const dayList = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
     useEffect(() => {
+        setUsernames([])
         if (props.notificationTrigger) {
             props.handleNotification(false)
             const fetchUsernames = async () => {
@@ -32,24 +33,33 @@ export default function NotificationPopup(props) {
                     }
                 })
             }
-            fetchUsernames()
+            const markAsRead = async () => {
+                const userDoc = await getDoc(doc(db, "users", user.uid))
+                const profileLikes = userDoc.data().profileLikes
+                const updatedProfileLikes = profileLikes.map((like) => {
+                    if (!like.read) {
+                        console.log(like)
+                        return {...like, read: true}
+                    }
+                    return like
+                })
+                await updateDoc(doc(db, "users", user.uid), {
+                    profileLikes: updatedProfileLikes
+                }).then(() => {
+                    console.log("updated")
+                })
+            }
+            fetchUsernames().then(() => {
+                markAsRead().then(() => {
+                    console.log("marked as read")
+                })
+            })
         }
     }, [props.notificationTrigger])
 
     const closePopup = async () => {
-        setUsernames([])
-        const userDoc = await getDoc(doc(db, "users", user.uid))
-        const profileLikes = userDoc.data().profileLikes
-        const updatedProfileLikes = profileLikes.map((like) => {
-            if (!like.read) {
-                return {...like, read: true}
-            }
-            return like
-        })
-        await updateDoc(doc(db, "users", user.uid), {
-            profileLikes: updatedProfileLikes
-        })
         props.setNotificationTrigger(false)
+        setUsernames([])
     }
 
 
