@@ -38,7 +38,6 @@ export default function NotificationPopup(props) {
 
     const closePopup = async () => {
         setUsernames([])
-        props.setNotificationTrigger(false)
         const userDoc = await getDoc(doc(db, "users", user.uid))
         const profileLikes = userDoc.data().profileLikes
         const updatedProfileLikes = profileLikes.map((like) => {
@@ -50,6 +49,7 @@ export default function NotificationPopup(props) {
         await updateDoc(doc(db, "users", user.uid), {
             profileLikes: updatedProfileLikes
         })
+        props.setNotificationTrigger(false)
     }
 
 
@@ -66,7 +66,7 @@ export default function NotificationPopup(props) {
                 </div>
                 <div className={styles.notificationScroll}>
                     {usernames.map((user) => (
-                        <div className={styles.notificationContainer}>
+                        <div key={user.username} className={styles.notificationContainer}>
                             <div className={styles.notificationMessage}>{user.username} has liked your profile!</div>
                             {((Date.now() - user.time.getTime()) < 604800000) ? (
                                 <div
