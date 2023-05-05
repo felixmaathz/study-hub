@@ -24,7 +24,9 @@ const Chat = () => {
         <div className='chat'>
             <div className='positioningExit'>
                 <span style={{opacity: '1'}}>
-                    You are chatting with: {data.user?.username}
+                    {data.user?.username
+                        ? `You are chatting with: ${data.user.username}`
+                        : 'Choose a chat to start chatting!'}
                 </span>
                 <button className='exitButton'
                         onClick = {handleSwitchToSidebar}>
