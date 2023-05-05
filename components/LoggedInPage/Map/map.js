@@ -56,23 +56,9 @@ export default function Map() {
     const [zoom, setZoom] = useState(15);
     const dataFetchedRef = useRef(false);
     const [pinFetch, setPinFetch] = useState(false);
-    const [pinsChange, setPinChange] = useState(false)
     const mapRef = useRef();
     const {user, getPins, getDisplayPicture, getUserData} = useAuth()
-    const {userJoined, userLeft} = usePin()
 
-
-    React.useEffect(() => {
-        if (userJoined && userJoined !== user.username) {
-            console.log("User joined")
-            setPinChange(true)
-        }
-        if (userLeft && userLeft !== user.username) {
-            console.log("User left")
-            setPinChange(true)
-
-        }
-    }, [userJoined, userLeft])
 
     React.useEffect(() => {
         if (user) {
@@ -314,9 +300,9 @@ export default function Map() {
         setProfilePicture("")
     }
 
-    const reloadMap = () => {
+    const reloadMap = (e) => {
+        e.stopPropagation()
         window.location.reload()
-        setPinChange(false)
     }
 
     return (
@@ -332,6 +318,11 @@ export default function Map() {
             </div>
 
             <div style={{width: '100%', height: '100%'}}>
+                <div className={styles.reloadMap} onClick={reloadMap}>
+                            <span className="material-symbols-outlined">
+                                refresh
+                            </span>
+                </div>
                 <MapContainer
                     center={center}
                     zoom={zoom}
@@ -343,15 +334,10 @@ export default function Map() {
                     ref={mapRef}
                 >
 
-                    {pinsChange ? (<>
-                        <div className={styles.pinsChange}>New pins added! Reload map to view!</div>
-                    </>) : null}
+                    {/*{pinsChange ? (<>*/}
+                    {/*    <div className={styles.pinsChange}>New pins added! Reload map to view!</div>*/}
+                    {/*</>) : null}*/}
 
-                    <div className={styles.reloadMap} onClick={reloadMap}>
-                            <span className="material-symbols-outlined">
-                                refresh
-                            </span>
-                    </div>
 
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
