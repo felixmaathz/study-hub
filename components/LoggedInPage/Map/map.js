@@ -61,6 +61,8 @@ export default function Map() {
     const {user, getPins, getDisplayPicture, getUserData} = useAuth()
     const {userJoined, userLeft} = usePin()
 
+    const [selectedOptions, setSelectedOptions] = useState([]);
+
 
     React.useEffect(() => {
         if (userJoined && userJoined !== user.username) {
@@ -154,7 +156,10 @@ export default function Map() {
                 await fetchPins()
             }
             if (pinsArray.length > 0 && !dataFetchedRef.current) {
-                pinsArray.forEach((pin) => {
+
+                pinsArray
+                    .filter((pin) => selectedOptions.includes(pin.major))
+                    .forEach((pin)=> {
                     if (pin.major === "E") {
                         userIcon = new L.Icon({
                             iconSize: [35, 35],
@@ -258,9 +263,9 @@ export default function Map() {
         return null;
     }
 
-    const handleMapLoad = () => {
+    /*const handleMapLoad = () => {
         console.log("map loaded")
-    }
+    }*/
 
     const removeMyMarker = async () => {
 
@@ -319,8 +324,32 @@ export default function Map() {
         setPinChange(false)
     }
 
+    function handleSelectChange(event) {
+        setSelectedOptions(Array.from(event.target.selectedOptions, (option) => option.value));
+    }
+
     return (
         <div>
+            <div className={styles.filterMenu}>
+
+                <div className={styles.dropdownDiv}><label>Filter marker by major:</label></div>
+                <div className={styles.dropdown}>
+                    <select multiple value={selectedOptions} onChange={handleSelectChange}>
+                    <option value="All" selected>All</option>
+                    <option value="E">E</option>
+                    <option value="ES">ES</option>
+                    <option value="F">F</option>
+                    <option value="I">I</option>
+                    <option value="IT">IT</option>
+                    <option value="K">K</option>
+                    <option value="Other">Other</option>
+                    <option value="Q">Q</option>
+                    <option value="STS">STS</option>
+                    <option value="W">W</option>
+                    <option value="X">X</option>
+                </select>
+                </div>
+            </div>
             <div className={styles.buttonMarkers}>
                 {(myMarkerPlaced === true) ?
                     <button
