@@ -7,7 +7,7 @@ import {useAuth} from "../../Context/userAuthContext";
 import {useChatContext} from "../../Context/chatContext";
 import {useRouter} from "next/router";
 import Loading from 'components/Loading.js';
-import {router} from "next/client";
+
 
 const ChatList = () => {
 

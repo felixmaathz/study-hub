@@ -6,7 +6,7 @@ import Image from "next/image";
 import {useAuth} from "../../Context/userAuthContext";
 import {handleInternalServerErrorResponse} from "next/dist/server/future/helpers/response-handlers";
 import {useChatContext} from "../../Context/chatContext";
-import {router} from "next/client";
+
 
 // This component has been inspired by https://github.com/machadop1407/React-Search-Bar
 
@@ -56,13 +56,13 @@ const Search = () => {
         getUsernames();
     }, [userSearch]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         const {otherUserID, otherUsername} = router.query;
         console.log(`userID skickat från otherprofilepopup: ${otherUserID}, username: ${otherUsername}`);
         handleSearch(otherUsername);
 
         // FRÅN MESSAGEKNAPPEN I OTHERPROFILEPOPUP
-    }, []);
+    }, []);*/
 
     const handleFilter = (e) => {
 

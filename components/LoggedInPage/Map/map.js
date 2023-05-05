@@ -82,9 +82,10 @@ export default function Map() {
     }, [userJoined, userLeft])
 
     React.useEffect(() => {
+        if (user) {
         getUserData(user.uid).then((r) => {
             setOldLocation(r.location)
-        })
+        })}
     }, [])
 
 
