@@ -91,7 +91,8 @@ function OtherUserPopup(props) {
                         await setDoc(docRef, {
                             profileLikes: arrayUnion({
                                 userLikeID: user.uid,
-                                timestamp: Timestamp.now()
+                                timestamp: Timestamp.now(),
+                                read: false
                             }),
                             XP: increment(10)
                         }, {merge: true})
@@ -110,7 +111,8 @@ function OtherUserPopup(props) {
                     await setDoc(docRef, {
                         profileLikes: arrayUnion({
                             userLikeID: user.uid,
-                            timestamp: Timestamp.now()
+                            timestamp: Timestamp.now(),
+                            read: false
                         }),
                         XP: increment(10)
                     }, {merge: true})

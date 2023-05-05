@@ -4,6 +4,8 @@ import HelpPopup from "./HelpPopup";
 import React, {useEffect, useState} from "react";
 import YourProfilePopup from "../LoggedInPage/YourProfilePopup";
 import {useAuth} from "../Context/userAuthContext";
+import {doc, getDoc} from "firebase/firestore";
+import {db} from "../../config/firebaseConfig";
 
 export function Navbar() {
 
@@ -11,6 +13,7 @@ export function Navbar() {
     const [helpButtonPopup, setHelpButtonPopup] = useState(false);
     const [profilePicture, setProfilePicture] = useState("/images/profile.png")
     const [isLoading, setIsLoading] = useState(true)
+    const [notification, setNotification] = useState(false)
 
     const {user, getDisplayPicture} = useAuth()
 
@@ -29,11 +32,30 @@ export function Navbar() {
     useEffect(() => {
         if (user) {
             console.log(user)
-
             getProfilePicture()
         }
     },[getProfilePicture])
 
+    useEffect(() => {
+        if(user){
+            const checkNotifications = async () => {
+                const userDoc = await getDoc(doc(db, "users", user.uid))
+                const profileLikes = userDoc.data().profileLikes
+
+                profileLikes.map((like) => {
+                    if(!like.read){
+                        setNotification(true)
+                    }
+                })
+            }
+            checkNotifications()
+        }
+        },[user])
+
+
+    const handleNotification = () => {
+        setNotification(false)
+    }
 
     const showProfile = () => {
         setProfileButtonPopup(true);
@@ -84,6 +106,9 @@ export function Navbar() {
             </ul>
             <div className="profile-container"
                  onClick={showProfile}>
+
+                    {(notification) ? <div className="notis"></div> : null}
+
                 <Image src={profilePicture}
                        alt="profile"
                        width={60}
@@ -99,7 +124,13 @@ export function Navbar() {
                            height={60}/>
                 </div>
             </div>
-            <YourProfilePopup trigger={profileButtonPopup} setTrigger={setProfileButtonPopup} update={getProfilePicture}/>
+
+            <YourProfilePopup
+                notification={notification}
+                handleNotification={handleNotification}
+                trigger={profileButtonPopup}
+                setTrigger={setProfileButtonPopup}
+                update={getProfilePicture}/>
             <HelpPopup trigger={helpButtonPopup} setTrigger={setHelpButtonPopup}/>
         </nav>)
 }

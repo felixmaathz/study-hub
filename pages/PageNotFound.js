@@ -2,16 +2,16 @@ import Link from "next/link";
 
 
 export default function PageNotFound() {
-    return (
+
+    return(
         <div>
-            <main>
-                <div>
-                    <h1>Access Denied</h1>
-                    <p>You must be signed in to view this page</p>
-                    <Link href="/">
-                        Back to home
-                    </Link>
-                </div>
+            <main style={{display: 'flex', flexDirection: 'column',justifyContent:"center",alignItems: 'center'}}>
+                <h1>404</h1>
+                <h2>Page not found</h2>
+                <Link
+                href="/">
+                    <>Go back to the startpage</>
+                </Link>
             </main>
         </div>
     )
