@@ -27,6 +27,33 @@
     cursor: pointer;
 }
 
+.filterMenu {
+    position: absolute;
+    top: 7rem;
+    right:50px;
+    width: 200px;
+    height: 50px;
+    background-color: rgba(45, 42, 46, 0.75);
+    z-index: 2000;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    cursor: pointer;
+}
+
+.dropdownDiv{
+
+}
+
+.dropdown{
+    display: none;
+}
+
+.filterMenu:hover .dropdown{
+    display: block;
+}
+
 button.setMyMarker:hover {
     color: white;
     background-color: rgb(222, 58, 62);

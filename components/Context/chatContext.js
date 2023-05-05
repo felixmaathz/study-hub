@@ -35,6 +35,8 @@ export const ChatContextProvider = ({children}) => {
                         ? user.uid + action.payload.uid
                         : action.payload?.uid + user.uid,
                 };
+            case "RESET_USER":
+                return INITIAL_STATE;
 
             default:
                 return state;

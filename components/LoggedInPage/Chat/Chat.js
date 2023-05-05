@@ -9,7 +9,7 @@ const Chat = () => {
     const sidebar = document.getElementsByClassName('sidebar')[0];
     const chat = document.getElementsByClassName('chat')[0];
 
-    const { data } = useChatContext();
+    const { data, dispatch } = useChatContext();
     // if (window.matchMedia("(max-width: 800px)").matches) {
     //     const exitButton = document.getElementsByClassName('exitButton')[0];
     //     //exitButton.style.display = "block";
@@ -17,6 +17,7 @@ const Chat = () => {
 
 
     const handleSwitchToSidebar = () => {
+        dispatch({type:"RESET_USER"});
         sidebar.style.display = "flex";
         chat.style.display ='none';
     }
