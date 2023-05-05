@@ -4,6 +4,7 @@
     width:100%;
 
     .sidebar{
+        display: flex;
         border-top: 5px solid rgba(255, 255, 255, 0.05);
         border-right: 1px solid rgba(255, 255, 255, 0.05);
         width: 100%; max-width: 30%;
@@ -11,8 +12,6 @@
         margin-top: 5rem;
         height: calc(100vh - 8rem);
         background-color: #333333;
-
-        display: flex;
         align-items: center;
         flex-direction: column;
 

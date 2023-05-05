@@ -8,6 +8,7 @@ import {useChatContext} from "../../Context/chatContext";
 import {useRouter} from "next/router";
 import Loading from 'components/Loading.js';
 
+
 const ChatList = () => {
 
     const [chats, setChats] = useState([])
@@ -48,17 +49,19 @@ const ChatList = () => {
         }
     }, [chats]);
 
+    const chatClass = document.getElementsByClassName('chat')[0];
+    console.log(chatClass)
+    const sidebar = document.getElementsByClassName('sidebar')[0];
 
-    const handleSelect = (u) => {
+    const handleSelect = (u, sidebar, chatClass) => {
         dispatch({type:"CHANGE_USER", payload:u});
-        const chat = document.getElementsByClassName('chat')[0];
 
-        const sidebar = document.getElementsByClassName('sidebar')[0];
+
         if (window.matchMedia("(min-width: 800px)").matches){
-            chat.style.display = "block";
+            chatClass.style.display = "block";
         }
         if (window.matchMedia("(max-width: 800px)").matches) {
-            chat.style.display = "block";
+            chatClass.style.display = "block";
             sidebar.style.display = "none"; // optional chaining used here
         }
 
@@ -77,7 +80,7 @@ const ChatList = () => {
                 {Object.entries(chats)?.sort((a,b)=>b[1].date - a[1].date).map((chat) => (
                 <div className='userChat'
                      key={chat[0]}
-                     onClick={() => handleSelect(chat[1].userInfo)}>
+                     onClick={() => handleSelect(chat[1].userInfo, sidebar, chatClass)}>
 
                     <div className='imageSize'>
                         {<Image className='imageSizeChatList'
