@@ -20,7 +20,7 @@ import {usePin} from "../../Context/pinContext";
 let myMarker = null;
 let myOldMarker = null;
 let pinsArray = [];
-let myLocation;
+
 
 const yourPinnedIcon = new L.Icon({
     iconSize: [35, 35],
@@ -50,14 +50,16 @@ export default function Map() {
     const [location, setLocation] = useState([]);
     const [isPinned, setIsPinned] = useState(null);
     const [key,setKey] = useState(0)
+    const [oldLocation, setOldLocation] = useState([]);
 
     const [center, setCenter] = useState([59.85882,17.63889]);
     const [zoom, setZoom] = useState(15);
     const dataFetchedRef = useRef(false);
     const [pinFetch, setPinFetch] = useState(false);
 
-    const {user, getPins, getDisplayPicture} = useAuth()
+    const {user, getPins, getDisplayPicture, getUserData} = useAuth()
     const {userJoined, userLeft} = usePin()
+
 
 
     React.useEffect(() => {
@@ -79,7 +81,11 @@ export default function Map() {
         }
     }, [userJoined, userLeft])
 
-
+    React.useEffect(() => {
+        getUserData(user.uid).then((r) => {
+            setOldLocation(r.location)
+        })
+    },[])
 
 
     const handleReload = () => {
@@ -242,10 +248,7 @@ export default function Map() {
                 })
             }
 
-
-
-
-
+            console.log("tjeeeeeena " + oldLocation )
             if (user.location.length > 0 && pinFetch ===false)  {
                 console.log("hej")
 
