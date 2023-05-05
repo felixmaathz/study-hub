@@ -85,7 +85,7 @@ export default function Map() {
         getUserData(user.uid).then((r) => {
             setOldLocation(r.location)
         })
-    },[])
+    }, [])
 
 
     const handleReload = () => {
@@ -248,14 +248,13 @@ export default function Map() {
                 })
             }
 
-            console.log("tjeeeeeena " + oldLocation )
-            if (user.location.length > 0 && pinFetch ===false)  {
+            if (oldLocation.length > 0 && pinFetch ===false)  {
                 console.log("hej")
 
                 if (myOldMarker) {
                     myOldMarker.remove();
                 }
-                    myOldMarker = L.marker(user.location, {icon: yourPinnedIcon}).addTo(map)
+                    myOldMarker = L.marker(oldLocation, {icon: yourPinnedIcon}).addTo(map)
                     console.log("your old marker placed")
                 setIsPinned(true)
             }

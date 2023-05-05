@@ -125,7 +125,7 @@ function OtherUserPopup(props) {
         })
     }
 
-    const router = useRouter();
+   const router = useRouter();
 
     const handleMessageButton = async () => {
         await router.push({
