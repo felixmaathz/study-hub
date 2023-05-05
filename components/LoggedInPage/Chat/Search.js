@@ -66,7 +66,7 @@ const Search = () => {
 
     const handleFilter = (e) => {
 
-        if (e.target.value.length >= 0) {
+        if (e.target.value.length >= 0 || userChatElement.style.display === '') {
         userChatElement.style.display = 'none';}
 
         const searchWord = e.target.value;
@@ -110,6 +110,7 @@ const Search = () => {
         await setFilteredData([username]);
         await setUsernameSearch(username);
         await handleSearch(username);
+        userChatElement.style.display = 'flex';
 
         // await console.log("username:", username)
 
