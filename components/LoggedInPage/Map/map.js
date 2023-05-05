@@ -337,12 +337,13 @@ export default function Map() {
 
                     {pinsChange ? (<>
                         <div className={styles.pinsChange}>New pins added! Reload map to view!</div>
-                        <div className={styles.reloadMap} onClick={reloadMap}>
+                    </>) : null}
+
+                    <div className={styles.reloadMap} onClick={reloadMap}>
                             <span className="material-symbols-outlined">
                                 refresh
                             </span>
-                        </div>
-                    </>) : null}
+                    </div>
 
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
