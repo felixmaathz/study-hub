@@ -51,6 +51,7 @@ export default function Map() {
     const [isPinned, setIsPinned] = useState(null);
     const [key,setKey] = useState(0)
     const [oldLocation, setOldLocation] = useState([]);
+    const  [myMarkerPlaced,setMyMarkerPlaced] = useState(false)
 
     const [center, setCenter] = useState([59.85882,17.63889]);
     const [zoom, setZoom] = useState(15);
@@ -65,19 +66,20 @@ export default function Map() {
     React.useEffect(() => {
         if (userJoined && userJoined !== user.username){
             console.log("User joined: " + userJoined.username)
-            fetchPins().then(r => {
+            /*fetchPins().then(r => {
                 console.log("pins fetched")
                 handleReload()
 
-            })
+
+            })*/
         }
         if (userLeft && userLeft !== user.username) {
             console.log("User left: " + userLeft.username)
-            fetchPins().then(r => {
+            /*fetchPins().then(r => {
                 console.log("pins fetched")
                 handleReload()
 
-            })
+            })*/
         }
     }, [userJoined, userLeft])
 
@@ -89,14 +91,14 @@ export default function Map() {
     }, [])
 
 
-    const handleReload = () => {
+   /* const handleReload = () => {
         console.log("reload")
         const currentCenter = center;
         const currentZoom = zoom;
         setKey(key=>key+1)
         setCenter(currentCenter);
         setZoom(currentZoom);
-    }
+    }*/
 
     const fetchPins = async () => {
         pinsArray = []
@@ -136,11 +138,12 @@ export default function Map() {
 
                         //Your own marker
                         myMarker = L.marker([lat, lng], {icon: yourIcon}).addTo(map)
+                        setMyMarkerPlaced(true)
 
                         setIsPinned(false)
                     }
                 },
-                moveend: (e) => {
+              /*  moveend: (e) => {
                     const map = e.target;
                     const newCenter = map.getCenter();
                     const newZoom = map.getZoom();
@@ -151,7 +154,7 @@ export default function Map() {
                     setCenter(newCenter);
                     setZoom(newZoom);
                     console.log("center saved")
-                }
+                }*/
             }
         );
         map.whenReady(async () => {
@@ -256,6 +259,7 @@ export default function Map() {
                     myOldMarker.remove();
                 }
                     myOldMarker = L.marker(oldLocation, {icon: yourPinnedIcon}).addTo(map)
+                    setMyMarkerPlaced(true)
                     console.log("your old marker placed")
                 setIsPinned(true)
             }
@@ -272,11 +276,13 @@ export default function Map() {
         if (myMarker) {
             setPinFetch(true)
             myMarker.remove();
+            setMyMarkerPlaced(false)
         }
 
         if(myOldMarker){
             setPinFetch(true)
             myOldMarker.remove();
+            setMyMarkerPlaced(false)
         }
 
         const uid = user.uid;
@@ -287,13 +293,15 @@ export default function Map() {
     }
 
     const saveMarkerPosition = async () => {
-        myMarker.setIcon(yourPinnedIcon)
-        console.log("your position is: " + location)
-        const uid = user.uid
-        const docRef = await updateDoc(doc(db, "users", uid), {
-            location: location
-        })
-        setIsPinned(true);
+        if (myMarker) {
+            myMarker.setIcon(yourPinnedIcon)
+            console.log("your position is: " + location)
+            const uid = user.uid
+            const docRef = await updateDoc(doc(db, "users", uid), {
+                location: location
+            })
+            setIsPinned(true);
+        }
     }
 
     function handleClick() {
@@ -318,7 +326,7 @@ export default function Map() {
     return (
         <div>
             <div className={styles.buttonMarkers}>
-                {(isPinned !== null) ?
+                {(myMarkerPlaced === true) ?
                     <button
                         className={styles.setMyMarker}
                         onClick={handleClick}>
