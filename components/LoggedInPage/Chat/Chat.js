@@ -4,6 +4,7 @@ import ChatInputField from './ChatInputField';
 import Image from 'next/image';
 import {useChatContext} from "../../Context/chatContext";
 
+
 const Chat = () => {
     const sidebar = document.getElementsByClassName('sidebar')[0];
     const chat = document.getElementsByClassName('chat')[0];
@@ -16,7 +17,6 @@ const Chat = () => {
 
 
     const handleSwitchToSidebar = () => {
-
         sidebar.style.display = "flex";
         chat.style.display ='none';
     }

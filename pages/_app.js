@@ -10,6 +10,7 @@ import {ChatContextProvider} from "../components/Context/chatContext";
 import UnprotectedRoute from "../components/UnprotectedRoute";
 import PageNotFound from "./PageNotFound";
 
+
 export default function MyApp({Component, pageProps}) {
 
 
