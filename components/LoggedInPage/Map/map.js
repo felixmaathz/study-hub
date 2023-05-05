@@ -16,7 +16,6 @@ import {usePin} from "../../Context/pinContext";
 //With inspiration from  "https://codesandbox.io/s/how-to-save-marker-location-when-adding-a-marker-with-onclick-on-map-in-react-leaflet-v3x-lghwn?file=/src/MyMap.jsx:0-41"
 
 
-
 let myMarker = null;
 let myOldMarker = null;
 let pinsArray = [];
@@ -49,35 +48,28 @@ export default function Map() {
     const [otherUserPopup, setOtherUserPopup] = useState(false);
     const [location, setLocation] = useState([]);
     const [isPinned, setIsPinned] = useState(null);
-    const [key,setKey] = useState(0)
+    const [key, setKey] = useState(0)
     const [oldLocation, setOldLocation] = useState([]);
 
-    const [center, setCenter] = useState([59.85882,17.63889]);
+    const [center, setCenter] = useState([59.85882, 17.63889]);
     const [zoom, setZoom] = useState(15);
     const dataFetchedRef = useRef(false);
     const [pinFetch, setPinFetch] = useState(false);
-
+    const [pinsChange, setPinChange] = useState(false)
+    const mapRef = useRef();
     const {user, getPins, getDisplayPicture, getUserData} = useAuth()
     const {userJoined, userLeft} = usePin()
 
 
-
     React.useEffect(() => {
-        if (userJoined && userJoined !== user.username){
-            console.log("User joined: " + userJoined.username)
-            fetchPins().then(r => {
-                console.log("pins fetched")
-                handleReload()
-
-            })
+        if (userJoined && userJoined !== user.username) {
+            console.log("User joined")
+            setPinChange(true)
         }
         if (userLeft && userLeft !== user.username) {
-            console.log("User left: " + userLeft.username)
-            fetchPins().then(r => {
-                console.log("pins fetched")
-                handleReload()
+            console.log("User left")
+            setPinChange(true)
 
-            })
         }
     }, [userJoined, userLeft])
 
@@ -92,7 +84,7 @@ export default function Map() {
         console.log("reload")
         const currentCenter = center;
         const currentZoom = zoom;
-        setKey(key=>key+1)
+        setKey(key => key + 1)
         setCenter(currentCenter);
         setZoom(currentZoom);
     }
@@ -110,15 +102,15 @@ export default function Map() {
 
     function Markers() {
         let userIcon;
-       /* const yourIcon = new L.Icon({
-            iconSize: [35, 35],
-            iconUrl: "../images/markerIcons/yourPinnedPin.png",
-        });
+        /* const yourIcon = new L.Icon({
+             iconSize: [35, 35],
+             iconUrl: "../images/markerIcons/yourPinnedPin.png",
+         });
 
-        const yourIconTwo = new L.Icon({
-            iconSize: [35, 35],
-            iconUrl: "../images/markerIcons/WPin.png",
-        });*/
+         const yourIconTwo = new L.Icon({
+             iconSize: [35, 35],
+             iconUrl: "../images/markerIcons/WPin.png",
+         });*/
 
         const map = useMapEvents(
             {
@@ -248,14 +240,14 @@ export default function Map() {
                 })
             }
 
-            if (oldLocation.length > 0 && pinFetch ===false)  {
+            if (oldLocation.length > 0 && pinFetch === false) {
                 console.log("hej")
 
                 if (myOldMarker) {
                     myOldMarker.remove();
                 }
-                    myOldMarker = L.marker(oldLocation, {icon: yourPinnedIcon}).addTo(map)
-                    console.log("your old marker placed")
+                myOldMarker = L.marker(oldLocation, {icon: yourPinnedIcon}).addTo(map)
+                console.log("your old marker placed")
                 setIsPinned(true)
             }
         })
@@ -273,7 +265,7 @@ export default function Map() {
             myMarker.remove();
         }
 
-        if(myOldMarker){
+        if (myOldMarker) {
             setPinFetch(true)
             myOldMarker.remove();
         }
@@ -314,6 +306,11 @@ export default function Map() {
         setProfilePicture("")
     }
 
+    const reloadMap = () => {
+        window.location.reload()
+        setPinChange(false)
+    }
+
     return (
         <div>
             <div className={styles.buttonMarkers}>
@@ -335,9 +332,17 @@ export default function Map() {
                     worldCopyJump={true}
                     minZoom={5}
                     key={key}
-
-
+                    ref={mapRef}
                 >
+
+                    {pinsChange ? (<>
+                        <div className={styles.pinsChange}>New pins added! Reload map to view!</div>
+                        <div className={styles.reloadMap} onClick={reloadMap}>
+                            <span className="material-symbols-outlined">
+                                refresh
+                            </span>
+                        </div>
+                    </>) : null}
 
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
@@ -351,16 +356,16 @@ export default function Map() {
                     setTrigger={setOtherUserPopup}
                     clearProfile={clearProfile}
                     data={{
-                      otherUserID: otherUserID
-                    , username: username
-                    , major: major
-                    , email: email
-                    , competencies: competencies
-                    , bio: bio
-                    , profileLikes: profileLikes
-                    , XP: XP
-                    , profilePictureURL: profilePictureURL
-                }}/>
+                        otherUserID: otherUserID
+                        , username: username
+                        , major: major
+                        , email: email
+                        , competencies: competencies
+                        , bio: bio
+                        , profileLikes: profileLikes
+                        , XP: XP
+                        , profilePictureURL: profilePictureURL
+                    }}/>
             </div>
         </div>
     );
