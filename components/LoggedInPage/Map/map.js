@@ -15,9 +15,12 @@ import {usePin} from "../../Context/pinContext";
 
 //With inspiration from  "https://codesandbox.io/s/how-to-save-marker-location-when-adding-a-marker-with-onclick-on-map-in-react-leaflet-v3x-lghwn?file=/src/MyMap.jsx:0-41"
 
+
+
 let myMarker = null;
 let myOldMarker = null;
 let pinsArray = [];
+
 
 const yourPinnedIcon = new L.Icon({
     iconSize: [35, 35],
@@ -47,14 +50,16 @@ export default function Map() {
     const [location, setLocation] = useState([]);
     const [isPinned, setIsPinned] = useState(null);
     const [key,setKey] = useState(0)
+    const [oldLocation, setOldLocation] = useState([]);
 
     const [center, setCenter] = useState([59.85882,17.63889]);
     const [zoom, setZoom] = useState(15);
     const dataFetchedRef = useRef(false);
     const [pinFetch, setPinFetch] = useState(false);
 
-    const {user, getPins, getDisplayPicture} = useAuth()
+    const {user, getPins, getDisplayPicture, getUserData} = useAuth()
     const {userJoined, userLeft} = usePin()
+
 
 
     React.useEffect(() => {
@@ -74,9 +79,13 @@ export default function Map() {
 
             })
         }
-
-
     }, [userJoined, userLeft])
+
+    React.useEffect(() => {
+        getUserData(user.uid).then((r) => {
+            setOldLocation(r.location)
+        })
+    }, [])
 
 
     const handleReload = () => {
@@ -125,7 +134,6 @@ export default function Map() {
                         console.log("your position is: " + location)
 
                         //Your own marker
-
                         myMarker = L.marker([lat, lng], {icon: yourIcon}).addTo(map)
 
                         setIsPinned(false)
@@ -239,13 +247,14 @@ export default function Map() {
                     });
                 })
             }
-            if (user.location.length > 0 && pinFetch ===false)  {
+
+            if (oldLocation.length > 0 && pinFetch ===false)  {
                 console.log("hej")
 
                 if (myOldMarker) {
                     myOldMarker.remove();
                 }
-                    myOldMarker = L.marker(user.location, {icon: yourPinnedIcon}).addTo(map)
+                    myOldMarker = L.marker(oldLocation, {icon: yourPinnedIcon}).addTo(map)
                     console.log("your old marker placed")
                 setIsPinned(true)
             }
@@ -253,9 +262,14 @@ export default function Map() {
         return null;
     }
 
+    const handleMapLoad = () => {
+        console.log("map loaded")
+    }
+
     const removeMyMarker = async () => {
 
         if (myMarker) {
+            setPinFetch(true)
             myMarker.remove();
         }
 

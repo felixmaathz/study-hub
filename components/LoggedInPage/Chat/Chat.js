@@ -5,17 +5,20 @@ import Image from 'next/image';
 import {useChatContext} from "../../Context/chatContext";
 
 const Chat = () => {
+    const sidebar = document.getElementsByClassName('sidebar')[0];
+    const chat = document.getElementsByClassName('chat')[0];
+
     const { data } = useChatContext();
     // if (window.matchMedia("(max-width: 800px)").matches) {
     //     const exitButton = document.getElementsByClassName('exitButton')[0];
     //     //exitButton.style.display = "block";
     // }
 
+
     const handleSwitchToSidebar = () => {
-        const chat = document.getElementsByClassName('chat')[0];
-        chat.style.display = "none";
-        const sidebar = document.getElementsByClassName('sidebar')[0];
-        sidebar.style.display = "block";
+
+        sidebar.style.display = "flex";
+        chat.style.display ='none';
     }
     return (
         <div className='chat'>
