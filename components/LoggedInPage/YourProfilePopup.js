@@ -21,6 +21,7 @@ function YourProfilePopup(props) {
     const [level, setLevel] = useState(0)
     const [profilePictureURL, setProfilePictureURL] = useState("")
     const [profilePicture, setProfilePicture] = useState("/images/profile.png")
+    const [notification,setNotification] = useState(props.notification)
 
     const [editTrigger, setEditTrigger] = useState(false)
     const [notificationTrigger, setNotificationTrigger] = useState(false)
@@ -41,6 +42,7 @@ function YourProfilePopup(props) {
 
     React.useEffect(() => {
         if(user){
+
             getUserData(user.uid).then((r) => {
                 setUsername(r.username)
                 setEmail(r.email)
@@ -63,6 +65,7 @@ function YourProfilePopup(props) {
     const calculateLevel = () => {
         setLevel(Math.floor(user.XP / 100))
     }
+
 
     const saveProfile = async (username, email, major, competencies, profilePictureURL, bio) => {
         setUsername(username)
@@ -89,6 +92,10 @@ function YourProfilePopup(props) {
         })
     }
 
+    function handleNotification(notification) {
+        setNotification(notification);
+        props.handleNotification(notification);
+    }
 
     const closePopup = () => {
         props.setTrigger(false)
@@ -107,6 +114,7 @@ function YourProfilePopup(props) {
                             </span>
                     </div>
                     <div onClick={() => setNotificationTrigger(true)} className={styles.notification}>
+                        {(props.notification) ? <div className={styles.notis}></div> : null}
                         <span className="material-symbols-outlined">
                             notifications
                         </span>
@@ -166,9 +174,11 @@ function YourProfilePopup(props) {
                                 saveProfile={saveProfile}
                             />
                             <NotificationPopup
+                                handleNotification={handleNotification}
+                                notification={notification}
                                 notificationTrigger={notificationTrigger}
                                 setNotificationTrigger={setNotificationTrigger}
-                            data={{
+                                data={{
                                 profileLikes: profileLikes
                             }}
                             />

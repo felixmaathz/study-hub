@@ -473,6 +473,7 @@
     position: absolute;
     top: 20px;
     left: 60px;
+    min-width:100px;
     width: 300px;
     min-height:100px;
     max-height: 500px;
@@ -526,6 +527,16 @@
     margin: 5px;
     justify-self: flex-end;
 
+}
+
+.notis{
+    background-color: #FF5A5E;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top:0px;
+    border-radius: 50%;
+    right:-5px;
 }
 
 
@@ -684,5 +695,13 @@
         height: 58px;
         width: 58px;
         border-radius: 15px;
+    }
+
+    .notificationPopupInner{
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: 200px
     }
 }
