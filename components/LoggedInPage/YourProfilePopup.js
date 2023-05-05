@@ -1,6 +1,6 @@
 import {useAuth} from "../Context/userAuthContext";
 import {db} from "../../config/firebaseConfig";
-import {doc, updateDoc} from "firebase/firestore";
+import {doc, getDoc, updateDoc} from "firebase/firestore";
 import styles from "../../styles/popup.module.css";
 import EditYourProfilePopup from "./EditProfilePopup";
 import React, {useRef, useState} from "react";
@@ -21,12 +21,13 @@ function YourProfilePopup(props) {
     const [level, setLevel] = useState(0)
     const [profilePictureURL, setProfilePictureURL] = useState("")
     const [profilePicture, setProfilePicture] = useState("/images/profile.png")
+    const [notification,setNotification] = useState(props.notification)
 
     const [editTrigger, setEditTrigger] = useState(false)
     const [notificationTrigger, setNotificationTrigger] = useState(false)
     const dataFetchedRef = useRef(false);
 
-    const {user, getDisplayPicture, displayMajor, logOut} = useAuth()
+    const {user, getDisplayPicture, displayMajor, logOut, getUserData} = useAuth()
 
     const handleSignOut = () => {
         logOut().then(() => {
@@ -40,26 +41,31 @@ function YourProfilePopup(props) {
     }
 
     React.useEffect(() => {
-        if (user) {
-            setUsername(user.username)
-            setEmail(user.email)
-            setMajor(user.major)
-            setCompetencies(user.competencies)
-            setBio(user.bio)
-            setXP(user.XP)
-            setProfileLikes(user.profileLikes)
-            setProfilePictureURL(user.profilePictureURL)
-            getDisplayPicture(user.profilePictureURL).then((r) => {
-                setProfilePicture(r)
-                dataFetchedRef.current = true
-            })
-            calculateLevel()
-        }
-    }, [props.trigger])
+        if(user){
+
+            getUserData(user.uid).then((r) => {
+                setUsername(r.username)
+                setEmail(r.email)
+                setMajor(r.major)
+                setCompetencies(r.competencies)
+                setBio(r.bio)
+                setXP(r.XP)
+                setProfileLikes(r.profileLikes)
+                setProfilePictureURL(r.profilePictureURL)
+                getDisplayPicture(r.profilePictureURL).then((r) => {
+                    setProfilePicture(r)
+                    dataFetchedRef.current = true
+                })
+                calculateLevel()
+                }
+            )
+            }
+        }, [props.trigger])
 
     const calculateLevel = () => {
         setLevel(Math.floor(user.XP / 100))
     }
+
 
     const saveProfile = async (username, email, major, competencies, profilePictureURL, bio) => {
         setUsername(username)
@@ -86,11 +92,20 @@ function YourProfilePopup(props) {
         })
     }
 
+    function handleNotification(notification) {
+        setNotification(notification);
+        props.handleNotification(notification);
+    }
+
+    const closePopup = () => {
+        props.setTrigger(false)
+        setNotificationTrigger(false)
+    }
 
     return (props.trigger) ? (
             <div className={styles.popupProfile}>
                 <div style={{width: "100vw", height: "100vh", position: "absolute"}}
-                     onClick={() => props.setTrigger(false)}></div>
+                     onClick={closePopup}></div>
                 <div className={styles.popupInnerProfile}>
                     <div onClick={() => props.setTrigger(false)} className={styles.closeBtn}>
                         <span
@@ -99,6 +114,7 @@ function YourProfilePopup(props) {
                             </span>
                     </div>
                     <div onClick={() => setNotificationTrigger(true)} className={styles.notification}>
+                        {(props.notification) ? <div className={styles.notis}></div> : null}
                         <span className="material-symbols-outlined">
                             notifications
                         </span>
@@ -158,9 +174,11 @@ function YourProfilePopup(props) {
                                 saveProfile={saveProfile}
                             />
                             <NotificationPopup
+                                handleNotification={handleNotification}
+                                notification={notification}
                                 notificationTrigger={notificationTrigger}
                                 setNotificationTrigger={setNotificationTrigger}
-                            data={{
+                                data={{
                                 profileLikes: profileLikes
                             }}
                             />

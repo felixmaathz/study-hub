@@ -25,6 +25,7 @@ const Search = () => {
     const [usernames, setUsernames] = useState([]);
 
     let userChatElement = document.querySelector('.containerUserChat');
+
     useEffect(() => {
 
         // console.log("USER SEARCH: ", userSearch);

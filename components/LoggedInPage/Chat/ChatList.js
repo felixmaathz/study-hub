@@ -33,6 +33,7 @@ const ChatList = () => {
     },[user.uid]);
 
     useEffect(() => {
+
         const fetchDisplayPicture = async (url, chatId) => {
             const res = await getDisplayPicture(url);
             setDisplayPictures(prevState => ({...prevState, [chatId]: res}));
@@ -50,14 +51,16 @@ const ChatList = () => {
 
     const handleSelect = (u) => {
         dispatch({type:"CHANGE_USER", payload:u});
+        const chat = document.getElementsByClassName('chat')[0];
 
-        if (window.matchMedia("(max-width: 800px)").matches) {
-            const chat = document.getElementsByClassName('chat')[0];
+        const sidebar = document.getElementsByClassName('sidebar')[0];
+        if (window.matchMedia("(min-width: 800px)").matches){
             chat.style.display = "block";
-            const sidebar = document.getElementsByClassName('sidebar')[0];
+        }
+        if (window.matchMedia("(max-width: 800px)").matches) {
+            chat.style.display = "block";
             sidebar.style.display = "none"; // optional chaining used here
         }
-
 
     }
 

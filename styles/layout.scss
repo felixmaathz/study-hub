@@ -75,7 +75,8 @@
 }
 
 .profile-container {
-  cursor: pointer
+  cursor: pointer;
+  position: relative;
 }
 
 .layout-footer {
@@ -97,6 +98,17 @@
 
 .footer-items {
   margin-left: 2vw;
+}
+
+.notis{
+  background-color: #FF5A5E;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top:0px;
+  border-radius: 50%;
+  left:-5px;
+
 }
 
 @media only screen and (max-width: 800px) {
