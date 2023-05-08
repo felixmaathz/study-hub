@@ -15,7 +15,7 @@ import {usePin} from "../../Context/pinContext";
 
 //With inspiration from  "https://codesandbox.io/s/how-to-save-marker-location-when-adding-a-marker-with-onclick-on-map-in-react-leaflet-v3x-lghwn?file=/src/MyMap.jsx:0-41"
 
-
+let otherMarkers = [];
 let myMarker = null;
 let myOldMarker = null;
 let pinsArray = [];
@@ -59,7 +59,8 @@ export default function Map() {
     const mapRef = useRef();
     const {user, getPins, getDisplayPicture, getUserData} = useAuth()
 
-    const [selectedOptions, setSelectedOptions] = useState([]);
+    const [selectedOption, setSelectedOption] = useState("All");
+    const [selectedPinType, setSelectedPinType] = useState(false);
 
 
     React.useEffect(() => {
@@ -141,11 +142,16 @@ export default function Map() {
             if (pinsArray.length === 0) {
                 await fetchPins()
             }
+
             if (pinsArray.length > 0 && !dataFetchedRef.current) {
 
-                pinsArray
-                    .filter((pin) => selectedOptions.includes(pin.major))
+                otherMarkers.forEach(marker => marker.remove());
+                otherMarkers = [];
+
+                    pinsArray
+                    .filter((pin) => selectedOption.includes(pin.major) || selectedOption === "All")
                     .forEach((pin)=> {
+
                     if (pin.major === "E") {
                         userIcon = new L.Icon({
                             iconSize: [35, 35],
@@ -213,7 +219,7 @@ export default function Map() {
                         });
                     }
 
-                    L.marker(pin.location, {icon: userIcon}).addTo(map).on("click", () => {
+                        const otherMarker =L.marker(pin.location, {icon: userIcon}).addTo(map).on("click", () => {
                         console.log("User: " + pin.username)
                         setOtherUserID(pin.uid)
                         setUsername(pin.username)
@@ -231,18 +237,19 @@ export default function Map() {
                             }
                         )
                     });
+                        otherMarkers.push(otherMarker)
                 })
             }
 
             if (oldLocation.length > 0 && pinFetch === false) {
-                console.log("hej")
+
 
                 if (myOldMarker) {
                     myOldMarker.remove();
                 }
                     myOldMarker = L.marker(oldLocation, {icon: yourPinnedIcon}).addTo(map)
                     setMyMarkerPlaced(true)
-                    console.log("your old marker placed")
+
                 setIsPinned(true)
             }
         })
@@ -310,8 +317,9 @@ export default function Map() {
         window.location.reload()
     }
 
-    function handleSelectChange(event) {
-        setSelectedOptions(Array.from(event.target.selectedOptions, (option) => option.value));
+
+    function handleMarkerFilter(event) {
+        setSelectedOption(event.target.value)
     }
 
     return (
@@ -320,7 +328,7 @@ export default function Map() {
 
                 <div className={styles.dropdownDiv}><label>Filter marker by major:</label></div>
                 <div className={styles.dropdown}>
-                    <select multiple value={selectedOptions} onChange={handleSelectChange}>
+                    <select value={selectedOption} onChange={handleMarkerFilter}>
                     <option value="All" selected>All</option>
                     <option value="E">E</option>
                     <option value="ES">ES</option>
