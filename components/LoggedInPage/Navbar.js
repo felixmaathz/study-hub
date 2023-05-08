@@ -14,13 +14,13 @@ export function Navbar() {
     const [profilePicture, setProfilePicture] = useState("/images/profile.png")
     const [isLoading, setIsLoading] = useState(true)
     const [notification, setNotification] = useState(false)
+    const [messageNotification, setMessageNotification] = useState(false)
 
-    const {user, getDisplayPicture} = useAuth()
-
+    const {user, getDisplayPicture, checkMessages,clearMessageNotifications} = useAuth()
 
 
     const getProfilePicture = () => {
-        if(isLoading){
+        if (isLoading) {
             setProfilePicture("/images/loadingProfilePicture.gif")
         }
         getDisplayPicture(user.profilePictureURL).then((r) => {
@@ -34,23 +34,30 @@ export function Navbar() {
             console.log(user)
             getProfilePicture()
         }
-    },[getProfilePicture])
+    }, [getProfilePicture])
 
     useEffect(() => {
-        if(user){
+        if (user) {
             const checkNotifications = async () => {
                 const userDoc = await getDoc(doc(db, "users", user.uid))
                 const profileLikes = userDoc.data().profileLikes
+                const messages = await checkMessages()
+                if (messages===true) {
+                    setMessageNotification(true)
+                }
 
                 profileLikes.map((like) => {
-                    if(!like.read){
+                    if (!like.read) {
                         setNotification(true)
                     }
                 })
             }
+
+
             checkNotifications()
+
         }
-        },[user])
+    }, [user])
 
 
     const handleNotification = () => {
@@ -68,6 +75,12 @@ export function Navbar() {
     const showMenu = () => {
         const list = document.getElementById('list');
         list.classList.toggle("active");
+    }
+
+    const clearNotifications = () => {
+        setMessageNotification(false)
+        clearMessageNotifications()
+
     }
 
     return (
@@ -92,8 +105,10 @@ export function Navbar() {
                 </li>
                 <li className="list-item">
                     <Link href="ChatPage">
-                        <button id="Chat" className="button"
-                        >Chat
+                        <button id="Chat" className="button" onClick={clearNotifications}
+                        >
+                            {(messageNotification) ? <div className="notis"></div> : null}
+                            Chat
                         </button>
                     </Link>
                 </li>
@@ -108,13 +123,13 @@ export function Navbar() {
             <div className="profile-container"
                  onClick={showProfile}>
 
-                    {(notification) ? <div className="notis"></div> : null}
+                {(notification) ? <div className="notis"></div> : null}
 
                 <Image src={profilePicture}
                        alt="profile"
                        width={60}
                        height={60}
-                        className="frame"/>
+                       className="frame"/>
             </div>
             <div className="menu">
                 <div className="menu-container"
