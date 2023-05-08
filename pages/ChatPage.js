@@ -15,9 +15,11 @@ export default function ChatPage() {
 
         function handleResize() {
             if (window.matchMedia("(max-width: 800px)").matches) {
-                chatCSS.style.display = 'flex';
-                sidebarCSS.style.display = 'none';
-            } else {
+                chatCSS.style.display = 'none';
+                sidebarCSS.style.display = 'flex';
+
+            }
+            else {
                 chatCSS.style.display = 'block';
                 sidebarCSS.style.display = 'block';
             }
