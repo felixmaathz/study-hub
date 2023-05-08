@@ -85,7 +85,7 @@ export default function NotificationPopup(props) {
                                     minute: '2-digit',
                                 })}</div>
                             ) : (
-                                <div>{" " + user.time.toLocaleDateString() + " "}{user.time.toLocaleTimeString('en-US', {
+                                <div className={styles.notificationTime}>{" " + user.time.toLocaleDateString() + " "}{user.time.toLocaleTimeString('en-US', {
                                     hour: '2-digit',
                                     minute: '2-digit',
                                 })}</div>

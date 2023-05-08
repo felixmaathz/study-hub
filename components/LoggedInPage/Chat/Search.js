@@ -118,8 +118,6 @@ const Search = () => {
     }
 
 
-
-
     const handleSelect = async () => {
         const combinedId = user.uid > userSearch.uid ? user.uid + userSearch.uid : userSearch.uid + user.uid;
         // console.log(combinedId);
