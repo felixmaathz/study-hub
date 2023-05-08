@@ -24,7 +24,7 @@ const Search = () => {
 
     const [usernames, setUsernames] = useState([]);
 
-    let userChatElement = document.querySelector('.containerUserChat');
+    const userChatElement = document.getElementsByClassName('containerUserChat')[0];
 
     useEffect(() => {
 
@@ -66,8 +66,11 @@ const Search = () => {
 
     const handleFilter = (e) => {
 
-        if (e.target.value.length >= 0) {
-        userChatElement.style.display = 'none';}
+        if (e.target.value.length > 0) {
+            if (userChatElement?.style?.display === 'flex') {
+                userChatElement.style.display = 'none';
+            }
+        }
 
         const searchWord = e.target.value;
         const newFilter = usernames.filter((value) => {
@@ -110,13 +113,12 @@ const Search = () => {
         await setFilteredData([username]);
         await setUsernameSearch(username);
         await handleSearch(username);
+        userChatElement.style.display = 'flex';
 
         // await console.log("username:", username)
 
 
     }
-
-
 
 
     const handleSelect = async () => {
