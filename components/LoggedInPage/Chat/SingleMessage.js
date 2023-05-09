@@ -19,6 +19,12 @@ const singleMessage = ({message, profilePicture, sendersPicture}) => {
 
     const dayList = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
+    useEffect(() => {
+        ref.current.scrollIntoView({behavior: 'smooth'})
+        console.log("Profile picture updated")
+
+    }, []) //message, getProfilePicture
+
     return (
         <div>
             <div style={{'marginBottom': '-15px'}}>
