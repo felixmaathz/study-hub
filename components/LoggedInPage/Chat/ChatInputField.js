@@ -55,7 +55,7 @@ const chatInputField = () => {
                     text
                 },
                 [data.chatId + ".date"]: serverTimestamp(),
-                [data.chatId + ".read"]: false,
+                [data.chatId + ".read"]: true,
             });
 
             await updateDoc(doc(db, "userChats", data.user.uid), {

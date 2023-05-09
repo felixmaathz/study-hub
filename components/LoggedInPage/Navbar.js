@@ -80,7 +80,6 @@ export function Navbar() {
     const clearNotifications = () => {
         setMessageNotification(false)
         clearMessageNotifications()
-
     }
 
     return (
