@@ -35,7 +35,7 @@
     width: 100px;
     height: 50px;
     background-color: rgba(45, 42, 46, 0.75);
-    z-index: 2000;
+    z-index: 2;
     display:flex;
     justify-content: center;
     align-items: center;
@@ -99,7 +99,7 @@ button.setMyMarker:hover {
     width: 45px;
     height: 45px;
     background-color: rgba(45, 42, 46, 0.75);
-    z-index: 2000;
+    z-index: 2;
     display:flex;
     justify-content: center;
     align-items: center;

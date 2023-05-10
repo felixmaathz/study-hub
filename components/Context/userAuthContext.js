@@ -9,8 +9,7 @@ import {
 import {auth, db, storage} from "../../config/firebaseConfig";
 import Loading from "../Loading";
 import {collection, doc, getDoc, setDoc, query, where, getDocs, updateDoc} from "firebase/firestore";
-import {ref,getDownloadURL} from "firebase/storage";
-
+import {ref, getDownloadURL} from "firebase/storage";
 
 
 const UserAuthContext = createContext();
@@ -50,7 +49,7 @@ export const UserAuthContextProvider = ({children}) => {
     }, [])
 
     const signUp = (email, password) => {
-            return createUserWithEmailAndPassword(auth, email, password)
+        return createUserWithEmailAndPassword(auth, email, password)
     }
 
     const logIn = (email, password) => {
@@ -84,7 +83,7 @@ export const UserAuthContextProvider = ({children}) => {
 
 
     const getDisplayPicture = async (path) => {
-        if(path === undefined || path === ""){
+        if (path === undefined || path === "") {
             console.log("No profile picture found")
             return "/images/profile.png"
         }
@@ -104,12 +103,11 @@ export const UserAuthContextProvider = ({children}) => {
         const q = await query(docRef, where("location", "!=", []))
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
-            if(doc.id === user.uid) return
+            if (doc.id === user.uid) return
             pins.push({...doc.data(), uid: doc.id})
         })
         return pins
     }
-
 
 
     const displayMajor = (major) => {
@@ -136,16 +134,58 @@ export const UserAuthContextProvider = ({children}) => {
                 return "Materials Engineering"
             case "Other":
                 return "Other"
+        }
     }
-}
+    const checkMessages = async () => {
+        let unread = false
+        const docRef = doc(db, "userChats", user.uid);
+        const docSnap = await getDoc(docRef);
+        const chats = docSnap.data()
+        Object.entries(chats).forEach(([key, value]) => {
+            if (value.read === false) {
+                console.log(value.read)
+                unread = true
+            }
+        })
+        return unread
 
+    }
 
+    const clearMessageNotifications = async () => {
+        const docRef = doc(db, "userChats", user.uid);
+        const docSnap = await getDoc(docRef);
+        const chats = docSnap.data()
+        Object.entries(chats).forEach(([key, value]) => {
+            if (value.read === false) {
+                updateDoc(doc(db, "userChats", user.uid), {
+                    [key]: {
+                        ...value,
+                        read: true,
+                    }
 
+                })
 
+            }
+        })
+
+    }
 
 
     return (
-        <UserAuthContext.Provider value={{user, signUp, logIn, logOut, getUserData, getPins, getDisplayPicture, displayMajor}}>
+        <UserAuthContext.Provider
+            value={{
+                user,
+                signUp,
+                logIn,
+                logOut,
+                getUserData,
+                getPins,
+                getDisplayPicture,
+                displayMajor,
+                checkMessages,
+                clearMessageNotifications
+
+            }}>
             {loading ? <Loading/> : children}
         </UserAuthContext.Provider>
     )

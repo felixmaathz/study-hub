@@ -14,31 +14,22 @@ const singleMessage = ({message, profilePicture, sendersPicture}) => {
 
     const {data} = useChatContext();
     const {user, getDisplayPicture} = useAuth()
-    const [timestampNeeded, setTimestampNeeded] = useState(false)
-
-    useEffect(() => {
-        const checkTimestamp = async () => {
-            const docRef = doc(db, "chats", data.chatId)
-            const docSnap = await getDoc(docRef)
-            const messageTime = docSnap.data().messages
-            const lastMessageTime = messageTime[messageTime.length - 1].date
-            if(Date.now()-lastMessageTime.toDate().getTime()>300000){
-                setTimestampNeeded(true)
-            }
-
-        }
-        checkTimestamp()
-    }, [])
 
     const ref = useRef()
 
     const dayList = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
+    useEffect(() => {
+        ref.current.scrollIntoView({behavior: 'smooth'})
+        console.log("Profile picture updated")
+
+    }, []) //message, getProfilePicture
+
     return (
         <div>
             <div style={{'marginBottom': '-15px'}}>
                 {/*<span>{message.date.toDate().toDateString()+" "+message.date.toDate().toLocaleTimeString()}</span>*/}
-                {timestampNeeded ? (
+                {
                     ((Date.now() - message.date.toDate().getTime()) < 604800000) ? (
                         <span>{" " + dayList[message.date.toDate().getDay() - 1].substring(0, 3) + " "}{message.date.toDate().toLocaleTimeString('en-US', {
                             hour: '2-digit',
@@ -50,8 +41,7 @@ const singleMessage = ({message, profilePicture, sendersPicture}) => {
                             minute: '2-digit',
                         })}</span>
                     )
-
-                ) : ("")}
+                }
             </div>
             <div ref={ref} className={`message ${message.senderId === user.uid && 'owner'}`}>
 
