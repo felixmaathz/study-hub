@@ -1,4 +1,4 @@
-import logoType from "files/images/favicon.png";
+import logoType from "public/images/favicon.png";
 import Image from "next/image";
 
 function StartFooter(){
