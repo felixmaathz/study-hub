@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import logoTypeText from 'public/images/logotype_text.png'
+import logoTypeText from 'files/images/logotype_text.png'
 import React from "react";
 
 

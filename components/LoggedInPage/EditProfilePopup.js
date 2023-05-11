@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react'
 import styles from '../../styles/popup.module.css'
 import Image from "next/image";
-import AddImage from "../../public/images/addImage.png";
+import AddImage from "../../files/images/addImage.png";
 import {db, storage} from "../../config/firebaseConfig";
 import {ref, uploadBytes} from "firebase/storage";
 import {useAuth} from "../Context/userAuthContext";

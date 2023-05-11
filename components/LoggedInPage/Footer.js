@@ -1,4 +1,4 @@
-import logoType from "../../public/images/logotype.png";
+import logoType from "../../files/images/logotype.png";
 import Image from "next/image";
 
 function Footer(){

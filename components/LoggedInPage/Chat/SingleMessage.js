@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import profile from '../../../public/images/profile.png';
+import profile from '../../../files/images/profile.png';
 import {useChatContext} from "../../Context/chatContext";
 import {useAuth} from "../../Context/userAuthContext";
 import {useRef, useState, useEffect} from "react";
