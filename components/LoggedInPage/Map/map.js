@@ -326,9 +326,9 @@ export default function Map() {
         <div>
             <div className={styles.filterMenu}>
 
-                <div className={styles.dropdownDiv}><label>Filter</label></div>
-                <div className={styles.dropdown}>
-                    <select value={selectedOption} onChange={handleMarkerFilter}>
+                <div><label>Filter</label></div>
+                <div>
+                    <select className={styles.dropdown} value={selectedOption} onChange={handleMarkerFilter}>
                     <option value="All" selected>All</option>
                     <option value="E">E</option>
                     <option value="ES">ES</option>

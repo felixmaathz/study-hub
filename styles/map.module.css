@@ -46,15 +46,17 @@
 
 .dropdown{
     display: none;
-    height: 100px;
+    justify-content: center;
+    width: 50px
 }
 
 .filterMenu:hover .dropdown{
     display: block;
     position: absolute;
-    width: 100px;
+    width: 80px;
     top: 50px;
-    left: 0;
+    left: 10px;
+    height: 25px;
 
 }
 
