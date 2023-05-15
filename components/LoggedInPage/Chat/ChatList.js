@@ -71,7 +71,6 @@ const ChatList = () => {
     }
 
 
-
     return (
             <div className='containerUserChat'>
                 {Object.entries(chats)?.sort((a,b)=>b[1].date - a[1].date).map((chat) => (
