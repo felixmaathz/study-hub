@@ -140,6 +140,7 @@ export const UserAuthContextProvider = ({children}) => {
         let unread = false
         const docRef = doc(db, "userChats", user.uid);
         const docSnap = await getDoc(docRef);
+        if(!docSnap.exists()) return unread
         const chats = docSnap.data()
         Object.entries(chats).forEach(([key, value]) => {
             if (value.read === false) {

@@ -37,10 +37,10 @@ export default function Signup(props) {
                 || !usernameAvailable)
             && createPassword === createRepeatPassword) {
             try {
-                await signUp(createEmail, createPassword).then(r => {
+                await signUp(createEmail, createPassword).then(async r => {
                     try {
                         console.log(r.user.uid)
-                        setDoc(doc(db, "users", r.user.uid), {
+                        await setDoc(doc(db, "users", r.user.uid), {
                             username: createUsername,
                             email: createEmail,
                             major: createMajor,
@@ -51,11 +51,11 @@ export default function Signup(props) {
                             XP: 0,
                             profileLikes: [],
                         })
-                        setDoc(doc(db, "userChats", r.user.uid), {}
-                        ).then(r => {
-                            console.log("success")
-                            router.push("/MapPage")
-                        })
+                        await setDoc(doc(db, "userChats", r.user.uid), {}
+                        )
+                        console.log("success")
+                        router.push("/MapPage")
+
                     } catch (e) {
                         console.error("Error adding document: ", e);
                     }
@@ -78,7 +78,7 @@ export default function Signup(props) {
                 || !emailAvailable
                 || createRepeatPassword === ""
                 || !usernameAvailable)
-                && createPassword === createRepeatPassword) {
+            && createPassword === createRepeatPassword) {
             const firstForm = document.getElementById("firstForm");
             firstForm.style.display = "none";
             const secondForm = document.getElementById("secondForm");
