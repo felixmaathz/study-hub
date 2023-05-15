@@ -263,8 +263,8 @@
 
 .fieldIcon{
     position: absolute;
-    top: 10px;
-    right: 5px;
+    top: 25%;
+    right: 10px;
 }
 
 
@@ -584,6 +584,11 @@
 
     .userPictureContainer {
         width: 30%;
+    }
+    .fieldIcon{
+        position: absolute;
+        top: 18px;
+        right: 10px;
     }
 }
 
