@@ -18,7 +18,7 @@
     height: 50px;
     width: 100px;
     border-radius: 100px;
-    background-color: #FF5A5E;
+    background-color: #F26157;
     z-index: 2;
     position: fixed;
     color: white;
@@ -62,7 +62,7 @@
 
 button.setMyMarker:hover {
     color: white;
-    background-color: rgb(222, 58, 62);
+    background-color: #d7392e;
     border: none;
     box-shadow: 0px 0px 0 0 rgba(0, 0, 0, 0.35);
     transition: all 0.1s ease-out;
