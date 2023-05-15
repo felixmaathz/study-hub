@@ -18,15 +18,18 @@ function AboutUsPopUp(props) {
                     <h2>
                         Hello there!
                     </h2>
-                    <p style={{color: "#d9d9d9", lineHeight: "1.5em"}}>
+                    <h3 style={{color: "#d9d9d9", lineHeight: "1.5em"}}>
                         Welcome to StudyHub!
-                        We're a small team consisting of four students; Felix "the backend monster" Maathz, Gabriel "leaflet" Martens, Simon "fixes everything" Olofsson and Hugo "CSS king" Asztély.
+                        We're a small team consisting of four students; Felix "the backend monster" Maathz, Gabriel "leaflet" Martens, Simon "chat chad" Olofsson and Hugo "CSS king" Asztély.
                         This web application was made as a project for one of our courses at Uppsala University, but we hope it doesn't stop as a school project, and that it actually becomes a
-                        useful and maybe even fun tool for students in their studies. Enjoy!
+                        useful and maybe even fun tool for students in their studies.
                         <br/>
                         <br/>
-                        // StudyHub-team
-                    </p>
+                        We hope you enjoy our web application!
+                        <br/>
+                        <br/>
+                         Studyhub team
+                    </h3>
                 </div>
             </div>
         </div>

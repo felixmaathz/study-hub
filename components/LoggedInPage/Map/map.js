@@ -3,7 +3,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import React, {useState, useMemo, useRef} from "react";
 import ProfilePopup from "../ProfilePopup";
-import styles from '../../../styles/map.module.css';
+import styles from '../../../styles/map.module.scss';
 
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import {app, db} from "../../../config/firebaseConfig";
@@ -329,19 +329,19 @@ export default function Map() {
                 <div><label>Filter</label></div>
                 <div>
                     <select className={styles.dropdown} value={selectedOption} onChange={handleMarkerFilter}>
-                    <option value="All" selected>All</option>
-                    <option value="E">E</option>
-                    <option value="ES">ES</option>
-                    <option value="F">F</option>
-                    <option value="I">I</option>
-                    <option value="IT">IT</option>
-                    <option value="K">K</option>
-                    <option value="Other">Other</option>
-                    <option value="Q">Q</option>
-                    <option value="STS">STS</option>
-                    <option value="W">W</option>
-                    <option value="X">X</option>
-                </select>
+                        <option value="All" selected>All</option>
+                        <option value="E">E</option>
+                        <option value="ES">ES</option>
+                        <option value="F">F</option>
+                        <option value="I">I</option>
+                        <option value="IT">IT</option>
+                        <option value="K">K</option>
+                        <option value="Other">Other</option>
+                        <option value="Q">Q</option>
+                        <option value="STS">STS</option>
+                        <option value="W">W</option>
+                        <option value="X">X</option>
+                    </select>
                 </div>
             </div>
             <div className={styles.buttonMarkers}>

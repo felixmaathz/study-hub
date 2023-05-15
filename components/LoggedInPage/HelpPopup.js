@@ -19,7 +19,7 @@ function HelpPopup(props){
                         put down your pin anywhere on the map, however, preferably where you are located. Save the pin using the big red button.
                         Now you can speak to the other students by clicking their profile pins on the map.
                     <br/><br/>
-                        // StudyHub-team
+                        StudyHub team
                     </p>
                 </div>
             </div>

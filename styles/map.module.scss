@@ -41,15 +41,10 @@
     align-items: center;
     cursor: pointer;
     border-radius: 10px;
+    .dropdown{
+        display: none;
+    }
 }
-
-
-.dropdown{
-    display: none;
-    justify-content: center;
-    width: 50px
-}
-
 .filterMenu:hover .dropdown{
     display: block;
     position: absolute;
@@ -57,7 +52,6 @@
     top: 50px;
     left: 10px;
     height: 25px;
-
 }
 
 button.setMyMarker:hover {
