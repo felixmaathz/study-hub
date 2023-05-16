@@ -46,7 +46,7 @@ const ChatList = () => {
                 }
             })
         }
-    }, [chats]);
+    }, [chats, getDisplayPicture]);
 
 
     const handleSelect = (u) => {

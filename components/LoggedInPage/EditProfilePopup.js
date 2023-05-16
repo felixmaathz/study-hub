@@ -56,7 +56,7 @@ function EditProfilePopup(props) {
                 setProfilePicture(r)
             })
         }
-    }, [props.editTrigger])
+    }, [props.editTrigger, props.data,getDisplayPicture])
 
 
     const addCompetence = () => {

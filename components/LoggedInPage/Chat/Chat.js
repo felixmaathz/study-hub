@@ -24,15 +24,16 @@ const Chat = () => {
     return (
         <div className='chat'>
             <div className='positioningExit'>
+                <button className='exitButton'
+                        onClick = {handleSwitchToSidebar}>
+                    BACK
+                </button>
                 <span style={{opacity: '1'}}>
                     {data.user?.username
                         ? `You are chatting with: ${data.user.username}`
                         : 'Choose a chat to start chatting!'}
                 </span>
-                <button className='exitButton'
-                        onClick = {handleSwitchToSidebar}>
-                BACK
-                </button>
+
             </div>
 
             <Messages />

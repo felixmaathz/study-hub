@@ -294,11 +294,14 @@
         }
         .exitButton{
             display: block;
+
+            left: 10px;
             width: 70px;
             height: 40px;
-            margin: 5px;
+
             border-radius: 5px;
-            background-color: red;
+            border: none;
+            background-color: #F26157;
             color: white;
             font-size: 1em;
         }

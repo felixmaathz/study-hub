@@ -9,7 +9,7 @@ import styles from "../../../styles/popup.module.css";
 import {doc, getDoc} from "firebase/firestore";
 import {db} from "../../../config/firebaseConfig";
 
-const singleMessage = ({message, profilePicture, sendersPicture}) => {
+const SingleMessage = ({message, profilePicture, sendersPicture})=>  {
 
 
     const {data} = useChatContext();
@@ -68,4 +68,4 @@ const singleMessage = ({message, profilePicture, sendersPicture}) => {
     )
 }
 
-export default singleMessage;
+export default SingleMessage;

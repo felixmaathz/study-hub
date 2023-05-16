@@ -17,7 +17,7 @@ import {
     where, getDocs
 } from "firebase/firestore";
 import {db} from "../../../config/firebaseConfig";
-const chatInputField = () => {
+const ChatInputField = ()=> {
     const [text, setText] = useState('');
     const [img, setImg] = useState(null);
 
@@ -108,4 +108,4 @@ const chatInputField = () => {
     )
 }
 
-export default chatInputField;
+export default ChatInputField;

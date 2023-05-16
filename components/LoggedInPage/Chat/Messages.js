@@ -34,7 +34,7 @@ const Messages = () => {
 
         user && getProfilePicture();
         data.chatId && getMessages();
-    } , [data.chatId]);
+    } , [data.chatId, user, getDisplayPicture]);
 
     console.log(messages)
 

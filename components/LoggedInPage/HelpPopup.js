@@ -15,7 +15,7 @@ function HelpPopup(props){
 
                 <div className={styles.textContainer}>
                     <h2>What is this sorcery?</h2>
-                    <p style={{color: "#d9d9d9", lineHeight: "1.5em"}}>Tricky interface? I doubt it, I bet you clicked here just for the hell of it. But if you're seriously in need of help in order to proceed;
+                    <p style={{color: "#d9d9d9", lineHeight: "1.5em"}}>Tricky interface? I doubt it, I bet you clicked here just for the hell of it. But if you&apos;re seriously in need of help in order to proceed;
                         put down your pin anywhere on the map, however, preferably where you are located. Save the pin using the big red button.
                         Now you can speak to the other students by clicking their profile pins on the map.
                     <br/><br/>

@@ -54,7 +54,7 @@ const Search = () => {
 
         // Call the getUsernames function to retrieve the usernames
         getUsernames();
-    }, [userSearch]);
+    }, [userSearch, dispatch]);
 
     useEffect(() => {
         const {otherUserID, otherUsername} = router.query;
@@ -174,7 +174,7 @@ const Search = () => {
             {filteredData.length > 0 && (
             <div className='resultList'>
                 {filteredData.slice(0,10).map((username) => (
-                    <div className='individualResult' onClick={() => handleTest(username)} >
+                    <div key={username} className='individualResult' onClick={() => handleTest(username)} >
                         {username}
                     </div>
 
