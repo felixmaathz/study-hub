@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 import {auth, db, storage} from "../../config/firebaseConfig";
 import Loading from "../Loading";
-import {collection, doc, getDoc, setDoc, query, where, getDocs, updateDoc} from "firebase/firestore";
+import {collection, doc, getDoc, setDoc, query, where, getDocs, updateDoc, onSnapshot} from "firebase/firestore";
 import {ref, getDownloadURL} from "firebase/storage";
 
 
@@ -21,6 +21,7 @@ export const UserAuthContextProvider = ({children}) => {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [messageNotification, setMessageNotification] = useState(false)
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -47,6 +48,12 @@ export const UserAuthContextProvider = ({children}) => {
         })
         return () => unsubscribe();
     }, [])
+
+    useEffect(() => {
+
+    },[user])
+
+
 
     const signUp = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password)
@@ -139,17 +146,27 @@ export const UserAuthContextProvider = ({children}) => {
     const checkMessages = async () => {
         let unread = false
         const docRef = doc(db, "userChats", user.uid);
-        const docSnap = await getDoc(docRef);
-        if(!docSnap.exists()) return unread
-        const chats = docSnap.data()
-        Object.entries(chats).forEach(([key, value]) => {
-            if (value.read === false) {
-                console.log(value.read)
-                unread = true
-            }
+        const unsubscribe = onSnapshot(docRef,(doc) => {
+            Object.entries(doc.data()).forEach(([key, value]) => {
+                if (value.read === false) {
+                    console.log(value.read)
+                    console.log("Unread message")
+                    return unread = true
+                }
+            })
         })
+        // let unread = false
+        // const docRef = doc(db, "userChats", user.uid);
+        // const docSnap = await getDoc(docRef);
+        // if(!docSnap.exists()) return unread
+        // const chats = docSnap.data()
+        // Object.entries(chats).forEach(([key, value]) => {
+        //     if (value.read === false) {
+        //         console.log(value.read)
+        //         unread = true
+        //     }
+        // })
         return unread
-
     }
 
     const clearMessageNotifications = async () => {

@@ -52,8 +52,9 @@ const ChatList = () => {
     const handleSelect = (u) => {
         dispatch({type:"CHANGE_USER", payload:u});
         const chat = document.getElementsByClassName('chat')[0];
-
         const sidebar = document.getElementsByClassName('sidebar')[0];
+        const chatInputField = document.getElementsByClassName('chatInput')[0];
+        chatInputField.style.display = "flex";
         if (window.matchMedia("(min-width: 800px)").matches){
             chat.style.display = "block";
         }
@@ -63,9 +64,6 @@ const ChatList = () => {
         }
 
     }
-
-    console.log("chats: ", chats);
-
     if (loading) {
         return <Loading/>
     }

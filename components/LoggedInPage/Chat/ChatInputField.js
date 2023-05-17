@@ -29,6 +29,7 @@ const ChatInputField = ()=> {
         e.code === "Enter" && handleSend();
     }
     const handleSend = async () =>{
+        if (text.trim() === "") return;
         const userDocRef = doc(db, "users", user.uid);
         const userDocSnapshot = await getDoc(userDocRef);
 

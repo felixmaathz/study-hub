@@ -4,7 +4,7 @@ import HelpPopup from "./HelpPopup";
 import React, {useEffect, useState} from "react";
 import YourProfilePopup from "../LoggedInPage/YourProfilePopup";
 import {useAuth} from "../Context/userAuthContext";
-import {doc, getDoc} from "firebase/firestore";
+import {doc, getDoc, onSnapshot} from "firebase/firestore";
 import {db} from "../../config/firebaseConfig";
 
 export function Navbar() {
@@ -16,7 +16,7 @@ export function Navbar() {
     const [notification, setNotification] = useState(false)
     const [messageNotification, setMessageNotification] = useState(false)
 
-    const {user, getDisplayPicture, checkMessages,clearMessageNotifications} = useAuth()
+    const {user, getDisplayPicture,clearMessageNotifications} = useAuth()
 
 
     const getProfilePicture = () => {
@@ -34,28 +34,31 @@ export function Navbar() {
             console.log(user)
             getProfilePicture()
         }
-    }, [getProfilePicture])
+    }, [getProfilePicture, user])
 
     useEffect(() => {
         if (user) {
-            const checkNotifications = async () => {
-                const userDoc = await getDoc(doc(db, "users", user.uid))
-                const profileLikes = userDoc.data().profileLikes
-                const messages = await checkMessages()
-                if (messages===true) {
-                    setMessageNotification(true)
-                }
-
+            const docRef = doc(db, "userChats", user.uid);
+            const userDoc = doc(db, "users", user.uid)
+            const unsubscribe = onSnapshot(docRef,(doc) => {
+                Object.entries(doc.data()).forEach(([key, value]) => {
+                    if (value.read === false) {
+                        console.log(value.userInfo)
+                        console.log("Unread message")
+                        setMessageNotification(true)
+                    }
+                })
+                return () => unsubscribe()
+            })
+            const unsubscribe2 = onSnapshot(userDoc, (doc) => {
+                const profileLikes = doc.data().profileLikes
                 profileLikes.map((like) => {
                     if (!like.read) {
                         setNotification(true)
                     }
                 })
-            }
-
-
-            checkNotifications()
-
+                return () => unsubscribe2()
+            })
         }
     }, [user])
 

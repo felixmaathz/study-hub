@@ -4,11 +4,18 @@ import Link from 'next/link';
 import Sidebar from "../components/LoggedInPage/Chat/Sidebar";
 import Chat from "../components/LoggedInPage/Chat/Chat";
 import Layout from "../components/LoggedInPage/Layout";
+import {useRouter} from "next/router";
+import {useChatContext} from "../components/Context/chatContext";
 
 
 // Sidebar and Chat and a few components inside them have been
 // inspired by https://github.com/safak/youtube2022/tree/react-chat
 export default function ChatPage() {
+
+    const router = useRouter();
+    const {dispatch} = useChatContext();
+
+
     React.useEffect(() => {
         const sidebarCSS = document.getElementsByClassName('sidebar')[0];
         const chatCSS = document.getElementsByClassName('chat')[0];
@@ -29,6 +36,12 @@ export default function ChatPage() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+
+    React.useEffect(() => {
+        router.events.on('routeChangeComplete', () => {
+            dispatch({type:"RESET_USER"});
+        })
+    },[]);
 
     return(
         <div>

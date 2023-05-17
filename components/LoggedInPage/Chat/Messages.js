@@ -36,7 +36,6 @@ const Messages = () => {
         data.chatId && getMessages();
     } , [data.chatId, user, getDisplayPicture]);
 
-    console.log(messages)
 
 
 

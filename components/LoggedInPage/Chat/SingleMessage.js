@@ -13,7 +13,7 @@ const SingleMessage = ({message, profilePicture, sendersPicture})=>  {
 
 
     const {data} = useChatContext();
-    const {user, getDisplayPicture} = useAuth()
+    const {user} = useAuth()
 
     const ref = useRef()
 
@@ -21,8 +21,6 @@ const SingleMessage = ({message, profilePicture, sendersPicture})=>  {
 
     useEffect(() => {
         ref.current.scrollIntoView({behavior: 'smooth'})
-        console.log("Profile picture updated")
-
     }, []) //message, getProfilePicture
 
     return (
