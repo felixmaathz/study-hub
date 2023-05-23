@@ -60,7 +60,6 @@ export default function Signup(props) {
                         console.error("Error adding document: ", e);
                     }
                 })
-                alert("sign up successful")
 
             } catch (error) {
                 setErrorMessage(error.message);

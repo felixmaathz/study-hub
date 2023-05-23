@@ -5,7 +5,7 @@ import {app, db} from "../../config/firebaseConfig";
 
 import {useAuth} from "components/Context/userAuthContext.js"
 import {doc, getDoc, updateDoc} from "firebase/firestore";
-import EditProfilePopup from "./EditProfilePopup";
+import EditProfilePopup from "../LoggedInPage/EditProfilePopup";
 
 function ProfilePopup(props) {
 
@@ -22,7 +22,6 @@ function ProfilePopup(props) {
     const handleSignOut = () => {
         const auth = getAuth(app);
         signOut(auth).then(() => {
-                alert("Signed out")
             }
         ).catch((error) => {
             alert(error.message)

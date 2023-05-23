@@ -23,7 +23,6 @@ function SignUpPopUp(props) {
         try {
             const auth = getAuth(app);
             // await createUserWithEmailAndPassword(auth, createEmail, createPassword);
-            alert("sign up successful")
 
             try {
                 // const docRef = await addDoc(collection(db, "users"), {

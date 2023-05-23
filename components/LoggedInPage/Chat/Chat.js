@@ -20,6 +20,7 @@ const Chat = () => {
         dispatch({type:"RESET_USER"});
         sidebar.style.display = "flex";
         chat.style.display ='none';
+
     }
     return (
         <div className='chat'>

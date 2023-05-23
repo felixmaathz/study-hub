@@ -2,7 +2,7 @@ import {MapContainer, TileLayer, useMapEvents, Marker} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import React, {useState, useMemo, useRef} from "react";
-import ProfilePopup from "../ProfilePopup";
+import ProfilePopup from "../../Unused components/ProfilePopup";
 import styles from '../../../styles/map.module.scss';
 
 import {getAuth, onAuthStateChanged} from "firebase/auth";
@@ -71,19 +71,11 @@ export default function Map() {
     }, [])
 
 
-    const handleReload = () => {
-        console.log("reload")
-        const currentCenter = center;
-        const currentZoom = zoom;
-        setKey(key => key + 1)
-        setCenter(currentCenter);
-        setZoom(currentZoom);
-    }
-
     const fetchPins = async () => {
-        pinsArray = []
+
         await getPins().then((pins) => {
             console.log(pins)
+            pinsArray = []
             pins.forEach((pin) => {
                 pinsArray.push(pin)
             })
@@ -123,18 +115,6 @@ export default function Map() {
                         setIsPinned(false)
                     }
                 },
-              /*  moveend: (e) => {
-                    const map = e.target;
-                    const newCenter = map.getCenter();
-                    const newZoom = map.getZoom();
-
-                    localStorage.setItem('mapCenter', JSON.stringify(newCenter));
-                    localStorage.setItem('mapZoom', JSON.stringify(newZoom));
-
-                    setCenter(newCenter);
-                    setZoom(newZoom);
-                    console.log("center saved")
-                }*/
             }
         );
         map.whenReady(async () => {
@@ -329,7 +309,7 @@ export default function Map() {
                 <div><label>Filter</label></div>
                 <div>
                     <select className={styles.dropdown} value={selectedOption} onChange={handleMarkerFilter}>
-                        <option value="All" selected>All</option>
+                        <option value="All">All</option>
                         <option value="E">E</option>
                         <option value="ES">ES</option>
                         <option value="F">F</option>

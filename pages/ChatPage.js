@@ -38,9 +38,11 @@ export default function ChatPage() {
 
 
     React.useEffect(() => {
+
         router.events.on('routeChangeComplete', () => {
             dispatch({type:"RESET_USER"});
         })
+
     },[]);
 
     return(

@@ -2,7 +2,7 @@ import Image from 'next/image'
 import logoTypeText from '../../public/images/logotype_text.png'
 import React, {useState} from "react";
 import ProfilePopup from "./ProfilePopup";
-import HelpPopup from "./HelpPopup";
+import HelpPopup from "../LoggedInPage/HelpPopup";
 import Link from 'next/link';
 
 function Header(){
@@ -20,8 +20,8 @@ function Header(){
                         </div>
 
                         <div>
-                            <Link href='/MapPage' passHref> <button className='header-buttons'> MAP </button> </Link>
-                            <Link href='/ChatPage' passHref><button className='header-buttons'> CHAT </button> </Link>
+                            <Link href='/Users/felix/IdeaProjects/study-hub/pages/MapPage' passHref> <button className='header-buttons'> MAP </button> </Link>
+                            <Link href='/Users/felix/IdeaProjects/study-hub/pages/ChatPage' passHref><button className='header-buttons'> CHAT </button> </Link>
                             <button className='header-buttons' onClick={() => setHelpButtonPopup(true)}> HELP </button>
 
                             <button className='header-profile-button' onClick={() => setProfileButtonPopup(true)}> pic_ </button>
