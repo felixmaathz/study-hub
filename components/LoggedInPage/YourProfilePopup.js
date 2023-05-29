@@ -64,6 +64,7 @@ function YourProfilePopup(props) {
 
     const calculateLevel = () => {
         setLevel(Math.floor(user.XP / 100))
+
     }
 
 

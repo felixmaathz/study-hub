@@ -34,8 +34,8 @@ const ChatList = () => {
 
     useEffect(() => {
         console.log("chatlist")
-        const chatInputField = document.getElementsByClassName('chatInput')[0];
-        chatInputField.style.display = "none";
+        // const chatInputField = document.getElementsByClassName('chatInput')[0];
+        // chatInputField.style.display = "none";
         const fetchDisplayPicture = async (url, chatId) => {
             const res = await getDisplayPicture(url);
             setDisplayPictures(prevState => ({...prevState, [chatId]: res}));
